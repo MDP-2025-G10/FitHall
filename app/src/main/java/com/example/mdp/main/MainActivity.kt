@@ -1,6 +1,7 @@
-package com.example.mdp
+package com.example.mdp.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,11 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mdp.ui.theme.MDPTheme
+import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        FirebaseApp.initializeApp(this)?.let {
+            Log.d("FirebaseCheck", "Firebase is initialized successfully!")
+        } ?: Log.e("FirebaseCheck", "Firebase failed to initialize!")
+
         setContent {
             MDPTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
