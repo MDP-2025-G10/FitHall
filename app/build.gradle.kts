@@ -56,19 +56,23 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.compose.android)
 
-//    implementation(libs.androidx.navigation.compose)
-//    implementation(libs.firebase.appdistribution.gradle)
-
+    //  Test
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-//    implementation(libs.accompanist.systemuicontroller)
-//    implementation(libs.androidx.material.icons.extended)
+    //    api
 //    implementation(libs.retrofit)
 //    implementation(libs.converter.gson)
 //    implementation(libs.kotlinx.coroutines.android)
 //    implementation(libs.logging.interceptor)
+
+//    material icons extension
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.androidx.material.icons.extended)
+
 //    implementation(libs.coil.compose)
 //    implementation(libs.coil.gif)
 //
@@ -91,8 +95,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.kotlin.test)
 
-
-//    firebase
+    // firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.firestore) // Firestore Database
