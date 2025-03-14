@@ -2,6 +2,7 @@ package com.example.mdp.navigation
 
 sealed class NavRoutes(val route: String) {
 
+    data object RouteToAuth : NavRoutes("auth")
     data object RouteToHome : NavRoutes("home")
     data object RouteToProfile : NavRoutes("profile")
     data object RouteToCamera : NavRoutes("camera")

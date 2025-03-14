@@ -11,6 +11,7 @@ import com.example.mdp.ui.screens.Camera
 import com.example.mdp.ui.screens.Home
 import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
+import com.example.mdp.ui.screens.Login
 
 @Composable
 fun AppNavController() {
@@ -19,8 +20,14 @@ fun AppNavController() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.RouteToHome.route
+        startDestination = NavRoutes.RouteToAuth.route
     ) {
+        composable(
+            route = NavRoutes.RouteToAuth.route,
+            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
+        ) { Login(navController) }
+
         composable(
             route = NavRoutes.RouteToHome.route,
             enterTransition = { slideInHorizontally(initialOffsetX = { it }) },

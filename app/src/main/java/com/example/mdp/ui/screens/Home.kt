@@ -49,7 +49,6 @@ fun Home(navController: NavController) {
         ) {
             Text("Home Screen")
         }
-
     }
 }
 
@@ -79,7 +78,7 @@ fun TopBar(onNavigateToProfile: () -> Unit) {
 
 @Composable
 fun BottomBar(
-    onNavigateToHome:()->Unit,
+    onNavigateToHome: () -> Unit,
     onNavigateToCamera: () -> Unit,
     onNavigateToCalendar: () -> Unit,
     onNavigateToSetting: () -> Unit,

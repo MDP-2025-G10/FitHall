@@ -58,12 +58,15 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.compose.android)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.core.ktx)
+    implementation(libs.androidx.espresso.core)
 
     //  Test
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //    api
+      // api
 //    implementation(libs.retrofit)
 //    implementation(libs.converter.gson)
 //    implementation(libs.kotlinx.coroutines.android)
@@ -98,7 +101,16 @@ dependencies {
     // firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
-    implementation(libs.firebase.firestore) // Firestore Database
-    implementation(libs.firebase.auth) // Authentication
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.auth)
+
+//    google identity
+    implementation(libs.google.identity)
+    implementation(libs.play.services.auth)
+
+//    Credential Manager
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
 
 }
