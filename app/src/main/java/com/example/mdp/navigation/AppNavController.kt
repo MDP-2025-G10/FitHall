@@ -11,10 +11,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
 import com.example.mdp.ui.screens.Camera
 import com.example.mdp.ui.screens.Home
-import com.example.mdp.ui.screens.Login
 import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
 import com.example.mdp.viewmodels.AuthViewModel
@@ -32,14 +32,20 @@ fun AppNavController(authViewModel: AuthViewModel = koinViewModel()) {
     NavHost(
         navController = navController,
         startDestination =
-        if (currentUser == null) NavRoutes.RouteToAuth.route
+        if (currentUser == null) NavRoutes.RouteToLogin.route
         else NavRoutes.RouteToHome.route
     ) {
         composable(
-            route = NavRoutes.RouteToAuth.route,
+            route = NavRoutes.RouteToLogin.route,
             enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
             exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { Login(navController, authViewModel, currentUser) }
+        ) { Auth(navController, authViewModel, isLogin = true) }
+
+        composable(
+            route = NavRoutes.RouteToRegister.route,
+            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
+        ) { Auth(navController, authViewModel, isLogin = false) }
 
         composable(
             route = NavRoutes.RouteToHome.route,

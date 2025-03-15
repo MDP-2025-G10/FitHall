@@ -1,17 +1,14 @@
 package com.example.mdp.ui.screens
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,19 +16,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.mdp.navigation.NavRoutes
+import com.example.mdp.ui.components.AuthButton
+import com.example.mdp.ui.components.AuthInput
 import com.example.mdp.viewmodels.AuthViewModel
-import com.google.firebase.auth.FirebaseUser
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun Login(
+fun Auth(
     navController: NavController,
     authViewModel: AuthViewModel = koinViewModel(),
-    currentUser: FirebaseUser?
+    isLogin: Boolean
 ) {
 
     var email by remember { mutableStateOf("") }
@@ -45,41 +45,41 @@ fun Login(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            OutlinedTextField(
+            AuthInput(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                label = "Email",
+                keyboardType = KeyboardType.Email
             )
-            OutlinedTextField(
+
+            AuthInput(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Password") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                visualTransformation = PasswordVisualTransformation()
+                label = "Password",
+                keyboardType = KeyboardType.Password,
+                isPassword = true
             )
 
-            Button(onClick = {
-                authViewModel.login(email, password)
+            AuthButton(text = if (isLogin) "Login" else "Register") {
+                if (isLogin) {
+                    authViewModel.login(email, password)
+                } else {
+                    authViewModel.register(email, password)
+                }
                 email = ""
                 password = ""
-            }) {
-                Text("Login")
-            }
-            Button(onClick = {
-                authViewModel.register(email, password)
-                email = ""
-                password = ""
-            }) {
-                Text("Register")
             }
 
-            if (currentUser != null) {
-                Log.d("currentUser", "Current User: ${currentUser.email} in auth page")
-                Text("Welcome, ${currentUser?.email}")
-            } else {
-                Log.d("currentUser", "No current user")
-                Text("Please log in")
+            TextButton(onClick = {
+                val targetRoute =
+                    if (isLogin) NavRoutes.RouteToRegister.route else NavRoutes.RouteToLogin.route
+                navController.navigate(targetRoute)
+            }) {
+                Text(
+                    text = if (isLogin) "Don't have an account? Register" else "Already have an account? Login",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
     }

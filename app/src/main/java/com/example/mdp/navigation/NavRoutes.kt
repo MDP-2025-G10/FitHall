@@ -2,12 +2,14 @@ package com.example.mdp.navigation
 
 sealed class NavRoutes(val route: String) {
 
-    data object RouteToAuth : NavRoutes("auth")
-    data object RouteToHome : NavRoutes("home")
-    data object RouteToProfile : NavRoutes("profile")
-    data object RouteToCamera : NavRoutes("camera")
-    data object RouteToCalendar : NavRoutes("calendar")
-    data object RouteToSetting : NavRoutes("setting")
+    data object RouteToAuth : NavRoutes("Auth")
+    data object RouteToLogin : NavRoutes("Login")
+    data object RouteToRegister : NavRoutes("Register")
+    data object RouteToHome : NavRoutes("Home")
+    data object RouteToProfile : NavRoutes("Profile")
+    data object RouteToCamera : NavRoutes("Camera")
+    data object RouteToCalendar : NavRoutes("Calendar")
+    data object RouteToSetting : NavRoutes("Setting")
 
 //    companion object {
 //        fun routeToMain(date: String): String = "main/$date"
