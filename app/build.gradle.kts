@@ -58,12 +58,16 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.compose.android)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.core.ktx)
+    implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.appcompat)
 
     //  Test
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //    api
+      // api
 //    implementation(libs.retrofit)
 //    implementation(libs.converter.gson)
 //    implementation(libs.kotlinx.coroutines.android)
@@ -77,11 +81,9 @@ dependencies {
 //    implementation(libs.coil.gif)
 //
 //    // Koin
-//    implementation(libs.koin.core)
-//    implementation(libs.koin.android)
-//    implementation(libs.koin.androidx.navigation)
-//    implementation(libs.koin.androidx.compose)
-//
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
 //    // Room
 //    implementation(libs.androidx.room.runtime)
 //    implementation(libs.androidx.room.ktx)
@@ -95,10 +97,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.kotlin.test)
 
-    // firebase
+    // Firebase dependencies
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
-    implementation(libs.firebase.firestore) // Firestore Database
-    implementation(libs.firebase.auth) // Authentication
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth.ktx)
+
+    // Google Identity
+    implementation(libs.google.identity)
+    implementation(libs.play.services.auth)
 
 }

@@ -12,7 +12,20 @@
           "package_name": "com.example.mdp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1078398585171-nq37ukum74mabqa9u0ciq92l41ed9u93.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mdp",
+            "certificate_hash": "32e6ea7c4770883aa1fe4f52bb70c19097810f74"
+          }
+        },
+        {
+          "client_id": "1078398585171-mn95v6ojbp4rimls3r10ib401be4kdc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDXF8h2YxT7gXZfpp0boZiT5RZW9-xOwHQ"
@@ -20,26 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1078398585171:android:6e935201fc6eb15fcaf9a6",
-        "android_client_info": {
-          "package_name": "com.example.mdp.ui.theme"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDXF8h2YxT7gXZfpp0boZiT5RZW9-xOwHQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078398585171-mn95v6ojbp4rimls3r10ib401be4kdc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
