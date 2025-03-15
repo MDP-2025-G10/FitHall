@@ -1,11 +1,14 @@
 package com.example.mdp.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class AuthRepository(private val auth: FirebaseAuth) {
+
     fun getCurrentUser(): FirebaseUser? {
+        Log.d("currentUser", "${auth.currentUser} from AuthRepository getCurrentUser")
         return auth.currentUser
     }
 
@@ -45,5 +48,14 @@ class AuthRepository(private val auth: FirebaseAuth) {
 
     fun logout() {
         auth.signOut()
+        Log.d("currentUser", "${auth.currentUser} from AuthRepository logout")
+    }
+
+    fun addAuthStateListener(listener: FirebaseAuth.AuthStateListener) {
+        auth.addAuthStateListener(listener)
+    }
+
+    fun removeAuthStateListener(listener: FirebaseAuth.AuthStateListener) {
+        auth.removeAuthStateListener(listener)
     }
 }

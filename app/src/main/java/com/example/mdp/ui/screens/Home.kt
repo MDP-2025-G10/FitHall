@@ -14,6 +14,8 @@ import androidx.compose.material.icons.outlined.CameraAlt
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,24 +23,32 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.R
+import com.example.mdp.navigation.NavRoutes
+import com.example.mdp.viewmodels.AuthViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Home(navController: NavController) {
+fun Home(navController: NavController, authViewModel: AuthViewModel = koinViewModel()) {
     Scaffold(
-        topBar = { TopBar(onNavigateToProfile = { navController.navigate("profile") }) },
-        bottomBar = {
-            BottomBar(
-                onNavigateToHome = { navController.navigate("home") },
-                onNavigateToCamera = { navController.navigate("camera") },
-                onNavigateToCalendar = { navController.navigate("calendar") },
-                onNavigateToSetting = { navController.navigate("setting") }
+        topBar = {
+            TopBar(
+                navController = navController,
+                authViewModel
             )
+        },
+        bottomBar = {
+            BottomBar(navController = navController)
         }
     ) { innerPadding ->
         Column(
@@ -54,7 +64,11 @@ fun Home(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(onNavigateToProfile: () -> Unit) {
+fun TopBar(
+    navController: NavController,
+    authViewModel: AuthViewModel
+) {
+    var expanded by remember { mutableStateOf(false) }
 
     TopAppBar(
         title = { Text("FitHall") },
@@ -65,11 +79,32 @@ fun TopBar(onNavigateToProfile: () -> Unit) {
             )
         },
         actions = {
-            IconButton(onClick = onNavigateToProfile) {
+            IconButton(onClick = { expanded = !expanded }) {
                 Icon(
                     imageVector = Icons.Outlined.AccountCircle,
-                    contentDescription = "navigate to user profile",
+                    contentDescription = "User Profile",
                     modifier = Modifier.size(32.dp)
+                )
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                offset = DpOffset(36.dp, 10.dp)
+            ) {
+                DropdownMenuItem(
+                    text = { Text("Profile") },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(NavRoutes.RouteToHome.route)
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Logout") },
+                    onClick = {
+                        authViewModel.logout()
+                        expanded = false
+                        navController.navigate(NavRoutes.RouteToAuth.route)
+                    }
                 )
             }
         },
@@ -78,17 +113,14 @@ fun TopBar(onNavigateToProfile: () -> Unit) {
 
 @Composable
 fun BottomBar(
-    onNavigateToHome: () -> Unit,
-    onNavigateToCamera: () -> Unit,
-    onNavigateToCalendar: () -> Unit,
-    onNavigateToSetting: () -> Unit,
+    navController: NavController
 ) {
     BottomAppBar {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            IconButton(onClick = onNavigateToHome) {
+            IconButton(onClick = { navController.navigate(NavRoutes.RouteToHome.route) }) {
                 Icon(
                     imageVector = Icons.Outlined.Home,
                     contentDescription = "navigate to home",
@@ -96,21 +128,21 @@ fun BottomBar(
                 )
             }
 
-            IconButton(onClick = onNavigateToCamera) {
+            IconButton(onClick = { navController.navigate(NavRoutes.RouteToCamera.route) }) {
                 Icon(
                     imageVector = Icons.Outlined.CameraAlt,
                     contentDescription = "navigate to camera",
                     modifier = Modifier.size(32.dp)
                 )
             }
-            IconButton(onClick = onNavigateToCalendar) {
+            IconButton(onClick = { navController.navigate(NavRoutes.RouteToCalendar.route) }) {
                 Icon(
                     imageVector = Icons.Outlined.CalendarMonth,
                     contentDescription = "navigate to calendar",
                     modifier = Modifier.size(32.dp)
                 )
             }
-            IconButton(onClick = onNavigateToSetting) {
+            IconButton(onClick = { navController.navigate(NavRoutes.RouteToSetting.route) }) {
                 Icon(
                     imageVector = Icons.Outlined.Settings,
                     contentDescription = "navigate to settings",

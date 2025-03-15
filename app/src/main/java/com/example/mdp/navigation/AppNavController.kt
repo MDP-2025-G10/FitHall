@@ -1,6 +1,7 @@
 package com.example.mdp.navigation
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -24,17 +25,21 @@ import org.koin.androidx.compose.koinViewModel
 fun AppNavController(authViewModel: AuthViewModel = koinViewModel()) {
 
     val navController = rememberNavController()
-    val user by authViewModel.currentUser.observeAsState()
+    val currentUser by authViewModel.currentUser.observeAsState()
+
+    Log.d("AppNavController", "Current user: $currentUser")
 
     NavHost(
         navController = navController,
-        startDestination = if (user == null) NavRoutes.RouteToAuth.route else NavRoutes.RouteToHome.route
+        startDestination =
+        if (currentUser == null) NavRoutes.RouteToAuth.route
+        else NavRoutes.RouteToHome.route
     ) {
         composable(
             route = NavRoutes.RouteToAuth.route,
             enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
             exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { Login(navController, authViewModel) }
+        ) { Login(navController, authViewModel, currentUser) }
 
         composable(
             route = NavRoutes.RouteToHome.route,
