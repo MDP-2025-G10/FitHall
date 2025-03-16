@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -17,6 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -59,9 +60,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.compose.android)
     implementation(libs.androidx.runtime.livedata)
-    implementation(libs.core.ktx)
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.runtime)
 
     //  Test
     debugImplementation(libs.androidx.ui.tooling)
@@ -73,21 +74,19 @@ dependencies {
 //    implementation(libs.kotlinx.coroutines.android)
 //    implementation(libs.logging.interceptor)
 
+//    Room
+//    implementation(libs.androidx.room.runtime)
+//    implementation(libs.androidx.room.ktx)
+//    ksp(libs.androidx.room.compiler)
+
+
 //    material icons extension
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.material.icons.extended)
 
-//    implementation(libs.coil.compose)
-//    implementation(libs.coil.gif)
-//
 //    // Koin
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
-
-//    // Room
-//    implementation(libs.androidx.room.runtime)
-//    implementation(libs.androidx.room.ktx)
-//    ksp(libs.androidx.room.compiler)
 
     // Testing dependencies
     testImplementation(libs.junit)
@@ -103,8 +102,11 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth.ktx)
 
-    // Google Identity
-    implementation(libs.google.identity)
-    implementation(libs.play.services.auth)
+    // Credential Manager
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.androidx.credentials)
+
+    // Google Sign-In
+    implementation(libs.googleid)
 
 }

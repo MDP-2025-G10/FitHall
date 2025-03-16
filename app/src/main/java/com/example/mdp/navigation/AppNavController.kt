@@ -22,8 +22,9 @@ import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun AppNavController(authViewModel: AuthViewModel = koinViewModel()) {
+fun AppNavController() {
 
+    val authViewModel: AuthViewModel = koinViewModel()
     val navController = rememberNavController()
     val currentUser by authViewModel.currentUser.observeAsState()
 
