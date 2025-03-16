@@ -34,11 +34,13 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.R
-import com.example.mdp.ui.components.DailyIntakeProgressCard
-import com.example.mdp.ui.components.MainScreenFoodCard
+import com.example.mdp.ui.components.homepage.DailyIntakeProgressCard
+import com.example.mdp.ui.components.homepage.MainScreenFoodCard
 import com.example.mdp.navigation.NavRoutes
+import com.example.mdp.ui.components.historylog.SingleMealCard
 import com.example.mdp.viewmodels.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
+
 
 @Composable
 fun Home(navController: NavController, authViewModel: AuthViewModel = koinViewModel()) {
@@ -60,8 +62,14 @@ fun Home(navController: NavController, authViewModel: AuthViewModel = koinViewMo
                 .padding(innerPadding)
         ) {
             Text("Home Screen")
+
             MainScreenFoodCard()
+
             DailyIntakeProgressCard()
+
+
+           // SingleMealCard(mealname = "Pizza")
+
         }
     }
 }
