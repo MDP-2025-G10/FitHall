@@ -99,7 +99,7 @@ fun TopBar(
                     text = { Text("Profile") },
                     onClick = {
                         expanded = false
-                        navController.navigate(NavRoutes.RouteToHome.route)
+                        navController.navigate(NavRoutes.RouteToProfile.route)
                     }
                 )
                 DropdownMenuItem(
@@ -107,7 +107,10 @@ fun TopBar(
                     onClick = {
                         authViewModel.logout()
                         expanded = false
-                        navController.navigate(NavRoutes.RouteToAuth.route)
+//                        erase the navigation history including home.
+                        navController.navigate(NavRoutes.RouteToLogin.route) {
+                            popUpTo(NavRoutes.RouteToHome.route) { inclusive = true }
+                        }
                     }
                 )
             }

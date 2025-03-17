@@ -1,3 +1,5 @@
+# Project Root Level
+
 # Compiled class file
 *.class
 
@@ -25,3 +27,50 @@ replay_pid*
 
 # Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
 .kotlin/
+
+# Gradle files
+.gradle/
+build/
+**/build/
+**/outputs/
+**/intermediates/
+**/generated/
+**/tmp/
+
+# Android Studio files
+.idea/
+*.iml
+*.hprof
+
+# Local configuration files
+local.properties
+
+# Gradle Wrapper files
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Android specific files
+*.apk
+*.ap_
+*.dex
+
+# Keystore files
+*.jks
+*.keystore
+
+# OS specific files
+.DS_Store
+Thumbs.db
+*.bak
+
+# Jetpack Compose specific files
+compose-*.log
+
+# Kotlin specific files
+*.kotlin_metadata
+*.kapt
+
+# Misc
+*.orig
+*.swp
+*.swo

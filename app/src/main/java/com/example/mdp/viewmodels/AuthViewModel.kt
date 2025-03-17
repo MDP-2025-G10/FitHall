@@ -48,6 +48,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     fun logout() {
         authRepository.logout()
+        _currentUser.value = null
         Log.d("currentUser", "${_currentUser.value} from AuthViewModel logout")
     }
 
