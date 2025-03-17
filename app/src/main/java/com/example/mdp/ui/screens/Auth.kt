@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -22,8 +21,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mdp.navigation.NavRoutes
+import com.example.mdp.ui.components.AppLogo
 import com.example.mdp.ui.components.AuthButton
 import com.example.mdp.ui.components.AuthInput
+import com.example.mdp.ui.components.SignInButton
 import com.example.mdp.viewmodels.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -46,6 +47,8 @@ fun Auth(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
+
+            AppLogo(120)
             AuthInput(
                 value = email,
                 onValueChange = { email = it },
@@ -82,12 +85,7 @@ fun Auth(
                     fontWeight = FontWeight.Bold
                 )
             }
-
-            Button(onClick = {
-                authViewModel.signInWithGoogle()
-            }) {
-                Text("Continue with Google") // Button text
-            }
+            SignInButton { authViewModel.signInWithGoogle() }
         }
     }
 
