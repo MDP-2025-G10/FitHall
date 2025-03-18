@@ -74,10 +74,10 @@ dependencies {
 //    implementation(libs.kotlinx.coroutines.android)
 //    implementation(libs.logging.interceptor)
 
-//    Room
-//    implementation(libs.androidx.room.runtime)
-//    implementation(libs.androidx.room.ktx)
-//    ksp(libs.androidx.room.compiler)
+//     Room
+    implementation (libs.androidx.room.runtime)
+    implementation (libs.androidx.room.ktx)
+    ksp (libs.androidx.room.compiler)
 
 
 //    material icons extension
