@@ -19,6 +19,7 @@ import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
 
 //data class for food items
 data class FoodItem(val name: String, val date: String)
+
 //data class for workout items
 data class WorkoutItem(val workoutname: String, val description: String)
 
@@ -35,6 +36,7 @@ val foodItems = listOf(
     FoodItem("Sandwich", "2021-10-18"),
     FoodItem("Hotdog", "2021-10-19"),
 )
+
 //values workout items
 val workoutItems = listOf(
     WorkoutItem("Pushups", "10 reps"),
@@ -50,7 +52,7 @@ val workoutItems = listOf(
 )
 
 //composable for food items list  for profile page,
-// pissibly will be moved to another file
+// possibly will be moved to another file
 @Composable
 fun FoodItemList(foodItems: List<FoodItem>) {
     LazyRow {
@@ -59,17 +61,20 @@ fun FoodItemList(foodItems: List<FoodItem>) {
         }
     }
 }
-//composable for workout items list for profile page,
-// pissibly will be moved to another file
+// composable for workout items list for profile page,
+// possibly will be moved to another file
 
 @Composable
 fun WorkoutItemList(workoutItems: List<WorkoutItem>) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxWidth()
-        ,) {
+            .fillMaxWidth(),
+    ) {
         items(workoutItems) { workoutItem ->
-            ProfilePageWorkoutCard(workoutname = workoutItem.workoutname, description = workoutItem.description)
+            ProfilePageWorkoutCard(
+                workoutname = workoutItem.workoutname,
+                description = workoutItem.description
+            )
         }
     }
 }
@@ -85,7 +90,7 @@ fun Profile(navController: NavController) {
         ) {
             Text("Profile Screen")
 
-            Column(){
+            Column() {
                 // will have to implement a way to limit the amount of  items
                 //that are displayed on the profile page to a week/7 days
                 Text(

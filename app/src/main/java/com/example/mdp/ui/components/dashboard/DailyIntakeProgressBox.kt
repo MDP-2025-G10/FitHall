@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.homepage
+package com.example.mdp.ui.components.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

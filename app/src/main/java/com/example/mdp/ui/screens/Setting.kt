@@ -9,11 +9,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.mdp.viewmodels.AuthViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun Setting(navController: NavController) {
-    Scaffold { innerPadding ->
+fun Setting(navController: NavController, authViewModel: AuthViewModel = koinViewModel()) {
+    Scaffold(
+        topBar = {
+            TopBar(
+                navController = navController,
+                authViewModel
+            )
+        },
+        bottomBar = {
+            BottomBar(navController = navController)
+        }
+    ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier

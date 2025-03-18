@@ -5,14 +5,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.CameraAlt
-import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Dashboard
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.rounded.CalendarMonth
+import androidx.compose.material.icons.rounded.CameraAlt
+import androidx.compose.material.icons.rounded.Dashboard
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -34,10 +39,9 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.R
-import com.example.mdp.ui.components.homepage.DailyIntakeProgressCard
-import com.example.mdp.ui.components.homepage.MainScreenFoodCard
 import com.example.mdp.navigation.NavRoutes
-import com.example.mdp.ui.components.historylog.SingleMealCard
+import com.example.mdp.ui.components.dashboard.BottomBarIcon
+import com.example.mdp.ui.components.dashboard.DailyIntakeProgressCard
 import com.example.mdp.viewmodels.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -61,14 +65,12 @@ fun Home(navController: NavController, authViewModel: AuthViewModel = koinViewMo
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            Text("Home Screen")
-
-            MainScreenFoodCard()
+//            MainScreenFoodCard()
 
             DailyIntakeProgressCard()
 
 
-           // SingleMealCard(mealname = "Pizza")
+            // SingleMealCard(mealname = "Pizza")
 
         }
     }
@@ -130,40 +132,51 @@ fun TopBar(
 fun BottomBar(
     navController: NavController
 ) {
-    BottomAppBar {
+    val currentRoute = navController.currentDestination?.route
+    BottomAppBar(
+        modifier = Modifier.height(80.dp)
+    ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            IconButton(onClick = { navController.navigate(NavRoutes.RouteToHome.route) }) {
-                Icon(
-                    imageVector = Icons.Outlined.Home,
-                    contentDescription = "navigate to home",
-                    modifier = Modifier.size(32.dp)
-                )
-            }
+            BottomBarIcon(
+                navController,
+                currentRoute,
+                route = NavRoutes.RouteToHome.route,
+                outlinedIcon = Icons.Outlined.Dashboard,
+                roundedIcon = Icons.Rounded.Dashboard,
+                description = "navigate to home"
+            )
 
-            IconButton(onClick = { navController.navigate(NavRoutes.RouteToCamera.route) }) {
-                Icon(
-                    imageVector = Icons.Outlined.CameraAlt,
-                    contentDescription = "navigate to camera",
-                    modifier = Modifier.size(32.dp)
-                )
-            }
-            IconButton(onClick = { navController.navigate(NavRoutes.RouteToCalendar.route) }) {
-                Icon(
-                    imageVector = Icons.Outlined.CalendarMonth,
-                    contentDescription = "navigate to calendar",
-                    modifier = Modifier.size(32.dp)
-                )
-            }
-            IconButton(onClick = { navController.navigate(NavRoutes.RouteToSetting.route) }) {
-                Icon(
-                    imageVector = Icons.Outlined.Settings,
-                    contentDescription = "navigate to settings",
-                    modifier = Modifier.size(32.dp)
-                )
-            }
+            BottomBarIcon(
+                navController,
+                currentRoute,
+                route = NavRoutes.RouteToCamera.route,
+                outlinedIcon = Icons.Outlined.CameraAlt,
+                roundedIcon = Icons.Rounded.CameraAlt,
+                description = "navigate to camera"
+            )
+
+            BottomBarIcon(
+                navController,
+                currentRoute,
+                route = NavRoutes.RouteToCalendar.route,
+                outlinedIcon = Icons.Outlined.CalendarMonth,
+                roundedIcon = Icons.Rounded.CalendarMonth,
+                description = "navigate to calendar"
+            )
+
+            BottomBarIcon(
+                navController,
+                currentRoute,
+                route = NavRoutes.RouteToSetting.route,
+                outlinedIcon = Icons.Outlined.Settings,
+                roundedIcon = Icons.Rounded.Settings,
+                description = "navigate to settings"
+            )
         }
     }
 }
