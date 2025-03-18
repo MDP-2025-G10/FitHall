@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.mdp.ui.components.toolbar.BottomBar
+import com.example.mdp.ui.components.toolbar.TopBar
 import com.example.mdp.viewmodels.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
 

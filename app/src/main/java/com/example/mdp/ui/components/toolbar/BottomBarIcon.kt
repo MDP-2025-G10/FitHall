@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.dashboard
+package com.example.mdp.ui.components.toolbar
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
