@@ -2,12 +2,16 @@ package com.example.mdp.ui.components.historylog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Whatshot
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,29 +51,41 @@ fun SingleMealCard(mealname: String) {
 
             Text(
                 text = "Description: This is a delicious meal",
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
-            Text(
-                text = "Calories: 300 kcal",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 4.dp)
-            )
-            Text(
-                text = "Carbs: 45g",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 4.dp)
-            )
-            Text(
-                text = "Fat: 12g",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 4.dp)
-            )
-            Text(
-                text = "Protein: 10g",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 4.dp)
-            )
+
+            }
+
+                NutritionalCard(
+                    label = "Calories",
+                    value = "300 kcal",
+                    icon = Icons.Filled.Whatshot
+                )
+
+                    Spacer(modifier = Modifier.size(8.dp))
+        Row {
+                NutritionalCard(
+                    label = "Carbs",
+                    value = "45g",
+                    icon = Icons.Filled.Whatshot
+                )
+
+                    Spacer(modifier = Modifier.size(50.dp))
+
+                NutritionalCard(
+                    label = "Fat",
+                    value = "12g",
+                    icon = Icons.Filled.Whatshot
+                )
+
+                    Spacer(modifier = Modifier.size(50.dp))
+
+                NutritionalCard(
+                    label = "Protein",
+                    value = "10g",
+                    icon = Icons.Filled.Whatshot
+                )
         }
     }
 }

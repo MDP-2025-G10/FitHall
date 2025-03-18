@@ -68,7 +68,7 @@ fun Home(navController: NavController, authViewModel: AuthViewModel = koinViewMo
             DailyIntakeProgressCard()
 
 
-           // SingleMealCard(mealname = "Pizza")
+            //SingleMealCard(mealname = "Pizza")
 
         }
     }
