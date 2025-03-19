@@ -24,16 +24,14 @@ import com.example.mdp.viewmodels.MealViewModel
 import com.example.mdp.viewmodels.WorkoutViewModel
 
 
-
-
 @Composable
-fun Profile(navController: NavController,mealViewModel: MealViewModel = viewModel(),workoutViewModel: WorkoutViewModel = viewModel()) {
+fun Profile(navController: NavController, mealViewModel: MealViewModel = viewModel(),
+                                        workoutViewModel: WorkoutViewModel = viewModel()) {
     //insert test data into the database
     LaunchedEffect(Unit) {
         mealViewModel.insertTestMeal()
         workoutViewModel.insertTestWorkout()
     }
-
     Scaffold { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -61,9 +59,10 @@ fun Profile(navController: NavController,mealViewModel: MealViewModel = viewMode
                     modifier = Modifier.padding(8.dp),
                     style = MaterialTheme.typography.titleLarge
                 )
+
                 val workouts by workoutViewModel.allWorkouts.observeAsState(initial = emptyList())
                 LazyColumn {
-                    items(workouts) {  workouts ->
+                    items(workouts) { workouts ->
                         ProfilePageWorkoutCard(workouts = workouts)
                     }
                 }
@@ -71,3 +70,4 @@ fun Profile(navController: NavController,mealViewModel: MealViewModel = viewMode
         }
     }
 }
+
