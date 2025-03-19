@@ -68,15 +68,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // api
+      // api
 //    implementation(libs.retrofit)
 //    implementation(libs.converter.gson)
 //    implementation(libs.kotlinx.coroutines.android)
 //    implementation(libs.logging.interceptor)
 
 //     Room
-    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
 //    material icons extension
