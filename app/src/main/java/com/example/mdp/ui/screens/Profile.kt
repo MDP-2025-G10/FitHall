@@ -10,25 +10,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.mdp.ui.components.profilepage.ProfileFoodCard
 import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
+import com.example.mdp.viewmodels.MealViewModel
+import com.example.mdp.viewmodels.WorkoutViewModel
 
-//data class for food items
-data class FoodItem(val name: String, val date: String)
+
 
 
 @Composable
-fun Profile(navController: NavController, mealViewModel: MealViewModel = viewModel(),
-                                        workoutViewModel: WorkoutViewModel = viewModel()) {
+fun Profile(navController: NavController,mealViewModel: MealViewModel = viewModel(),workoutViewModel: WorkoutViewModel = viewModel()) {
     //insert test data into the database
     LaunchedEffect(Unit) {
         mealViewModel.insertTestMeal()
         workoutViewModel.insertTestWorkout()
     }
+
     Scaffold { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -56,10 +61,9 @@ fun Profile(navController: NavController, mealViewModel: MealViewModel = viewMod
                     modifier = Modifier.padding(8.dp),
                     style = MaterialTheme.typography.titleLarge
                 )
-
                 val workouts by workoutViewModel.allWorkouts.observeAsState(initial = emptyList())
                 LazyColumn {
-                    items(workouts) { workouts ->
+                    items(workouts) {  workouts ->
                         ProfilePageWorkoutCard(workouts = workouts)
                     }
                 }
