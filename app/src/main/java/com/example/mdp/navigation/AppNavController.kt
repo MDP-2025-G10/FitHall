@@ -38,45 +38,33 @@ fun AppNavController() {
     ) {
         composable(
             route = NavRoutes.RouteToLogin.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { Auth(navController, authViewModel, isLogin = true) }
+            ) { Auth(navController, authViewModel, isLogin = true) }
 
         composable(
             route = NavRoutes.RouteToRegister.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { Auth(navController, authViewModel, isLogin = false) }
+            ) { Auth(navController, authViewModel, isLogin = false) }
 
         composable(
             route = NavRoutes.RouteToHome.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
         ) { Home(navController) }
+
+        composable(
+            route = NavRoutes.RouteToCamera.route,
+        ) { Camera(navController) }
+
+        composable(
+            route = NavRoutes.RouteToCalendar.route,
+        ) { Calendar(navController) }
+
+        composable(
+            route = NavRoutes.RouteToSetting.route,
+        ) { Setting(navController) }
 
         composable(
             route = NavRoutes.RouteToProfile.route,
             enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
             exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
         ) { Profile(navController) }
-
-        composable(
-            route = NavRoutes.RouteToCamera.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { Camera(navController) }
-
-        composable(
-            route = NavRoutes.RouteToCalendar.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { Calendar(navController) }
-
-        composable(
-            route = NavRoutes.RouteToSetting.route,
-            enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
-            exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
-        ) { Setting(navController) }
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.homepage
+package com.example.mdp.ui.components.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
