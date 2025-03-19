@@ -68,25 +68,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-      // api
+    // api
 //    implementation(libs.retrofit)
 //    implementation(libs.converter.gson)
 //    implementation(libs.kotlinx.coroutines.android)
 //    implementation(libs.logging.interceptor)
 
 //     Room
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-
-
-    //implementations were nuked so i have the the original line before here just in case
-    /*
-     implementation(" androidx.room:room-ktx:2.4.0-alpha04")
-    implementation(" androidx.room:room-runtime:2.4.0-alpha04")
-    ksp(" androidx.room:room-compiler:2.4.0-alpha04")
-    */
-
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
 //    material icons extension
     implementation(libs.accompanist.systemuicontroller)
