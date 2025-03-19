@@ -75,9 +75,11 @@ dependencies {
 //    implementation(libs.logging.interceptor)
 
 //     Room
-    implementation (libs.androidx.room.runtime)
-    implementation (libs.androidx.room.ktx)
-    ksp (libs.androidx.room.compiler)
+    val room_version = "2.6.1"
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
 
 
 //    material icons extension
