@@ -75,10 +75,9 @@ dependencies {
 //    implementation(libs.logging.interceptor)
 
 //     Room
-    implementation (libs.androidx.room.runtime)
-    implementation (libs.androidx.room.ktx)
-    ksp (libs.androidx.room.compiler)
-
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
 //    material icons extension
     implementation(libs.accompanist.systemuicontroller)

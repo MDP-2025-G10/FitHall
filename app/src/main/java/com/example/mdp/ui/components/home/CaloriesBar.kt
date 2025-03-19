@@ -52,5 +52,4 @@ fun CaloriesBar(amountsConsumed: Float, dailyAmountGoal: Float) {
 
         )
     }
-
 }

@@ -37,7 +37,6 @@ fun Home(navController: NavController, authViewModel: AuthViewModel = koinViewMo
                 .padding(horizontal = 20.dp)
         ) {
             DailyIntakeProgressCard()
-            // SingleMealCard(mealname = "Pizza")
 
         }
     }
