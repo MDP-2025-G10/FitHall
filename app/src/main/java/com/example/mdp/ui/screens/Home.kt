@@ -17,7 +17,6 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun Home(navController: NavController, authViewModel: AuthViewModel = koinViewModel()) {
 fun Home(
     navController: NavController,
     authViewModel: AuthViewModel = koinViewModel()
