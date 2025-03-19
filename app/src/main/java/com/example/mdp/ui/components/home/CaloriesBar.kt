@@ -1,13 +1,12 @@
 package com.example.mdp.ui.components.home
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,9 +17,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CaloriesBar(amountsConsumed: Float, dailyAmountGoal: Float) {
-    val progress = (amountsConsumed / dailyAmountGoal)
-        .coerceIn(0f, 1f)
-        .let { (it * 100).toInt() / 100f }
+    val progress = amountsConsumed / dailyAmountGoal
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,19 +34,28 @@ fun CaloriesBar(amountsConsumed: Float, dailyAmountGoal: Float) {
                 modifier = Modifier.padding(bottom = 10.dp)
             )
             Text(
-                text = "2000/3184",
+                text = "${amountsConsumed.toInt()}/${dailyAmountGoal.toInt()}",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 10.dp)
             )
         }
-        LinearProgressIndicator(
-            progress = { progress },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp),
-            trackColor = MaterialTheme.colorScheme.background,
+        CustomProgressBar(progress)
+    }
+}
 
+@Composable
+fun CustomProgressBar(progress: Float) {
+    Canvas(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(8.dp)
+    ) {
+        val barWidth = size.width * progress
+        drawRoundRect(
+            color = Color.LightGray,
+            size = androidx.compose.ui.geometry.Size(barWidth, size.height),
+            cornerRadius = androidx.compose.ui.geometry.CornerRadius(4.dp.toPx())
         )
     }
 }
