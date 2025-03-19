@@ -19,6 +19,9 @@ navigationComposeAndroid = "2.9.0-alpha08"
 materialIconsExtended = "1.7.8"
 accompanistSystemuicontroller = "0.33.2-alpha"
 ksp = "2.1.0-1.0.29"
+roomCompiler = "2.4.0-alpha04"
+roomKtx = "2.4.0-alpha04"
+roomRuntime = "2.4.0-alpha04"
 runtime = "1.7.8"
 runtimeLivedata = "1.7.8"
 firebaseAuthKtx = "23.2.0"
@@ -58,6 +61,9 @@ androidx-material-icons-extended = { module = "androidx.compose.material:materia
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+room-compiler = { module = " androidx.room:room-compiler", version.ref = "roomCompiler" }
+room-ktx = { module = " androidx.room:room-ktx", version.ref = "roomKtx" }
+room-runtime = { module = " androidx.room:room-runtime", version.ref = "roomRuntime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
