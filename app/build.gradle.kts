@@ -108,15 +108,15 @@ dependencies {
     implementation(libs.play.services.auth)
 
     // Firebase ML kit
-    implementation("com.google.firebase:firebase-ml-model-interpreter:22.0.4")
-    implementation("com.google.firebase:firebase-ml-vision:24.0.3")
+    implementation(libs.firebase.ml.model.interpreter)
+    implementation(libs.firebase.ml.vision)
 
     // TensorFlow Lite
-    implementation("org.tensorflow:tensorflow-lite:2.10.0")
+    implementation(libs.tensorflow.lite)
 
     // CameraX
-    implementation("androidx.camera:camera-core:1.4.1")
-    implementation("androidx.camera:camera-lifecycle:1.4.1")
-    implementation("androidx.camera:camera-view:1.4.1")
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
 
 }
