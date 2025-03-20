@@ -16,7 +16,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.mdp.ui.components.profilepage.ProfileCard
 import com.example.mdp.ui.components.profilepage.ProfileFoodCard
@@ -29,21 +28,26 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun Profile(navController: NavController,mealViewModel: MealViewModel = viewModel(),workoutViewModel: WorkoutViewModel = viewModel(),authViewModel: AuthViewModel = koinViewModel()) {
+fun Profile(
+    navController: NavController,
+    mealViewModel: MealViewModel = koinViewModel(),
+    workoutViewModel: WorkoutViewModel = koinViewModel(),
+    authViewModel: AuthViewModel = koinViewModel()
+) {
     //insert test data into the database
     LaunchedEffect(Unit) {
         mealViewModel.insertTestMeal()
         workoutViewModel.insertTestWorkout()
     }
-        Scaffold(
-            topBar = {
-                TopBar(
-                    navController = navController,
-                    authViewModel
-                )
-            },
+    Scaffold(
+        topBar = {
+            TopBar(
+                navController = navController,
+                authViewModel
+            )
+        },
 
-        ){ innerPadding ->
+        ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -75,7 +79,7 @@ fun Profile(navController: NavController,mealViewModel: MealViewModel = viewMode
                 )
                 val workouts by workoutViewModel.allWorkouts.observeAsState(initial = emptyList())
                 LazyColumn {
-                    items(workouts) {  workouts ->
+                    items(workouts) { workouts ->
                         ProfilePageWorkoutCard(workouts = workouts)
                     }
                 }
