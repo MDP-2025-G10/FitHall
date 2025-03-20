@@ -24,7 +24,7 @@ class WorkoutRepository(private val workoutDao: WorkoutDao) {
 
     // Insert a test meal into the database
     suspend fun insertTestWorkout() {
-        Log.e("WorkoutRepository", "Inserting test workout")
+        Log.d("WorkoutRepository", "Inserting test workout")
         val testWorkout = Workouts(
             name = "Test Workout",
             description = "This is a test workout",
