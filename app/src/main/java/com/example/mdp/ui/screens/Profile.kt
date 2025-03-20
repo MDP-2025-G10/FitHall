@@ -18,23 +18,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.mdp.ui.components.profilepage.ProfileCard
 import com.example.mdp.ui.components.profilepage.ProfileFoodCard
 import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
+import com.example.mdp.ui.components.toolbar.TopBar
+import com.example.mdp.viewmodels.AuthViewModel
 import com.example.mdp.viewmodels.MealViewModel
 import com.example.mdp.viewmodels.WorkoutViewModel
-
-
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun Profile(navController: NavController,mealViewModel: MealViewModel = viewModel(),workoutViewModel: WorkoutViewModel = viewModel()) {
+fun Profile(navController: NavController,mealViewModel: MealViewModel = viewModel(),workoutViewModel: WorkoutViewModel = viewModel(),authViewModel: AuthViewModel = koinViewModel()) {
     //insert test data into the database
     LaunchedEffect(Unit) {
         mealViewModel.insertTestMeal()
         workoutViewModel.insertTestWorkout()
     }
+        Scaffold(
+            topBar = {
+                TopBar(
+                    navController = navController,
+                    authViewModel
+                )
+            },
 
-    Scaffold { innerPadding ->
+        ){ innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -42,6 +51,9 @@ fun Profile(navController: NavController,mealViewModel: MealViewModel = viewMode
                 .padding(innerPadding)
         ) {
             Text("Profile Screen")
+
+
+            ProfileCard(profileName = "John Doe", handle = "johndoe")
 
             Column {
                 Text(
