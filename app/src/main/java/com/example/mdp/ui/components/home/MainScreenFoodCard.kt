@@ -70,20 +70,6 @@ fun MainScreenFoodCard() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //data class can be implement later in separate file
 data class MealInfo(
    val food_name: String,
