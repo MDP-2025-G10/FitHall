@@ -23,7 +23,7 @@ class MealRepository(private val mealDao: MealDao) {
 
     // Insert a test meal into the database
     suspend fun insertTestMeal() {
-       Log.e("MealRepository", "Inserting test meal")
+       Log.d("MealRepository", "Inserting test meal")
         val testMeal = Meal(
             name = "Test Meal",
             calories = 500,

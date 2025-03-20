@@ -38,11 +38,11 @@ fun AppNavController() {
     ) {
         composable(
             route = NavRoutes.RouteToLogin.route,
-            ) { Auth(navController, authViewModel, isLogin = true) }
+        ) { Auth(navController, authViewModel, isLogin = true) }
 
         composable(
             route = NavRoutes.RouteToRegister.route,
-            ) { Auth(navController, authViewModel, isLogin = false) }
+        ) { Auth(navController, authViewModel, isLogin = false) }
 
         composable(
             route = NavRoutes.RouteToHome.route,

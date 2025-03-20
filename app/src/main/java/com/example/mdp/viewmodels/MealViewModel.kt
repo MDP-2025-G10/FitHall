@@ -1,20 +1,15 @@
 package com.example.mdp.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.mdp.data.database.MealDatabase
+import androidx.lifecycle.viewModelScope
 import com.example.mdp.data.models.Meal
 import com.example.mdp.data.repository.MealRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MealViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val mealDao = MealDatabase.getDatabase(application).mealDao()
-    private val mealRepository = MealRepository(mealDao)
+class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
     // LiveData to observe meal data
     val allMeals: LiveData<List<Meal>> = liveData(Dispatchers.IO) {
@@ -32,8 +27,9 @@ class MealViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteMeal(meal: Meal) {
         viewModelScope.launch(Dispatchers.IO) {
             mealRepository.deleteMeal(meal)
-            }
         }
+    }
+
     fun insertTestMeal() = viewModelScope.launch {
         mealRepository.insertTestMeal()
     }

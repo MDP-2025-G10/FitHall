@@ -22,12 +22,15 @@ import com.example.mdp.ui.components.profilepage.ProfileFoodCard
 import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
 import com.example.mdp.viewmodels.MealViewModel
 import com.example.mdp.viewmodels.WorkoutViewModel
-
-
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun Profile(navController: NavController,mealViewModel: MealViewModel = viewModel(),workoutViewModel: WorkoutViewModel = viewModel()) {
+fun Profile(
+    navController: NavController,
+    mealViewModel: MealViewModel = koinViewModel(),
+    workoutViewModel: WorkoutViewModel = koinViewModel()
+) {
     //insert test data into the database
     LaunchedEffect(Unit) {
         mealViewModel.insertTestMeal()
@@ -63,7 +66,7 @@ fun Profile(navController: NavController,mealViewModel: MealViewModel = viewMode
                 )
                 val workouts by workoutViewModel.allWorkouts.observeAsState(initial = emptyList())
                 LazyColumn {
-                    items(workouts) {  workouts ->
+                    items(workouts) { workouts ->
                         ProfilePageWorkoutCard(workouts = workouts)
                     }
                 }

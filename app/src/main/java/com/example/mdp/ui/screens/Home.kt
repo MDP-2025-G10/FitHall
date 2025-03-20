@@ -13,13 +13,15 @@ import com.example.mdp.ui.components.home.DailyIntakeProgressCard
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 import com.example.mdp.viewmodels.AuthViewModel
+import com.example.mdp.viewmodels.MealViewModel
 import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun Home(
     navController: NavController,
-    authViewModel: AuthViewModel = koinViewModel()
+    authViewModel: AuthViewModel = koinViewModel(),
+    mealViewModel: MealViewModel = koinViewModel()
 ) {
     Scaffold(
         topBar = {
@@ -39,8 +41,7 @@ fun Home(
                 .padding(innerPadding)
                 .padding(horizontal = 20.dp)
         ) {
-            DailyIntakeProgressCard()
-
+            DailyIntakeProgressCard(navController, mealViewModel)
         }
     }
 }
