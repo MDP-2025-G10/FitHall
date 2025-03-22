@@ -14,9 +14,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
 import com.example.mdp.ui.screens.Camera
+import com.example.mdp.ui.screens.Food
 import com.example.mdp.ui.screens.Home
+import com.example.mdp.ui.screens.Nutrition
 import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
+import com.example.mdp.ui.screens.Workout
 import com.example.mdp.viewmodels.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -47,6 +50,18 @@ fun AppNavController() {
         composable(
             route = NavRoutes.RouteToHome.route,
         ) { Home(navController) }
+
+        composable(
+            route = NavRoutes.RouteToFood.route,
+        ) { Food(navController) }
+
+        composable(
+            route = NavRoutes.RouteToNutrition.route,
+        ) { Nutrition(navController) }
+
+        composable(
+            route = NavRoutes.RouteToWorkout.route,
+        ) { Workout(navController) }
 
         composable(
             route = NavRoutes.RouteToCamera.route,

@@ -1,12 +1,15 @@
 package com.example.mdp.di
 
 
+import com.example.mdp.api.FoodRepository
+import com.example.mdp.api.RetrofitInstance
 import com.example.mdp.data.database.MealDatabase
 import com.example.mdp.data.database.WorkoutDatabase
 import com.example.mdp.data.repository.MealRepository
 import com.example.mdp.data.repository.WorkoutRepository
 import com.example.mdp.repository.AuthRepository
 import com.example.mdp.viewmodels.AuthViewModel
+import com.example.mdp.viewmodels.FoodViewModel
 import com.example.mdp.viewmodels.MealViewModel
 import com.example.mdp.viewmodels.WorkoutViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -31,4 +34,9 @@ val appModule = module {
     single { MealDatabase.getDatabase(get()).mealDao() }
     single { MealRepository(get()) }
     viewModel { MealViewModel(get()) }
+
+    // USDAApiService
+    single { RetrofitInstance.api }
+    single { FoodRepository(get()) }
+    viewModel { FoodViewModel(get()) }
 }
