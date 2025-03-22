@@ -8,12 +8,13 @@ import android.provider.MediaStore
 import android.util.Log
 import com.google.firebase.ml.custom.FirebaseCustomLocalModel
 import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.automl.FirebaseAutoMLLocalModel
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceAutoMLImageLabelerOptions
 
 fun loadAutoMLModel(context: Context): FirebaseVisionImageLabeler {
-    val model = FirebaseCustomLocalModel.Builder()
+    val model = FirebaseAutoMLLocalModel.Builder()
         .setAssetFilePath("model.tflite")
         .build()
 
