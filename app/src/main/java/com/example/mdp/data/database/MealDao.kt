@@ -2,7 +2,7 @@ package com.example.mdp.data.database
 
 
 import androidx.room.*
-import com.example.mdp.data.models.Meal
+import com.example.mdp.data.model.Meal
 import kotlinx.coroutines.flow.Flow
 
 @Dao

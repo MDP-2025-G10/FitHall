@@ -1,10 +1,10 @@
-package com.example.mdp.viewmodels
+package com.example.mdp.usda.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mdp.usda.FoodItem
-import com.example.mdp.usda.FoodRepository
+import com.example.mdp.usda.model.FoodItem
+import com.example.mdp.usda.repository.FoodRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

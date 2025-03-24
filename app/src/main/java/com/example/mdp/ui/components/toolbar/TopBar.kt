@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.R
 import com.example.mdp.navigation.NavRoutes
-import com.example.mdp.viewmodels.AuthViewModel
+import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)

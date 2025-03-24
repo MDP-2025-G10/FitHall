@@ -1,6 +1,7 @@
 package com.example.mdp.usda
 
 import com.example.mdp.BuildConfig
+import com.example.mdp.usda.model.FoodSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

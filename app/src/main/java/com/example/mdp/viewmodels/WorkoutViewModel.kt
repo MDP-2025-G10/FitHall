@@ -1,13 +1,10 @@
 package com.example.mdp.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.liveData
-import com.example.mdp.data.database.WorkoutDatabase
-import com.example.mdp.data.models.Workouts
+import com.example.mdp.data.model.Workouts
 import com.example.mdp.data.repository.WorkoutRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

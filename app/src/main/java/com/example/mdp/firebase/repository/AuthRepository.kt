@@ -1,4 +1,4 @@
-package com.example.mdp.repository
+package com.example.mdp.firebase.repository
 
 import android.content.Context
 import android.util.Base64

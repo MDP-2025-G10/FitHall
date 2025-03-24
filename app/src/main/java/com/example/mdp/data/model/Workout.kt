@@ -1,4 +1,4 @@
-package com.example.mdp.data.models
+package com.example.mdp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

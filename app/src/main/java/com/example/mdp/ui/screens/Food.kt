@@ -1,5 +1,6 @@
 package com.example.mdp.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,12 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mdp.usda.FoodItem
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 import com.example.mdp.ui.window.FoodPopUp
-import com.example.mdp.viewmodels.AuthViewModel
-import com.example.mdp.viewmodels.FoodViewModel
+import com.example.mdp.usda.model.FoodItem
+import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.usda.viewmodel.FoodViewModel
 import com.example.mdp.viewmodels.MealViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -54,6 +55,7 @@ fun Food(
     val foodList by foodViewModel.foodList.collectAsState()
     val searchQuery by foodViewModel.searchQuery.collectAsState()
     var searchJob: Job? = null
+    val allMealList by mealViewModel.allMealList.collectAsState()
 
     LaunchedEffect(searchQuery) {
         searchJob?.cancel()
@@ -85,19 +87,38 @@ fun Food(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Text("Suggestion", style = MaterialTheme.typography.titleMedium)
-
-            if (foodList.isNotEmpty()) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(foodList) { foodItem ->
-                        FoodItem(foodItem, mealViewModel)
+            Column(modifier = Modifier.weight(0.5f)) {
+                Text("History", style = MaterialTheme.typography.titleLarge)
+                Log.d("allMealList","$allMealList")
+                if (allMealList.isNotEmpty()) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(foodList) { foodItem ->
+                            FoodItem(foodItem, mealViewModel)
+                        }
                     }
+                } else {
+                    Text("No food found.", modifier = Modifier.align(Alignment.Start))
                 }
-            } else {
-                Text("No food found.", modifier = Modifier.align(Alignment.Start))
+            }
+
+            Column(modifier = Modifier.weight(0.5f)) {
+                Text("Suggestion", style = MaterialTheme.typography.titleLarge)
+                Log.d("allMealList","$foodList")
+                if (foodList.isNotEmpty()) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(foodList) { foodItem ->
+                            FoodItem(foodItem, mealViewModel)
+                        }
+                    }
+                } else {
+                    Text("No food found.", modifier = Modifier.align(Alignment.Start))
+                }
             }
         }
     }

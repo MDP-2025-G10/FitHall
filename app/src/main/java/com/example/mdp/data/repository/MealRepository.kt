@@ -1,18 +1,15 @@
 package com.example.mdp.data.repository
 
-import android.util.Log
 import com.example.mdp.data.database.MealDao
-import com.example.mdp.data.models.Meal
-import com.example.mdp.data.models.NutritionInfo
+import com.example.mdp.data.model.Meal
+import com.example.mdp.data.model.NutritionInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class MealRepository(private val mealDao: MealDao) {
 
-
     val allMeals: Flow<List<Meal>> = mealDao.getAllMeals()
     private val todayMeals: Flow<List<Meal>> = mealDao.getTodayMeals()
-
 
     fun getTodayNutrition(): Flow<NutritionInfo> {
         return todayMeals.map { meals ->

@@ -1,4 +1,7 @@
-package com.example.mdp.usda
+package com.example.mdp.usda.repository
+
+import com.example.mdp.usda.USDAApiService
+import com.example.mdp.usda.model.FoodSearchResponse
 
 class FoodRepository(private val apiService: USDAApiService) {
 

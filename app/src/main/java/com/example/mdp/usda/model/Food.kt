@@ -1,4 +1,4 @@
-package com.example.mdp.usda
+package com.example.mdp.usda.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -7,8 +7,8 @@ data class FoodSearchResponse(
 )
 
 data class FoodItem(
-    @SerializedName("description") val name: String,
     @SerializedName("fdcId") val id: Int,
+    @SerializedName("description") val name: String,
     @SerializedName("brandOwner") val brand: String,
     @SerializedName("servingSize") val size: Float,
     @SerializedName("servingSizeUnit") val sizeUnit: String,

@@ -3,7 +3,7 @@ package com.example.mdp.data.repository
 import android.util.Log
 import com.example.mdp.data.database.WorkoutDao
 
-import com.example.mdp.data.models.Workouts
+import com.example.mdp.data.model.Workouts
 
 class WorkoutRepository(private val workoutDao: WorkoutDao) {
 

@@ -20,7 +20,7 @@ import com.example.mdp.ui.screens.Nutrition
 import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
 import com.example.mdp.ui.screens.Workout
-import com.example.mdp.viewmodels.AuthViewModel
+import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
