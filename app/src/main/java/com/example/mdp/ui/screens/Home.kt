@@ -27,7 +27,7 @@ fun Home(
 ) {
     Scaffold(
         topBar = { TopBar(navController, authViewModel) },
-        bottomBar = { BottomBar( navController) }
+        bottomBar = { BottomBar(navController) }
     ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

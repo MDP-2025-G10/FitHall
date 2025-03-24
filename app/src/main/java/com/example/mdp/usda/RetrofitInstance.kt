@@ -1,4 +1,4 @@
-package com.example.mdp.api
+package com.example.mdp.usda
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

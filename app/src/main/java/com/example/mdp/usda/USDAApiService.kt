@@ -1,4 +1,4 @@
-package com.example.mdp.api
+package com.example.mdp.usda
 
 import com.example.mdp.BuildConfig
 import retrofit2.http.GET

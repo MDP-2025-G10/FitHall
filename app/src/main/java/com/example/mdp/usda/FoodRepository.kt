@@ -1,4 +1,4 @@
-package com.example.mdp.api
+package com.example.mdp.usda
 
 class FoodRepository(private val apiService: USDAApiService) {
 

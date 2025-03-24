@@ -1,8 +1,8 @@
 package com.example.mdp.di
 
 
-import com.example.mdp.api.FoodRepository
-import com.example.mdp.api.RetrofitInstance
+import com.example.mdp.usda.FoodRepository
+import com.example.mdp.usda.RetrofitInstance
 import com.example.mdp.data.database.MealDatabase
 import com.example.mdp.data.database.WorkoutDatabase
 import com.example.mdp.data.repository.MealRepository

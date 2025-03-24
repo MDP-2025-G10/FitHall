@@ -15,7 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import com.example.mdp.api.FoodItem
+import com.example.mdp.usda.FoodItem
 import com.example.mdp.data.models.Meal
 import com.example.mdp.viewmodels.MealViewModel
 
@@ -60,7 +60,7 @@ fun FoodPopUp(
                 OutlinedTextField(
                     value = calories.toString(),
                     onValueChange = { it.toIntOrNull() ?: 0 },
-                    label = { Text("Calories") },
+                    label = { Text("Calories (kcal)") },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
