@@ -39,4 +39,7 @@ val appModule = module {
     single { RetrofitInstance.api }
     single { FoodRepository(get()) }
     viewModel { FoodViewModel(get()) }
+//
+//    single { MealRepository(get()) }
+//    viewModel { MealViewModel(get()) }
 }

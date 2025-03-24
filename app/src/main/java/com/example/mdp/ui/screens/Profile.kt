@@ -34,11 +34,6 @@ fun Profile(
     workoutViewModel: WorkoutViewModel = koinViewModel(),
     authViewModel: AuthViewModel = koinViewModel()
 ) {
-    //insert test data into the database
-    LaunchedEffect(Unit) {
-        mealViewModel.insertTestMeal()
-        workoutViewModel.insertTestWorkout()
-    }
     Scaffold(
         topBar = {
             TopBar(
@@ -55,35 +50,35 @@ fun Profile(
                 .padding(innerPadding)
         ) {
             Text("Profile Screen")
-
-
-            ProfileCard(profileName = "John Doe", handle = "johndoe")
-
-            Column {
-                Text(
-                    text = "Recently uploaded food",
-                    modifier = Modifier.padding(8.dp),
-                    style = MaterialTheme.typography.titleLarge
-                )
-                val meals by mealViewModel.allMeals.observeAsState(initial = emptyList())
-                LazyRow {
-                    items(meals) { meal ->
-                        ProfileFoodCard(meal = meal)
-                    }
-                }
-
-                Text(
-                    text = "Recently uploaded Workout",
-                    modifier = Modifier.padding(8.dp),
-                    style = MaterialTheme.typography.titleLarge
-                )
-                val workouts by workoutViewModel.allWorkouts.observeAsState(initial = emptyList())
-                LazyColumn {
-                    items(workouts) { workouts ->
-                        ProfilePageWorkoutCard(workouts = workouts)
-                    }
-                }
-            }
+//
+//
+//            ProfileCard(profileName = "John Doe", handle = "johndoe")
+//
+//            Column {
+//                Text(
+//                    text = "Recently uploaded food",
+//                    modifier = Modifier.padding(8.dp),
+//                    style = MaterialTheme.typography.titleLarge
+//                )
+//                val meals by mealViewModel.allMeals.observeAsState(initial = emptyList())
+//                LazyRow {
+//                    items(meals) { meal ->
+//                        ProfileFoodCard(meal = meal)
+//                    }
+//                }
+//
+//                Text(
+//                    text = "Recently uploaded Workout",
+//                    modifier = Modifier.padding(8.dp),
+//                    style = MaterialTheme.typography.titleLarge
+//                )
+//                val workouts by workoutViewModel.allWorkouts.observeAsState(initial = emptyList())
+//                LazyColumn {
+//                    items(workouts) { workouts ->
+//                        ProfilePageWorkoutCard(workouts = workouts)
+//                    }
+//                }
+//            }
         }
     }
 }

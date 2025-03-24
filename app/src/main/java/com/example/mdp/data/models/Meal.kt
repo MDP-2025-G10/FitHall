@@ -14,3 +14,10 @@ data class Meal(
     val imagePath: String,  // Path to the saved image
     val timestamp: Long  // Time when meal was added
 )
+
+data class NutritionInfo(
+    val calories: Int = 0,
+    val fats: Int = 0,
+    val carbs: Int = 0,
+    val proteins: Int = 0
+)

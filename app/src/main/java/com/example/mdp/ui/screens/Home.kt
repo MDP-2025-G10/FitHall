@@ -37,7 +37,7 @@ fun Home(
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            DailyIntakeProgressCard(navController)
+            DailyIntakeProgressCard(navController, mealViewModel)
             CalorieHistoryChart()
         }
     }
