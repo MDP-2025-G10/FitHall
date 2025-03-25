@@ -7,7 +7,7 @@ import com.example.mdp.data.database.MealDatabase
 import com.example.mdp.data.database.WorkoutDatabase
 import com.example.mdp.data.repository.MealRepository
 import com.example.mdp.data.repository.WorkoutRepository
-import com.example.mdp.firebase.repository.AuthRepository
+import com.example.mdp.firebase.auth.repository.AuthRepository
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.usda.viewmodel.FoodViewModel
 import com.example.mdp.viewmodels.MealViewModel
