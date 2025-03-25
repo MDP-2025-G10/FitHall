@@ -1,12 +1,11 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.mdp.ui.components.MLkit
+package com.example.mdp.ui.components.assets
 
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
-import com.google.firebase.ml.custom.FirebaseCustomLocalModel
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.automl.FirebaseAutoMLLocalModel
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
