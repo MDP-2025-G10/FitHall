@@ -1,12 +1,14 @@
-package com.example.mdp.viewmodels
+package com.example.mdp.firebase.auth.viewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mdp.repository.AuthRepository
+import androidx.lifecycle.viewModelScope
+import com.example.mdp.firebase.auth.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.launch
 
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
@@ -37,14 +39,16 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
     }
 
-    fun signInWithGoogle(idToken: String) {
-        authRepository.firebaseAuthWithGoogle(idToken) { firebaseUser ->
-            _currentUser.postValue(firebaseUser)
+    fun signInWithGoogle() {
+        viewModelScope.launch {
+            val isSignedIn = authRepository.signInWithGoogle()
+            _currentUser.postValue(if (isSignedIn) authRepository.getCurrentUser() else null)
         }
     }
 
     fun logout() {
         authRepository.logout()
+        _currentUser.value = null
         Log.d("currentUser", "${_currentUser.value} from AuthViewModel logout")
     }
 

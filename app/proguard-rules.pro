@@ -24,3 +24,5 @@
 -keep class androidx.credentials.playservices.** {
   *;
 }
+
+-keep class androidx.compose.runtime.snapshots.** { *; }

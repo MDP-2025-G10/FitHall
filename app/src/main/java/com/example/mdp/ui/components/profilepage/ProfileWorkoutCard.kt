@@ -9,25 +9,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mdp.data.model.Workouts
 
 @Composable
-fun  ProfilePageWorkoutCard(workoutname: String, description: String) {
+fun ProfilePageWorkoutCard(workouts: Workouts) {
     Card(
-        modifier =  Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-
-        ) {
+    ) {
         Text(
-            workoutname,
+            text = workouts.name,
             fontSize = 20.sp,
             style = MaterialTheme.typography.titleLarge
-            )
+        )
 
         Text(
-            text = description,
+            text = workouts.description,
             fontSize = 14.sp,
-            style = MaterialTheme.typography.titleMedium)
-
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 }

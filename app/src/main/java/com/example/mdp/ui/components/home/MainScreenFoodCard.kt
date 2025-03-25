@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.homepage
+package com.example.mdp.ui.components.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -69,20 +69,6 @@ fun MainScreenFoodCard() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //data class can be implement later in separate file
 data class MealInfo(

@@ -1,9 +1,19 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.google.services)
+}
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        load(FileInputStream(localPropertiesFile))
+    }
 }
 
 android {
@@ -17,6 +27,9 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
+        val usdaApiKey = localProperties.getProperty("USDA_API_KEY") ?: ""
+        buildConfigField("String", "USDA_API_KEY", usdaApiKey)
     }
 
     buildTypes {
@@ -37,6 +50,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -59,35 +73,34 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.compose.android)
     implementation(libs.androidx.runtime.livedata)
-    implementation(libs.core.ktx)
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.runtime)
 
     //  Test
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-      // api
-//    implementation(libs.retrofit)
-//    implementation(libs.converter.gson)
+    // RESTFul API
 //    implementation(libs.kotlinx.coroutines.android)
 //    implementation(libs.logging.interceptor)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+
+//     Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
 
 //    material icons extension
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.material.icons.extended)
 
-//    implementation(libs.coil.compose)
-//    implementation(libs.coil.gif)
-//
 //    // Koin
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
-
-//    // Room
-//    implementation(libs.androidx.room.runtime)
-//    implementation(libs.androidx.room.ktx)
-//    ksp(libs.androidx.room.compiler)
 
     // Testing dependencies
     testImplementation(libs.junit)
@@ -103,9 +116,17 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth.ktx)
 
-    // Google Identity
-    implementation(libs.google.identity)
-    implementation(libs.play.services.auth)
+    // Credential Manager
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.androidx.credentials)
+
+    // Google Sign-In
+    implementation(libs.googleid)
+
+    //  Vico Recharts
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m3)
+
 
     // Firebase ML Kit & AutoML Vision Edge
     implementation("com.google.mlkit:image-labeling-automl:16.2.1")
