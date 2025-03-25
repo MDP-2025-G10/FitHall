@@ -108,9 +108,7 @@ dependencies {
     implementation(libs.play.services.auth)
 
     // Firebase ML Kit & AutoML Vision Edge
-    implementation("com.google.firebase:firebase-ml-model-interpreter:22.0.3")
-    implementation("com.google.firebase:firebase-ml-vision:24.1.0")
-    implementation("com.google.firebase:firebase-ml-vision-automl:19.0.0")
+    implementation("com.google.mlkit:image-labeling-automl:16.2.1")
 
     // TensorFlow Lite (TFLite) for model inference
     implementation("org.tensorflow:tensorflow-lite:2.10.0")
