@@ -22,6 +22,7 @@ fun ProfileFoodCard(meal: Meal) {
     Card(
         modifier = Modifier
             .padding(8.dp)
+            .size(200.dp)
     ) {
         Column {
             Text(
