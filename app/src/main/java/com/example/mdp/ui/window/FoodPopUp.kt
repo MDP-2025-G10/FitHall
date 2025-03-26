@@ -15,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.mdp.data.model.Meal
-import com.example.mdp.usda.model.FoodItem
 import com.example.mdp.viewmodels.MealViewModel
 
 
@@ -103,8 +102,8 @@ fun FoodPopUp(
 }
 
 
-private fun getNutrientValue(food: FoodItem, nutrientName: String): String {
-    return food.nutrients.find { it.name.contains(nutrientName, true) }
-        ?.value?.toInt()?.toString() ?: "0"
-}
+//private fun getNutrientValue(food: FoodItem, nutrientName: String): String {
+//    return food.nutrients.find { it.name.contains(nutrientName, true) }
+//        ?.value?.toInt()?.toString() ?: "0"
+//}
 

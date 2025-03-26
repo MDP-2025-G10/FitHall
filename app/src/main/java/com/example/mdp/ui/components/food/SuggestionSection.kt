@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.RemoveCircleOutline
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,7 +44,7 @@ fun SuggestionSection(foodList: List<FoodItem>, mealViewModel: MealViewModel) {
                 }
             }
         } else {
-            Text("No suggestions found.", modifier = Modifier.align(Alignment.CenterHorizontally))
+            Text("Try to search something?", modifier = Modifier.align(Alignment.CenterHorizontally))
         }
     }
 }

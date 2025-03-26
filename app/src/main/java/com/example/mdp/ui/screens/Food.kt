@@ -2,11 +2,8 @@ package com.example.mdp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -24,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.ui.components.food.HistorySection
+import com.example.mdp.ui.components.food.SearchBar
 import com.example.mdp.ui.components.food.SuggestionSection
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
@@ -44,19 +42,8 @@ fun Food(
 
     val foodList by foodViewModel.foodList.collectAsState()
     val searchQuery by foodViewModel.searchQuery.collectAsState()
-    var searchJob: Job? = null
     val allMealList by mealViewModel.allMealList.collectAsState()
     var selectedTabIndex by remember { mutableIntStateOf(0) }
-
-    LaunchedEffect(searchQuery) {
-        searchJob?.cancel()
-        searchJob = launch {
-            delay(500L)
-            if (searchQuery.isNotEmpty()) {
-                foodViewModel.searchFood(searchQuery)
-            }
-        }
-    }
 
     Scaffold(
         topBar = { TopBar(navController, authViewModel) },
@@ -71,27 +58,18 @@ fun Food(
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { foodViewModel.updateSearchQuery(it) },
-                label = { Text("Search for food") },
-                modifier = Modifier.fillMaxWidth()
-            )
+            SearchBar(searchQuery) { foodViewModel.updateSearchQuery(it) }
+
+            val tabs = listOf("History", "Suggestions")
             TabRow(selectedTabIndex = selectedTabIndex) {
-                Tab(
-                    selected = selectedTabIndex == 0,
-                    onClick = { selectedTabIndex = 0 },
-                    text = { Text("History") }
-                )
-                Tab(
-                    selected = selectedTabIndex == 1,
-                    onClick = { selectedTabIndex = 1 },
-                    text = { Text("Suggestions") }
-                )
+                tabs.forEachIndexed { index, title ->
+                    Tab(
+                        selected = selectedTabIndex == index,
+                        onClick = { selectedTabIndex = index },
+                        text = { Text(title) }
+                    )
+                }
             }
-
-            Spacer(modifier = Modifier.height(10.dp))
-
             when (selectedTabIndex) {
                 0 -> HistorySection(allMealList, mealViewModel)
                 1 -> SuggestionSection(foodList, mealViewModel)

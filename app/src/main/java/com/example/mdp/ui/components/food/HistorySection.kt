@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.RemoveCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -81,8 +82,16 @@ fun HistoryCard(meal: Meal, mealViewModel: MealViewModel) {
                 IconButton(onClick = { showPopup = true }) {
                     Icon(
                         imageVector = Icons.Filled.AddCircle,
-                        contentDescription = "Add new item",
+                        contentDescription = "add meal from history",
                         tint = Color(0xFF5A67B4),
+                        modifier = Modifier.size(36.dp)
+                    )
+                }
+                IconButton(onClick = { mealViewModel.deleteMeal(meal) }) {
+                    Icon(
+                        imageVector = Icons.Filled.RemoveCircle,
+                        contentDescription = "Remove history",
+                        tint = Color(0xFFFC2D00),
                         modifier = Modifier.size(36.dp)
                     )
                 }
