@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.mdp.usda.model.FoodItem
 import com.example.mdp.utils.FoodMapper
-import com.example.mdp.viewmodels.MealViewModel
+import com.example.mdp.data.viewmodel.MealViewModel
 
 @Composable
 fun SuggestionSection(foodList: List<FoodItem>, mealViewModel: MealViewModel) {

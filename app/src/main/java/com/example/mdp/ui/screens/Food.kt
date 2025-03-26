@@ -9,7 +9,6 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -26,10 +25,7 @@ import com.example.mdp.ui.components.food.SuggestionSection
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 import com.example.mdp.usda.viewmodel.FoodViewModel
-import com.example.mdp.viewmodels.MealViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.mdp.data.viewmodel.MealViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

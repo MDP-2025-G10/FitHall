@@ -15,7 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.mdp.data.model.Meal
-import com.example.mdp.viewmodels.MealViewModel
+import com.example.mdp.data.viewmodel.MealViewModel
 
 
 @Composable

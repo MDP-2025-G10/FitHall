@@ -1,6 +1,5 @@
 package com.example.mdp.ui.components.home
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.navigation.NavRoutes
-import com.example.mdp.viewmodels.MealViewModel
+import com.example.mdp.data.viewmodel.MealViewModel
 
 @Composable
 fun DailyIntakeProgressCard(
