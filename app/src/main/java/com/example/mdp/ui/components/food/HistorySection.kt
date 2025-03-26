@@ -27,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.mdp.data.model.Meal
-import com.example.mdp.ui.window.FoodPopUp
 import com.example.mdp.utils.formatTimestampToDate
 import com.example.mdp.viewmodels.MealViewModel
 

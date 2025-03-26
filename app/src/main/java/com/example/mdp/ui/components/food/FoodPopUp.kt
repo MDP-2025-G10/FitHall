@@ -1,4 +1,4 @@
-package com.example.mdp.ui.window
+package com.example.mdp.ui.components.food
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
