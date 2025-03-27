@@ -67,7 +67,7 @@ fun CustomProgressBar(progress: Float) {
 
         // foreground progress
         drawRoundRect(
-            color = Color(0xFF9CCC65),
+            color = Color.LightGray,
             size = Size(progressWidth, barHeight),
             cornerRadius = cornerRadius
         )
