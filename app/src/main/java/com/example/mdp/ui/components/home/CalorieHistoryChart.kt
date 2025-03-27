@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.example.mdp.data.viewmodel.MealViewModel
+import com.example.mdp.utils.formatDate
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottom
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStart
@@ -28,8 +29,8 @@ fun CalorieHistoryChart(mealViewModel: MealViewModel) {
 
     LaunchedEffect(calorieHistory) {
         if (calorieHistory.isNotEmpty()) {
-            val xValues = (1..calorieHistory.size).map { it.toFloat() }
-            val yValues = calorieHistory.map { it.totalCalories.toFloat() }
+            val xValues = (1..<calorieHistory.size).map { it }
+            val yValues = calorieHistory.map { it.totalCalories }
             Log.d("chart", "$xValues")
             Log.d("chart", "$yValues")
             modelProducer.runTransaction {
@@ -47,7 +48,8 @@ fun CalorieHistoryChart(mealViewModel: MealViewModel) {
                     valueFormatter = { _, value, _ ->
                         val index = value.toInt() - 1
                         if (index in calorieHistory.indices) {
-                            calorieHistory[index].date ?: ""
+                            val dateStr = calorieHistory[index].date
+                            formatDate(dateStr)
                         } else {
                             ""
                         }
