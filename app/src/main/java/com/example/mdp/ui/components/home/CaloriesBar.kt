@@ -19,7 +19,11 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CaloriesBar(amountsConsumed: Float, dailyAmountGoal: Float) {
+
     val progress = amountsConsumed / dailyAmountGoal
+    val isOverLimit = amountsConsumed > dailyAmountGoal
+    val textColor = if (isOverLimit) Color(0xFFAA5559) else Color.LightGray
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,22 +43,24 @@ fun CaloriesBar(amountsConsumed: Float, dailyAmountGoal: Float) {
                 text = "${amountsConsumed.toInt()}/${dailyAmountGoal.toInt()}",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 10.dp)
+                modifier = Modifier.padding(bottom = 10.dp),
+                color = textColor
             )
         }
-        CustomProgressBar(progress)
+        CustomProgressBar(progress, textColor)
     }
 }
 
 @Composable
-fun CustomProgressBar(progress: Float) {
+fun CustomProgressBar(progress: Float, progressColor: Color) {
     Canvas(
         modifier = Modifier
             .fillMaxWidth()
             .height(8.dp)
     ) {
         val barWidth = size.width
-        val progressWidth = barWidth * progress
+        val clampedProgress = progress.coerceIn(0f, 1f) // Prevent overflow
+        val progressWidth = barWidth * clampedProgress
         val barHeight = size.height
         val cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx())
 
@@ -67,7 +73,7 @@ fun CustomProgressBar(progress: Float) {
 
         // foreground progress
         drawRoundRect(
-            color = Color.LightGray,
+            color = progressColor,
             size = Size(progressWidth, barHeight),
             cornerRadius = cornerRadius
         )
