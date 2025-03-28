@@ -27,10 +27,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.mdp.usda.model.FoodItem
 import com.example.mdp.utils.FoodMapper
-import com.example.mdp.data.viewmodel.MealViewModel
 
 @Composable
-fun SuggestionSection(foodList: List<FoodItem>, mealViewModel: MealViewModel) {
+fun SuggestionSection(foodList: List<FoodItem>) {
     Column(modifier = Modifier.fillMaxSize()) {
         if (foodList.isNotEmpty()) {
             LazyColumn(
@@ -38,18 +37,21 @@ fun SuggestionSection(foodList: List<FoodItem>, mealViewModel: MealViewModel) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(foodList) { foodItem ->
-                    SuggestionCard(foodItem, mealViewModel)
+                    SuggestionCard(foodItem)
                 }
             }
         } else {
-            Text("Try to search something?", modifier = Modifier.align(Alignment.CenterHorizontally))
+            Text(
+                "Try to search something?",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
         }
     }
 }
 
 
 @Composable
-fun SuggestionCard(food: FoodItem, mealViewModel: MealViewModel) {
+fun SuggestionCard(food: FoodItem) {
     var showPopup by remember { mutableStateOf(false) }
 
     val meal = FoodMapper.convertFoodItemToMeal(food)
@@ -83,10 +85,6 @@ fun SuggestionCard(food: FoodItem, mealViewModel: MealViewModel) {
     }
 
     if (showPopup) {
-        FoodPopUp(
-            mealViewModel,
-            meal = FoodMapper.convertFoodItemToMeal(food), // Convert FoodItem to Meal
-            onDismiss = { showPopup = false }
-        )
+        FoodPopUp(FoodMapper.convertFoodItemToMeal(food)) { showPopup = false }
     }
 }

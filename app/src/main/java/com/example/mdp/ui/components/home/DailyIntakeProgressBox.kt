@@ -17,12 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.data.viewmodel.MealViewModel
 import com.example.mdp.navigation.NavRoutes
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DailyIntakeProgressCard(
-    navController: NavController,
-    mealViewModel: MealViewModel
-) {
+fun DailyIntakeProgressCard(navController: NavController) {
+    val mealViewModel: MealViewModel = koinViewModel()
     val nutritionInfo by mealViewModel.todayNutrition.collectAsState()
 
     Log.d("nutritionInfo","$nutritionInfo")

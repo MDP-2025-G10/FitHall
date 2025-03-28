@@ -26,21 +26,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.mdp.data.model.Meal
-import com.example.mdp.utils.formatTimestampToDate
 import com.example.mdp.data.viewmodel.MealViewModel
+import com.example.mdp.utils.formatTimestampToDate
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun HistorySection(allMealList: List<Meal>, mealViewModel: MealViewModel) {
+fun HistorySection(
+    navController: NavController,
+    allMealList: List<Meal>,
+) {
     Column(modifier = Modifier.fillMaxSize()) {
+        DateSelector(navController)
         if (allMealList.isNotEmpty()) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(allMealList) { meal ->
-                    HistoryCard(meal, mealViewModel)
+                    HistoryCard(meal)
                 }
             }
         } else {
@@ -51,15 +57,16 @@ fun HistorySection(allMealList: List<Meal>, mealViewModel: MealViewModel) {
 
 
 @Composable
-fun HistoryCard(meal: Meal, mealViewModel: MealViewModel) {
+fun HistoryCard(meal: Meal) {
     var showPopup by remember { mutableStateOf(false) }
-
+    val mealViewModel: MealViewModel = koinViewModel()
     val mealName = meal.name
     val calories = meal.calories
     val carbs = meal.carbs
     val protein = meal.proteins
     val fats = meal.fats
     val formattedDate = formatTimestampToDate(meal.timestamp)
+
 
     Card(
         modifier = Modifier.fillMaxWidth()
@@ -99,10 +106,6 @@ fun HistoryCard(meal: Meal, mealViewModel: MealViewModel) {
     }
 
     if (showPopup) {
-        FoodPopUp(
-            mealViewModel,
-            meal = meal,  // Pass the selected food
-            onDismiss = { showPopup = false }
-        )
+        FoodPopUp(meal) { showPopup = false }
     }
 }

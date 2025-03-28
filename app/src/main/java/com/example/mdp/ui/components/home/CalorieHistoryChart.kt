@@ -18,10 +18,13 @@ import com.patrykandpatrick.vico.core.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.core.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.core.cartesian.data.lineSeries
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun CalorieHistoryChart(mealViewModel: MealViewModel) {
+fun CalorieHistoryChart() {
+
+    val mealViewModel: MealViewModel = koinViewModel()
     val modelProducer = remember { CartesianChartModelProducer() }
     val calorieHistory by mealViewModel.calorieHistory.collectAsState()
 

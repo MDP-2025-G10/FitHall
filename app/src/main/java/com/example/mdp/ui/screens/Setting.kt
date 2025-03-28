@@ -11,25 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.mdp.notifications.NotificationHelper
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
-import com.example.mdp.firebase.auth.viewModel.AuthViewModel
-import com.example.mdp.notifications.NotificationHelper
-import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun Setting(navController: NavController, authViewModel: AuthViewModel = koinViewModel()) {
+fun Setting(navController: NavController) {
+
     Scaffold(
-        topBar = {
-            TopBar(
-                navController = navController,
-                authViewModel
-            )
-        },
-        bottomBar = {
-            BottomBar(navController = navController)
-        }
+        topBar = { TopBar(navController) },
+        bottomBar = { BottomBar(navController) }
     ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -39,8 +31,8 @@ fun Setting(navController: NavController, authViewModel: AuthViewModel = koinVie
         ) {
             Text("Setting Screen")
 
-        //testing notification button
-        // to be removed
+            //testing notification button
+            // to be removed
             Button(
                 onClick = {
                     if (androidx.core.content.ContextCompat.checkSelfPermission(
@@ -64,7 +56,6 @@ fun Setting(navController: NavController, authViewModel: AuthViewModel = koinVie
             ) {
                 // Button Text
                 Text(text = "Send Test Notification")
-
 
 
             }

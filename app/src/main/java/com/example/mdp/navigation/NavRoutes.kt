@@ -14,9 +14,9 @@ sealed class NavRoutes(val route: String) {
     data object RouteToCalendar : NavRoutes("Calendar")
     data object RouteToSetting : NavRoutes("Setting")
 
-//    companion object {
-//        fun routeToMain(date: String): String = "main/$date"
+    companion object {
+        fun routeToFood(date: String): String = "food/$date"
 //        fun routeToExerciseList(bodyPart: String): String = "exercise/bodyPart/$bodyPart"
 //        fun routeToExerciseDetail(exerciseId: String): String = "exerciseDetail/$exerciseId"
-//    }
+    }
 }

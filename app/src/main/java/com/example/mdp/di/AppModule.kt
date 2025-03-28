@@ -4,6 +4,7 @@ package com.example.mdp.di
 import com.example.mdp.data.database.WorkoutDatabase
 import com.example.mdp.data.repository.MealRepository
 import com.example.mdp.data.repository.WorkoutRepository
+import com.example.mdp.data.viewmodel.DateViewModel
 import com.example.mdp.data.viewmodel.MealViewModel
 import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.repository.AuthRepository
@@ -33,13 +34,14 @@ val appModule = module {
     single { WorkoutRepository(get()) }
     viewModel { WorkoutViewModel(get()) }
 
-//    single { MealDatabase.getDatabase(get()).mealDao() }
-
+    //  single { MealDatabase.getDatabase(get()).mealDao() }
     viewModel { MealViewModel(get()) }
 
-    // USDAApiService
+    //  USDAApiService
     single { RetrofitInstance.api }
     single { FoodRepository(get()) }
     viewModel { FoodViewModel(get()) }
 
+    //  date
+    viewModel { DateViewModel() }
 }
