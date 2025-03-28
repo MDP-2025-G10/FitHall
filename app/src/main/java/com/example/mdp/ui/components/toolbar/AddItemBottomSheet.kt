@@ -37,6 +37,7 @@ fun AddItemBottomSheet(
     val dateViewModel: DateViewModel = koinViewModel()
 
     val today by dateViewModel.today
+    val selectedDate by dateViewModel.selectedDate
 
     if (showSheet) {
         ModalBottomSheet(onDismissRequest = onDismiss) {
@@ -56,7 +57,7 @@ fun AddItemBottomSheet(
                         imageResId = R.drawable.lunch_dining_24px,
                         contentDescription = "Add Meal",
                         label = "Meal",
-                        onClick = { navController.navigate(NavRoutes.routeToFood(today.toString())) },
+                        onClick = { navController.navigate(NavRoutes.routeToFood(selectedDate.toString())) },
                         tintColor = Color(0xFF7CA7B1)
                     )
 

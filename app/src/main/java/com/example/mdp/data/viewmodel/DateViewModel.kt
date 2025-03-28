@@ -16,6 +16,6 @@ class DateViewModel : ViewModel() {
 
     fun setSelectedDate(date: LocalDate) {
         _selectedDate.value = date
-        Log.d("DateViewModel", "Selected date set to: $date")
+        Log.d("DateViewModel", "Changing date to: $date", Exception())
     }
 }

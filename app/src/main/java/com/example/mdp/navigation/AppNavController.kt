@@ -34,8 +34,6 @@ fun AppNavController() {
 
     val authViewModel: AuthViewModel = koinViewModel()
     val dateViewModel: DateViewModel = koinViewModel()
-
-
     val currentUser by authViewModel.currentUser.observeAsState()
 
     Log.d("AppNavController", "Current user: $currentUser")
@@ -48,11 +46,11 @@ fun AppNavController() {
     ) {
         composable(
             route = NavRoutes.RouteToLogin.route,
-        ) { Auth(navController, authViewModel, isLogin = true) }
+        ) { Auth(navController, isLogin = true) }
 
         composable(
             route = NavRoutes.RouteToRegister.route,
-        ) { Auth(navController, authViewModel, isLogin = false) }
+        ) { Auth(navController, isLogin = false) }
 
         composable(
             route = NavRoutes.RouteToHome.route,

@@ -37,9 +37,7 @@ fun BottomBar(navController: NavController) {
 
     AddItemBottomSheet(navController, showSheet) { showSheet = false }
 
-    BottomAppBar(
-        modifier = Modifier.height(80.dp)
-    ) {
+    BottomAppBar(modifier = Modifier.height(80.dp)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

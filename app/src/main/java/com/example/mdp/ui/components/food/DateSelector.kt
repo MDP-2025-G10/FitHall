@@ -59,6 +59,7 @@ fun DateSelector(
         ) {
             IconButton(onClick = {
                 val newDate = selectedDate.minusDays(1)
+                Log.d("newDate","newDate: $newDate")
                 if (newDate != selectedDate) {
                     dateViewModel.setSelectedDate(newDate)
                     navController.navigate(NavRoutes.routeToFood(newDate.toString()))

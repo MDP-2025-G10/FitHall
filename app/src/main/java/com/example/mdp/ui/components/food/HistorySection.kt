@@ -34,10 +34,8 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun HistorySection(
-    navController: NavController,
-    allMealList: List<Meal>,
-) {
+fun HistorySection(navController: NavController, allMealList: List<Meal>) {
+
     Column(modifier = Modifier.fillMaxSize()) {
         DateSelector(navController)
         if (allMealList.isNotEmpty()) {
