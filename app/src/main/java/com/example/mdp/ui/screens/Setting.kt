@@ -24,9 +24,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.notifications.ReminderScheduler
 import com.example.mdp.notifications.notificationcomponents.ReminderInputField
-import com.example.mdp.notifications.notificationsubjects. scheduleWaterReminder
+import com.example.mdp.notifications.notificationsubjects.scheduleWaterReminder
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 import org.koin.androidx.compose.koinViewModel
@@ -35,23 +36,36 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun Setting(navController: NavController) {
     // SharedPreferences
-    val sharedPreferences: SharedPreferences = navController.context.getSharedPreferences("ReminderPrefs", Context.MODE_PRIVATE)
+
+    val sharedPreferences: SharedPreferences =
+        navController.context.getSharedPreferences("ReminderPrefs", Context.MODE_PRIVATE)
 
     // State for user input fields
-    val waterIntervalState = remember { mutableStateOf(TextFieldValue(sharedPreferences.getLong("water_interval", 30).toString())) }
-    val taskIntervalState = remember { mutableStateOf(TextFieldValue(sharedPreferences.getLong("task_interval", 60).toString())) }
-    val exerciseIntervalState = remember { mutableStateOf(TextFieldValue(sharedPreferences.getLong("exercise_interval", 120).toString())) }
+    val waterIntervalState = remember {
+        mutableStateOf(
+            TextFieldValue(
+                sharedPreferences.getLong("water_interval", 30).toString()
+            )
+        )
+    }
+    val taskIntervalState = remember {
+        mutableStateOf(
+            TextFieldValue(
+                sharedPreferences.getLong("task_interval", 60).toString()
+            )
+        )
+    }
+    val exerciseIntervalState = remember {
+        mutableStateOf(
+            TextFieldValue(
+                sharedPreferences.getLong("exercise_interval", 120).toString()
+            )
+        )
+    }
 
     Scaffold(
-        topBar = {
-            TopBar(
-                navController = navController,
-                authViewModel = koinViewModel() // Assuming you use a view model for authentication
-            )
-        },
-        bottomBar = {
-            BottomBar(navController = navController)
-        }
+        topBar = { TopBar(navController = navController) },
+        bottomBar = { BottomBar(navController = navController) }
     ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,20 +79,30 @@ fun Setting(navController: NavController) {
                 Text("Settings Screen")
 
                 // Water Reminder Input
-                ReminderInputField(label = "Water Reminder Interval (minutes)", state = waterIntervalState)
+                ReminderInputField(
+                    label = "Water Reminder Interval (minutes)",
+                    state = waterIntervalState
+                )
 
                 // Task Reminder Input
-                ReminderInputField(label = "Task Reminder Interval (minutes)", state = taskIntervalState)
+                ReminderInputField(
+                    label = "Task Reminder Interval (minutes)",
+                    state = taskIntervalState
+                )
 
                 // Exercise Reminder Input
-                ReminderInputField(label = "Exercise Reminder Interval (minutes)", state = exerciseIntervalState)
+                ReminderInputField(
+                    label = "Exercise Reminder Interval (minutes)",
+                    state = exerciseIntervalState
+                )
 
                 // Save Button
                 Button(
                     onClick = {
                         val waterInterval = waterIntervalState.value.text.toLongOrNull() ?: 30
                         val taskInterval = taskIntervalState.value.text.toLongOrNull() ?: 60
-                        val exerciseInterval = exerciseIntervalState.value.text.toLongOrNull() ?: 120
+                        val exerciseInterval =
+                            exerciseIntervalState.value.text.toLongOrNull() ?: 120
 
                         // Save the intervals to SharedPreferences
                         sharedPreferences.edit().apply {
@@ -89,11 +113,32 @@ fun Setting(navController: NavController) {
                         }
 
                         // Schedule reminders using ReminderScheduler
-                        scheduleWaterReminder(navController.context, waterInterval, "Water Reminder", "Time to drink water!")  // Water Reminder
-                        ReminderScheduler.scheduleReminder(navController.context, 5, taskInterval, "Task Reminder", "Time to complete your task!")   // Task Reminder
-                        ReminderScheduler.scheduleReminder(navController.context, 6, exerciseInterval, "Exercise Reminder", "Time to exercise!") // Exercise Reminder
+                        scheduleWaterReminder(
+                            navController.context,
+                            waterInterval,
+                            "Water Reminder",
+                            "Time to drink water!"
+                        )  // Water Reminder
+                        ReminderScheduler.scheduleReminder(
+                            navController.context,
+                            5,
+                            taskInterval,
+                            "Task Reminder",
+                            "Time to complete your task!"
+                        )   // Task Reminder
+                        ReminderScheduler.scheduleReminder(
+                            navController.context,
+                            6,
+                            exerciseInterval,
+                            "Exercise Reminder",
+                            "Time to exercise!"
+                        ) // Exercise Reminder
 
-                        Toast.makeText(navController.context, "Reminders saved and scheduled!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            navController.context,
+                            "Reminders saved and scheduled!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 ) {
                     Text("Save Reminders")

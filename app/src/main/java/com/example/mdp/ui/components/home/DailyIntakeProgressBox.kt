@@ -30,7 +30,7 @@ fun DailyIntakeProgressCard(navController: NavController) {
             .fillMaxWidth()
             .clickable { navController.navigate(NavRoutes.RouteToNutrition.route) }
     ) {
-        CaloriesBar(nutritionInfo.calories.toFloat(), 2000f)
+        CaloriesBar(mealViewModel = mealViewModel, amountsConsumed = nutritionInfo.calories.toFloat(), dailyAmountGoal = 2000f)
         Column(
             modifier = Modifier
                 .padding(16.dp)

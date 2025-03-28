@@ -29,7 +29,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(navController: NavController) {
+fun TopBar(navController: NavController, ) {
     val authViewModel: AuthViewModel = koinViewModel()
     var expanded by remember { mutableStateOf(false) }
 
