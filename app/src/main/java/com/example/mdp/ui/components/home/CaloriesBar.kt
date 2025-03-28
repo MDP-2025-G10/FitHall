@@ -23,8 +23,8 @@ import com.example.mdp.notifications.notificationsubjects.IntakeNotification
 
 @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 @Composable
-fun CaloriesBar(mealViewModel: MealViewModel, amountsConsumed: Float, dailyAmountGoal: Float) {
-    IntakeNotification(mealViewModel = mealViewModel, totalCalories = amountsConsumed.toInt(), dailyGoal = dailyAmountGoal.toInt())
+fun CaloriesBar( amountsConsumed: Float, dailyAmountGoal: Float) {
+    IntakeNotification( totalCalories = amountsConsumed.toInt(), dailyGoal = dailyAmountGoal.toInt())
     val progress = amountsConsumed / dailyAmountGoal
     val isOverLimit = amountsConsumed > dailyAmountGoal
     val textColor = if (isOverLimit) Color(0xFFAA5559) else Color.LightGray

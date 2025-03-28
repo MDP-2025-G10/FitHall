@@ -9,10 +9,12 @@ import com.example.mdp.notifications.NotificationHelper
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.edit
+import org.koin.androidx.compose.koinViewModel
 
 @androidx.annotation.RequiresPermission(android.Manifest.permission.POST_NOTIFICATIONS)
 @Composable
-fun IntakeNotification(mealViewModel: MealViewModel, totalCalories: Int, dailyGoal: Int) {
+fun IntakeNotification( totalCalories: Int, dailyGoal: Int) {
+    val mealViewModel: MealViewModel = koinViewModel()
     val calorieHistory by mealViewModel.calorieHistory.collectAsState()
     val context = LocalContext.current
     val sharedPreferences = context.getSharedPreferences("NotificationPrefs", Context.MODE_PRIVATE)
