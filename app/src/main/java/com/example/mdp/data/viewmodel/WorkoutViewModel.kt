@@ -31,6 +31,7 @@ class WorkoutViewModel(private val workoutRepository: WorkoutRepository) : ViewM
            workoutRepository.deleteWorkout(workout)
         }
     }
+
     fun insertTestWorkout() = viewModelScope.launch {
        workoutRepository.insertTestWorkout()
     }

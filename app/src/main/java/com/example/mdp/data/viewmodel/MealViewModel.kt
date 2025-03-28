@@ -17,7 +17,7 @@ class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
     val todayNutrition: StateFlow<NutritionInfo> = mealRepository.getTodayNutrition()
         .stateIn(viewModelScope, SharingStarted.Lazily, NutritionInfo())
 
-    val allMealList: StateFlow<List<Meal>> = mealRepository.allMeals
+    val allMealList: StateFlow<List<Meal>> = mealRepository.getAllMeals()
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     val calorieHistory: StateFlow<List<DailyCalories>> =

@@ -29,10 +29,23 @@ fun CalorieHistoryChart(mealViewModel: MealViewModel) {
 
     LaunchedEffect(calorieHistory) {
         if (calorieHistory.isNotEmpty()) {
-            val xValues = (1..<calorieHistory.size).map { it }
+            val xValues = (1..calorieHistory.size).map { it }
             val yValues = calorieHistory.map { it.totalCalories }
+
             Log.d("chart", "$xValues")
             Log.d("chart", "$yValues")
+            modelProducer.runTransaction {
+                lineSeries { series(xValues, yValues) }
+            }
+        } else {
+            // Provide default values to prevent the chart from crashing
+            val xValues = (1..7).toList() // Assuming 7 days for the last week
+            val yValues = List(7) { 0 } // Placeholder for zero calories for 7 days
+
+            Log.d("chart", "Default xValues: $xValues")
+            Log.d("chart", "Default yValues: $yValues")
+
+            // Update the model producer with placeholder data
             modelProducer.runTransaction {
                 lineSeries { series(xValues, yValues) }
             }
@@ -51,7 +64,8 @@ fun CalorieHistoryChart(mealViewModel: MealViewModel) {
                             val dateStr = calorieHistory[index].date
                             formatDate(dateStr)
                         } else {
-                            ""
+                            // Return a valid placeholder for out-of-bounds indices
+                            "Day ${index + 1}" // Using Day N for placeholder
                         }
                     }
                 ),

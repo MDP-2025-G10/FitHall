@@ -125,5 +125,8 @@ dependencies {
     //  Vico Recharts
     implementation(libs.vico.compose)
     implementation(libs.vico.compose.m3)
+
+    //  gms
+    implementation(libs.play.services.auth)
     
 }

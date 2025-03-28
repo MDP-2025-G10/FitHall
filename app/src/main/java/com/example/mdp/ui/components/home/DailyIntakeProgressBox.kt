@@ -1,5 +1,6 @@
 package com.example.mdp.ui.components.home
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ fun DailyIntakeProgressCard(
 ) {
     val nutritionInfo by mealViewModel.todayNutrition.collectAsState()
 
+    Log.d("nutritionInfo","$nutritionInfo")
     Card(
         modifier = Modifier
             .fillMaxWidth()
