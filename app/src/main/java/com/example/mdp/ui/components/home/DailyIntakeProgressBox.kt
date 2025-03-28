@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.data.viewmodel.MealViewModel
 import com.example.mdp.navigation.NavRoutes
+import kotlin.text.toFloat
 
 @Composable
 fun DailyIntakeProgressCard(
@@ -27,9 +28,11 @@ fun DailyIntakeProgressCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { navController.navigate(NavRoutes.RouteToNutrition.route) }
-    ) {
-        CaloriesBar(nutritionInfo.calories.toFloat(), 2000f)
+            .clickable { navController.navigate(NavRoutes.RouteToNutrition.route) },
+
+    )  /*have to figure out  the  check permission warning*/ @androidx.annotation.RequiresPermission(android.Manifest.permission.POST_NOTIFICATIONS) {
+
+        CaloriesBar(mealViewModel = mealViewModel, amountsConsumed = nutritionInfo.calories.toFloat(), dailyAmountGoal = 2000f)
         Column(
             modifier = Modifier
                 .padding(16.dp)

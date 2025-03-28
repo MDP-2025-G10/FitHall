@@ -1,5 +1,7 @@
 package com.example.mdp.ui.components.home
 
+import android.Manifest
+import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,10 +18,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mdp.data.viewmodel.MealViewModel
+import com.example.mdp.notifications.notificationsubjects.IntakeNotification
 
+@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 @Composable
-fun CaloriesBar(amountsConsumed: Float, dailyAmountGoal: Float) {
-
+fun CaloriesBar(mealViewModel: MealViewModel, amountsConsumed: Float, dailyAmountGoal: Float) {
+    IntakeNotification(mealViewModel = mealViewModel, totalCalories = amountsConsumed.toInt(), dailyGoal = dailyAmountGoal.toInt())
     val progress = amountsConsumed / dailyAmountGoal
     val isOverLimit = amountsConsumed > dailyAmountGoal
     val textColor = if (isOverLimit) Color(0xFFAA5559) else Color.LightGray

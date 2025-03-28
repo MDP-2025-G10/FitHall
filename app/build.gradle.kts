@@ -125,5 +125,17 @@ dependencies {
     //  Vico Recharts
     implementation(libs.vico.compose)
     implementation(libs.vico.compose.m3)
-    
+
+    // Kotlin Coroutines
+
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+
+    //work manager
+     implementation(libs.androidx.work.runtime.ktx)
+
+
 }
+
+
