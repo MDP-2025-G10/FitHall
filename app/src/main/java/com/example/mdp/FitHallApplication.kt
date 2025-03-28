@@ -13,9 +13,6 @@ import org.koin.core.context.startKoin
 
 class FitHallApplication : Application() {
 
-
-
-
     override fun onCreate() {
         super.onCreate()
 
@@ -27,7 +24,7 @@ class FitHallApplication : Application() {
             Log.d("FitHallApplication", "Firebase initialized successfully")
         } catch (e: Exception) {
             Log.e("FitHallApplication", "Error initializing Firebase: ${e.message}")
-            return // Exit if Firebase initialization fails
+            return
         }
 
         // Log all initialized FirebaseApp instances
@@ -51,8 +48,6 @@ class FitHallApplication : Application() {
         }
 
         Log.d("FitHallApplication", "Koin started successfully")
-
-
     }
 
 }

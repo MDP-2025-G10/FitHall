@@ -136,6 +136,10 @@ dependencies {
      implementation(libs.androidx.work.runtime.ktx)
 
 
+
+    //  gms
+    implementation(libs.play.services.auth)
+
 }
 
 

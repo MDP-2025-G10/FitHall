@@ -24,14 +24,13 @@ import androidx.navigation.NavController
 import com.example.mdp.R
 import com.example.mdp.navigation.NavRoutes
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(
-    navController: NavController,
-    authViewModel: AuthViewModel
-) {
+fun TopBar(navController: NavController) {
+    val authViewModel: AuthViewModel = koinViewModel()
     var expanded by remember { mutableStateOf(false) }
 
     TopAppBar(
@@ -67,7 +66,6 @@ fun TopBar(
                     onClick = {
                         authViewModel.logout()
                         expanded = false
-//                        erase the navigation history including home.
                         navController.navigate(NavRoutes.RouteToLogin.route) {
                             popUpTo(NavRoutes.RouteToHome.route) { inclusive = true }
                         }

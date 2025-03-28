@@ -17,30 +17,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mdp.ui.components.toolbar.TopBar
-import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.data.viewmodel.MealViewModel
+import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.ui.components.profilepage.ProfileCard
 import com.example.mdp.ui.components.profilepage.ProfileFoodCard
 import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
-import com.example.mdp.data.viewmodel.MealViewModel
-import com.example.mdp.data.viewmodel.WorkoutViewModel
+import com.example.mdp.ui.components.toolbar.TopBar
 import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun Profile(
-    navController: NavController,
-    mealViewModel: MealViewModel = koinViewModel(),
-    workoutViewModel: WorkoutViewModel = koinViewModel(),
-    authViewModel: AuthViewModel = koinViewModel()
-) {
+fun Profile(navController: NavController) {
+    val mealViewModel: MealViewModel = koinViewModel()
+    val workoutViewModel: WorkoutViewModel = koinViewModel()
     Scaffold(
-        topBar = {
-            TopBar(
-                navController = navController,
-                authViewModel
-            )
-        },
+        topBar = { TopBar(navController) },
 
         ) { innerPadding ->
         Column(

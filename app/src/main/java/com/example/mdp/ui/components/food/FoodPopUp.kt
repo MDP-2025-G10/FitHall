@@ -16,14 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.mdp.data.model.Meal
 import com.example.mdp.data.viewmodel.MealViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun FoodPopUp(
-    mealViewModel: MealViewModel,
     meal: Meal,
     onDismiss: () -> Unit
 ) {
+    val mealViewModel: MealViewModel = koinViewModel()
     var mealName by remember { mutableStateOf(meal.name) }
     val calories by remember { mutableStateOf(meal.calories.toString()) }
     val fats by remember { mutableStateOf(meal.fats.toString()) }

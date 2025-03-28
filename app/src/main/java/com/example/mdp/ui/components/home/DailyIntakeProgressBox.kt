@@ -1,5 +1,6 @@
 package com.example.mdp.ui.components.home
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,23 +17,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.data.viewmodel.MealViewModel
 import com.example.mdp.navigation.NavRoutes
-import kotlin.text.toFloat
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun DailyIntakeProgressCard(
-    navController: NavController,
-    mealViewModel: MealViewModel
-) {
+fun DailyIntakeProgressCard(navController: NavController) {
+    val mealViewModel: MealViewModel = koinViewModel()
     val nutritionInfo by mealViewModel.todayNutrition.collectAsState()
 
+    Log.d("nutritionInfo","$nutritionInfo")
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { navController.navigate(NavRoutes.RouteToNutrition.route) },
-
-    )  /*have to figure out  the  check permission warning*/ @androidx.annotation.RequiresPermission(android.Manifest.permission.POST_NOTIFICATIONS) {
-
-        CaloriesBar(mealViewModel = mealViewModel, amountsConsumed = nutritionInfo.calories.toFloat(), dailyAmountGoal = 2000f)
+            .clickable { navController.navigate(NavRoutes.RouteToNutrition.route) }
+    ) {
+        CaloriesBar(nutritionInfo.calories.toFloat(), 2000f)
         Column(
             modifier = Modifier
                 .padding(16.dp)

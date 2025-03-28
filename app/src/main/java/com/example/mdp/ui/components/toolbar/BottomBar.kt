@@ -31,21 +31,13 @@ import androidx.navigation.NavController
 import com.example.mdp.navigation.NavRoutes
 
 @Composable
-fun BottomBar(
-    navController: NavController
-) {
+fun BottomBar(navController: NavController) {
     val currentRoute = navController.currentDestination?.route
     var showSheet by remember { mutableStateOf(false) }
 
-    AddItemBottomSheet(
-        navController,
-        showSheet = showSheet,
-        onDismiss = { showSheet = false }
-    )
+    AddItemBottomSheet(navController, showSheet) { showSheet = false }
 
-    BottomAppBar(
-        modifier = Modifier.height(80.dp)
-    ) {
+    BottomAppBar(modifier = Modifier.height(80.dp)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

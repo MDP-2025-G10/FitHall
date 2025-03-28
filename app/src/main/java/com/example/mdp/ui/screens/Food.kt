@@ -18,23 +18,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.data.viewmodel.MealViewModel
 import com.example.mdp.ui.components.food.HistorySection
 import com.example.mdp.ui.components.food.SearchBar
 import com.example.mdp.ui.components.food.SuggestionSection
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 import com.example.mdp.usda.viewmodel.FoodViewModel
-import com.example.mdp.data.viewmodel.MealViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Food(
-    navController: NavController,
-    authViewModel: AuthViewModel = koinViewModel(),
-    mealViewModel: MealViewModel = koinViewModel(),
-    foodViewModel: FoodViewModel = koinViewModel()
-) {
+fun Food(navController: NavController) {
+
+    val mealViewModel: MealViewModel = koinViewModel()
+    val foodViewModel: FoodViewModel = koinViewModel()
 
     val foodList by foodViewModel.foodList.collectAsState()
     val searchQuery by foodViewModel.searchQuery.collectAsState()
@@ -42,7 +39,7 @@ fun Food(
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Scaffold(
-        topBar = { TopBar(navController, authViewModel) },
+        topBar = { TopBar(navController) },
         bottomBar = { BottomBar(navController) }
     ) { innerPadding ->
 
@@ -67,8 +64,8 @@ fun Food(
                 }
             }
             when (selectedTabIndex) {
-                0 -> HistorySection(allMealList, mealViewModel)
-                1 -> SuggestionSection(foodList, mealViewModel)
+                0 -> HistorySection(navController, allMealList)
+                1 -> SuggestionSection(foodList)
             }
         }
     }
