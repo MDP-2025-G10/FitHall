@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
 
@@ -23,6 +24,11 @@ class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
     val calorieHistory: StateFlow<List<DailyCalories>> =
         mealRepository.getCaloriesForLast7Days()
             .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    fun getMealsForDate(date: LocalDate): StateFlow<List<Meal>> {
+        return mealRepository.getMealsForDate(date)
+            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    }
 
     fun insertMeal(meal: Meal) = viewModelScope.launch(Dispatchers.IO) {
         mealRepository.insertMeal(meal)

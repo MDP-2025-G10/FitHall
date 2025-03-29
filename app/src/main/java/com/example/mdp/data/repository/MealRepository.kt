@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.Date
 import java.util.Locale.getDefault
 
@@ -45,6 +47,28 @@ class MealRepository(
         }
         awaitClose { listener.remove() }
     }
+
+    fun getMealsForDate(date: LocalDate): Flow<List<Meal>> = callbackFlow {
+        val startOfDay = date.atStartOfDay(ZoneId.systemDefault())
+            .toEpochSecond() * 1000
+        val endOfDay = date.plusDays(1).atStartOfDay(ZoneId.systemDefault())
+            .toEpochSecond() * 1000
+
+        val listener = userMealsCollection()
+            .whereGreaterThan("timestamp", startOfDay)
+            .whereLessThan("timestamp", endOfDay)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    close(e)
+                    return@addSnapshotListener
+                }
+                val meals =
+                    snapshot?.documents?.mapNotNull { it.toObject(Meal::class.java) } ?: emptyList()
+                trySend(meals).isSuccess
+            }
+        awaitClose { listener.remove() }
+    }
+
 
     fun getTodayNutrition(): Flow<NutritionInfo> = getAllMeals().map { meals ->
         val now = System.currentTimeMillis()

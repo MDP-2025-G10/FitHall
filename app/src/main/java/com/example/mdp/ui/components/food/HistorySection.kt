@@ -18,6 +18,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,21 +29,35 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.data.model.Meal
+import com.example.mdp.navigation.LocalDateViewModel
 import com.example.mdp.navigation.LocalMealViewModel
 import com.example.mdp.utils.historyCardTimeFormatter
 
 
 @Composable
-fun HistorySection(navController: NavController, allMealList: List<Meal>) {
+fun HistorySection(navController: NavController) {
+    val dateViewModel = LocalDateViewModel.current
+    val mealViewModel = LocalMealViewModel.current
+
+    val selectedDate by dateViewModel.selectedDate
+
+    var mealsForSelectedDate by remember { mutableStateOf(emptyList<Meal>()) }
+
+    LaunchedEffect(selectedDate) {
+        mealViewModel.getMealsForDate(selectedDate).collect { meals ->
+            mealsForSelectedDate = meals
+        }
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         DateSelector(navController)
-        if (allMealList.isNotEmpty()) {
+
+        if (mealsForSelectedDate.isNotEmpty()) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(allMealList) { meal ->
+                items(mealsForSelectedDate) { meal ->
                     HistoryCard(meal)
                 }
             }
@@ -63,7 +78,6 @@ fun HistoryCard(meal: Meal) {
     val protein = meal.proteins
     val fats = meal.fats
     val formattedDate = historyCardTimeFormatter(meal.timestamp)
-
 
     Card(
         modifier = Modifier.fillMaxWidth()

@@ -9,7 +9,6 @@ import java.time.LocalDate
 class DateViewModel : ViewModel() {
 
     private val _today = mutableStateOf(LocalDate.now())
-
     private val _selectedDate = mutableStateOf(LocalDate.now())
 
     val today: State<LocalDate> = _today
