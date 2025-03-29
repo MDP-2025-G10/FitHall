@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
-fun formatTimestampToDate(timestamp: Long): String {
-    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()) // Format: YYYY-MM-DD HH:MM
+fun historyCardTimeFormatter(timestamp: Long): String {
+    val sdf = SimpleDateFormat("yyyy-MMM-dd HH:mm", Locale.getDefault()) // Format: YYYY-MM-DD HH:MM
     return sdf.format(Date(timestamp))
 }
 
-fun formatDate(dateStr: String?): String {
+fun lineChartTimeFormatter(dateStr: String?): String {
     return try {
         val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val outputFormatter = DateTimeFormatter.ofPattern("MMM-d")
@@ -19,4 +19,9 @@ fun formatDate(dateStr: String?): String {
     } catch (e: Exception) {
         dateStr ?: ""
     }
+}
+
+fun dateSelectorTimeFormatter(date: LocalDate): String {
+    val formatter = DateTimeFormatter.ofPattern("EEEE, MMM dd")
+    return date.format(formatter)
 }

@@ -28,9 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.data.model.Meal
-import com.example.mdp.data.viewmodel.MealViewModel
-import com.example.mdp.utils.formatTimestampToDate
-import org.koin.androidx.compose.koinViewModel
+import com.example.mdp.navigation.LocalMealViewModel
+import com.example.mdp.utils.historyCardTimeFormatter
 
 
 @Composable
@@ -57,13 +56,13 @@ fun HistorySection(navController: NavController, allMealList: List<Meal>) {
 @Composable
 fun HistoryCard(meal: Meal) {
     var showPopup by remember { mutableStateOf(false) }
-    val mealViewModel: MealViewModel = koinViewModel()
+    val mealViewModel = LocalMealViewModel.current
     val mealName = meal.name
     val calories = meal.calories
     val carbs = meal.carbs
     val protein = meal.proteins
     val fats = meal.fats
-    val formattedDate = formatTimestampToDate(meal.timestamp)
+    val formattedDate = historyCardTimeFormatter(meal.timestamp)
 
 
     Card(

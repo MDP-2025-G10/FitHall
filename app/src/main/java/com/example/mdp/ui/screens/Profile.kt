@@ -19,6 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.data.viewmodel.MealViewModel
 import com.example.mdp.data.viewmodel.WorkoutViewModel
+import com.example.mdp.navigation.LocalAuthViewModel
+import com.example.mdp.navigation.LocalMealViewModel
+import com.example.mdp.navigation.LocalWorkoutViewModel
 import com.example.mdp.ui.components.profilepage.ProfileCard
 import com.example.mdp.ui.components.profilepage.ProfileFoodCard
 import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
@@ -28,8 +31,9 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun Profile(navController: NavController) {
-    val mealViewModel: MealViewModel = koinViewModel()
-    val workoutViewModel: WorkoutViewModel = koinViewModel()
+
+    val mealViewModel = LocalMealViewModel.current
+    val workoutViewModel = LocalWorkoutViewModel.current
     Scaffold(
         topBar = { TopBar(navController) },
 

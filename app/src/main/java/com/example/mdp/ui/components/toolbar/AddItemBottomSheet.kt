@@ -14,7 +14,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,9 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.R
-import com.example.mdp.data.viewmodel.DateViewModel
 import com.example.mdp.navigation.NavRoutes
-import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,11 +31,6 @@ fun AddItemBottomSheet(
     showSheet: Boolean,
     onDismiss: () -> Unit,
 ) {
-    val dateViewModel: DateViewModel = koinViewModel()
-
-    val today by dateViewModel.today
-    val selectedDate by dateViewModel.selectedDate
-
     if (showSheet) {
         ModalBottomSheet(onDismissRequest = onDismiss) {
             Column(
@@ -57,7 +49,7 @@ fun AddItemBottomSheet(
                         imageResId = R.drawable.lunch_dining_24px,
                         contentDescription = "Add Meal",
                         label = "Meal",
-                        onClick = { navController.navigate(NavRoutes.routeToFood(selectedDate.toString())) },
+                        onClick = { navController.navigate(NavRoutes.RouteToFood.route) },
                         tintColor = Color(0xFF7CA7B1)
                     )
 

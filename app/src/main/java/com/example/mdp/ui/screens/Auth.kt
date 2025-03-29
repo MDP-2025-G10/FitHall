@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.navigation.LocalAuthViewModel
 import com.example.mdp.navigation.NavRoutes
 import com.example.mdp.ui.components.auth.AppLogo
 import com.example.mdp.ui.components.auth.AuthButton
@@ -32,7 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun Auth(navController: NavController, isLogin: Boolean) {
 
-    val authViewModel: AuthViewModel = koinViewModel()
+    val authViewModel = LocalAuthViewModel.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 

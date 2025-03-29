@@ -1,6 +1,5 @@
 package com.example.mdp.ui.components.food
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,23 +21,20 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mdp.data.viewmodel.DateViewModel
+import com.example.mdp.navigation.LocalDateViewModel
 import com.example.mdp.navigation.NavRoutes
-import org.koin.androidx.compose.koinViewModel
-import java.time.format.DateTimeFormatter
+import com.example.mdp.utils.dateSelectorTimeFormatter
 
 @Composable
-fun DateSelector(
-    navController: NavController,
-) {
-    val dateViewModel: DateViewModel = koinViewModel()
+fun DateSelector(navController: NavController) {
+
+    val dateViewModel = LocalDateViewModel.current
+
     val selectedDate by dateViewModel.selectedDate
     val today by dateViewModel.today
 
-    val formatter = DateTimeFormatter.ofPattern("EEEE, MMM dd")
-    val formattedDate = selectedDate.format(formatter)
-    Log.d("DateSelector", "selectedDate: $selectedDate")
-    Log.d("DateSelector", "today: $today")
+    val formattedDate = dateSelectorTimeFormatter(selectedDate)
+
     Box(
         modifier = Modifier
             .drawBehind {
@@ -59,11 +55,11 @@ fun DateSelector(
         ) {
             IconButton(onClick = {
                 val newDate = selectedDate.minusDays(1)
-                Log.d("newDate","newDate: $newDate")
-                if (newDate != selectedDate) {
-                    dateViewModel.setSelectedDate(newDate)
-                    navController.navigate(NavRoutes.routeToFood(newDate.toString()))
+                dateViewModel.setSelectedDate(newDate)
+                navController.navigate(NavRoutes.RouteToFood.route) {
+                    popUpTo(NavRoutes.RouteToFood.route) { inclusive = false }
                 }
+
             }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
@@ -83,10 +79,12 @@ fun DateSelector(
 
             IconButton(onClick = {
                 val newDate = selectedDate.plusDays(1)
-                if (newDate != selectedDate) {
-                    dateViewModel.setSelectedDate(newDate)
-                    navController.navigate(NavRoutes.routeToFood(newDate.toString()))
+                dateViewModel.setSelectedDate(newDate)
+                navController.navigate(NavRoutes.RouteToFood.route) {
+                    popUpTo(NavRoutes.RouteToFood.route) { inclusive = false }
                 }
+
+
             }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,

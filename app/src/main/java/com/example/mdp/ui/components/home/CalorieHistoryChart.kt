@@ -7,8 +7,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import com.example.mdp.data.viewmodel.MealViewModel
-import com.example.mdp.utils.formatDate
+import com.example.mdp.navigation.LocalMealViewModel
+import com.example.mdp.utils.lineChartTimeFormatter
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottom
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStart
@@ -18,13 +18,12 @@ import com.patrykandpatrick.vico.core.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.core.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
 import com.patrykandpatrick.vico.core.cartesian.data.lineSeries
-import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun CalorieHistoryChart() {
 
-    val mealViewModel: MealViewModel = koinViewModel()
+    val mealViewModel = LocalMealViewModel.current
     val modelProducer = remember { CartesianChartModelProducer() }
     val calorieHistory by mealViewModel.calorieHistory.collectAsState()
 
@@ -65,7 +64,7 @@ fun CalorieHistoryChart() {
                         val index = value.toInt() - 1
                         if (index in calorieHistory.indices) {
                             val dateStr = calorieHistory[index].date
-                            formatDate(dateStr)
+                            lineChartTimeFormatter(dateStr)
                         } else {
                             // Return a valid placeholder for out-of-bounds indices
                             "Day ${index + 1}" // Using Day N for placeholder
