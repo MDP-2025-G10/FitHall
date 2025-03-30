@@ -23,7 +23,7 @@ import java.util.concurrent.Executors
 
 
 @Composable
-fun Camera(navController: NavController, onImageCaptured: (Bitmap) -> Unit) {
+fun Camera(onImageCaptured: (Bitmap) -> Unit) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
