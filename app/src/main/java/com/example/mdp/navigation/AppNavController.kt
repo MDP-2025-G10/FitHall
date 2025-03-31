@@ -21,6 +21,7 @@ import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
 import com.example.mdp.ui.screens.Workout
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.ui.screens.FoodScannerScreen
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
@@ -65,7 +66,7 @@ fun AppNavController() {
 
         composable(
             route = NavRoutes.RouteToCamera.route,
-        ) { Camera(navController) }
+        ) { FoodScannerScreen(navController) }
 
         composable(
             route = NavRoutes.RouteToCalendar.route,

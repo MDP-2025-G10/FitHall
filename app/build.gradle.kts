@@ -133,7 +133,7 @@ dependencies {
 
     // TensorFlow Lite (TFLite) for model inference
     implementation("org.tensorflow:tensorflow-lite:2.10.0")
-    implementation("org.tensorflow:tensorflow-lite-support:2.10.0")
+//    implementation("org.tensorflow:tensorflow-lite-support:2.10.0")
 
     // CameraX for capturing images
     implementation("androidx.camera:camera-core:1.2.0")
