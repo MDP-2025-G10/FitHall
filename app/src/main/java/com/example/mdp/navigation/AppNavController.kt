@@ -13,8 +13,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.mdp.data.viewmodel.DateViewModel
-import com.example.mdp.data.viewmodel.MealViewModel
+import com.example.mdp.firebase.firestore.viewModel.DateViewModel
+import com.example.mdp.firebase.firestore.viewModel.MealViewModel
 import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.ui.screens.Auth

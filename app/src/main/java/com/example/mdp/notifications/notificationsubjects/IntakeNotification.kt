@@ -4,13 +4,11 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import com.example.mdp.data.viewmodel.MealViewModel
 import com.example.mdp.notifications.NotificationHelper
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.edit
 import com.example.mdp.navigation.LocalMealViewModel
-import org.koin.androidx.compose.koinViewModel
 
 @androidx.annotation.RequiresPermission(android.Manifest.permission.POST_NOTIFICATIONS)
 @Composable
