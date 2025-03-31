@@ -7,6 +7,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 import com.example.mdp.navigation.LocalMealViewModel
 import com.example.mdp.utils.lineChartTimeFormatter
 import com.patrykandpatrick.vico.compose.cartesian.CartesianChartHost
@@ -14,6 +16,7 @@ import com.patrykandpatrick.vico.compose.cartesian.axis.rememberBottom
 import com.patrykandpatrick.vico.compose.cartesian.axis.rememberStart
 import com.patrykandpatrick.vico.compose.cartesian.layer.rememberLineCartesianLayer
 import com.patrykandpatrick.vico.compose.cartesian.rememberCartesianChart
+import com.patrykandpatrick.vico.compose.common.component.rememberTextComponent
 import com.patrykandpatrick.vico.core.cartesian.axis.HorizontalAxis
 import com.patrykandpatrick.vico.core.cartesian.axis.VerticalAxis
 import com.patrykandpatrick.vico.core.cartesian.data.CartesianChartModelProducer
@@ -58,8 +61,19 @@ fun CalorieHistoryChart() {
         CartesianChartHost(
             rememberCartesianChart(
                 rememberLineCartesianLayer(),
-                startAxis = VerticalAxis.rememberStart(),
+                startAxis = VerticalAxis.rememberStart(
+                    titleComponent = rememberTextComponent(
+                        color = Color.LightGray,
+                        textSize = 16.sp
+                    ),
+                    title = "Calories"
+                ),
                 bottomAxis = HorizontalAxis.rememberBottom(
+                    titleComponent = rememberTextComponent(
+                        color = Color.LightGray,
+                        textSize = 16.sp
+                    ),
+                    title = "Date",
                     valueFormatter = { _, value, _ ->
                         val index = value.toInt() - 1
                         if (index in calorieHistory.indices) {
