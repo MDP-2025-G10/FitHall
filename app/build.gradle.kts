@@ -28,8 +28,9 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
-        val usdaApiKey = localProperties.getProperty("USDA_API_KEY") ?: ""
-        buildConfigField("String", "USDA_API_KEY", usdaApiKey)
+        buildConfigField("String", "IMGUR_CLIENT_ID", "\"${project.properties["IMGUR_CLIENT_ID"]}\"")
+        buildConfigField("String", "IMGUR_CLIENT_SECRET", "\"${project.properties["IMGUR_CLIENT_SECRET"]}\"")
+        buildConfigField("String", "USDA_API_KEY", "\"${project.properties["USDA_API_KEY"]}\"")
     }
 
     buildTypes {
