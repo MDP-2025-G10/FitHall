@@ -49,7 +49,7 @@ fun FoodPopUp(meal: Meal, onDismiss: () -> Unit) {
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
                 selectedImageUri = uri
-                uploadImageToImgur(context,uri, imgurViewModel) { uploadedLink ->
+                uploadImageToImgur(context, uri, imgurViewModel) { uploadedLink ->
                     imagePath = uploadedLink // Store the Imgur link for saving the meal
                 }
             }
@@ -107,17 +107,17 @@ fun FoodPopUp(meal: Meal, onDismiss: () -> Unit) {
         },
         confirmButton = {
             Button(onClick = {
-                if (mealName.isNotEmpty()) {
+                if (mealName.isNotEmpty() && imagePath.isNotEmpty()) {
                     val newMeal = Meal(
                         name = mealName,
                         calories = calories.toIntOrNull() ?: 0,
                         fats = fats.toIntOrNull() ?: 0,
                         carbs = carbs.toIntOrNull() ?: 0,
                         proteins = protein.toIntOrNull() ?: 0,
-                        imagePath = "",
+                        imagePath = imagePath,
                         timestamp = System.currentTimeMillis()
                     )
-                    mealViewModel.insertMeal(newMeal)
+                    mealViewModel.insertMeal(newMeal, imagePath)
                     onDismiss()
                 }
             }) {
@@ -146,7 +146,9 @@ fun uploadImageToImgur(
 
         imgurViewModel.uploadImage(body) { result ->
             result.onSuccess { imgurResponse ->
-                onUploaded(imgurResponse.data.link)
+                val uploadedUrl = imgurResponse.data.link
+                Log.d("FoodPopUp", "Uploaded Image URL: $uploadedUrl") // Debug Log
+                onUploaded(uploadedUrl)
             }.onFailure { error ->
                 Log.e("FoodPopUp", "Error uploading image: ${error.message}")
             }

@@ -30,8 +30,8 @@ class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
             .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
     }
 
-    fun insertMeal(meal: Meal) = viewModelScope.launch(Dispatchers.IO) {
-        mealRepository.insertMeal(meal)
+    fun insertMeal(meal: Meal, imagePath: String) = viewModelScope.launch(Dispatchers.IO) {
+        mealRepository.insertMeal(meal.copy(imagePath = imagePath))
     }
 
     fun deleteMeal(meal: Meal) = viewModelScope.launch(Dispatchers.IO) {
