@@ -1,4 +1,4 @@
-package com.example.mdp.notifications
+package com.example.mdp.notifications.notificationutil.notifications
 
 import android.Manifest
 import android.content.BroadcastReceiver

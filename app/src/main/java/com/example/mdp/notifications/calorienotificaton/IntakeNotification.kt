@@ -1,26 +1,28 @@
-package com.example.mdp.notifications.notificationsubjects
+package com.example.mdp.notifications.calorienotificaton
 
+import android.Manifest
 import android.content.Context
+import androidx.annotation.RequiresPermission
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import com.example.mdp.data.viewmodel.MealViewModel
-import com.example.mdp.notifications.NotificationHelper
+import com.example.mdp.notifications.notificationutil.notifications.NotificationHelper
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.edit
 import com.example.mdp.navigation.LocalMealViewModel
-import org.koin.androidx.compose.koinViewModel
 
-@androidx.annotation.RequiresPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 @Composable
-fun IntakeNotification( totalCalories: Int, dailyGoal: Int) {
+/// This function is responsible for sending notifications when the user exceeds their daily calorie goal.
+fun IntakeNotification(totalCalories: Int, dailyGoal: Int) {
     val mealViewModel = LocalMealViewModel.current
     val calorieHistory by mealViewModel.calorieHistory.collectAsState()
     val context = LocalContext.current
     val sharedPreferences = context.getSharedPreferences("NotificationPrefs", Context.MODE_PRIVATE)
 
     LaunchedEffect(calorieHistory) {
+        // Check if the calorie history is not empty and if the last entry is different from the last notified calories
         if (calorieHistory.isNotEmpty()) {
             val lastEntry = calorieHistory.last()
             val lastNotificationTime = sharedPreferences.getLong("lastNotificationTime", 0L)

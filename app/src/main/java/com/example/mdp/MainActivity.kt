@@ -10,9 +10,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.mdp.navigation.AppNavController
-import com.example.mdp.notifications.NotificationHelper
+import com.example.mdp.notifications.notificationutil.notifications.NotificationHelper
+//import com.example.mdp.notifications.notificationutil.notifications.NotificationWorker
 import com.example.mdp.ui.theme.MDPTheme
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
@@ -23,6 +27,14 @@ class MainActivity : ComponentActivity() {
 
         NotificationHelper.createNotificationChannel(this)
         checkAndRequestNotificationPermission()
+
+
+        // Schedule initial work
+//        val initialRequest = OneTimeWorkRequestBuilder<NotificationWorker>()
+//            .setInitialDelay(1, TimeUnit.HOURS) // Adjust the delay as needed
+//            .build()
+//        WorkManager.getInstance(this).enqueue(initialRequest)
+
 
         setContent {
             MDPTheme {
