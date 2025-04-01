@@ -2,6 +2,7 @@ package com.example.mdp
 
 import android.app.Application
 import android.util.Log
+import androidx.camera.core.CameraXConfig
 import com.example.mdp.di.appModule
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -9,6 +10,11 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class FitHallApplication : Application() {
+//    override fun getCameraXConfig(): CameraXConfig {
+//        return CameraXConfig.Builder()
+//            .setMinimumLoggingLevel(CameraXConfig.LogLevel.INFO)
+//            .build()
+//    }
     override fun onCreate() {
         super.onCreate()
 

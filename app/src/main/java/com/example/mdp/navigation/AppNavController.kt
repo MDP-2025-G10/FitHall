@@ -1,5 +1,6 @@
 package com.example.mdp.navigation
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -11,22 +12,21 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
-import com.example.mdp.ui.screens.Camera
 import com.example.mdp.ui.screens.Food
+import com.example.mdp.ui.screens.FoodScannerScreen
 import com.example.mdp.ui.screens.Home
 import com.example.mdp.ui.screens.Nutrition
 import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
 import com.example.mdp.ui.screens.Workout
-import com.example.mdp.firebase.auth.viewModel.AuthViewModel
-import com.example.mdp.ui.screens.FoodScannerScreen
 import org.koin.androidx.compose.koinViewModel
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun AppNavController() {
+fun AppNavController(context: Context) {
 
     val authViewModel: AuthViewModel = koinViewModel()
     val navController = rememberNavController()
@@ -66,7 +66,7 @@ fun AppNavController() {
 
         composable(
             route = NavRoutes.RouteToCamera.route,
-        ) { FoodScannerScreen(navController) }
+        ) { FoodScannerScreen(navController, context) }
 
         composable(
             route = NavRoutes.RouteToCalendar.route,

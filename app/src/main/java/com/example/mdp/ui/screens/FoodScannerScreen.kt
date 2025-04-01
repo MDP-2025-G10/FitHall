@@ -1,5 +1,6 @@
 package com.example.mdp.ui.screens
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
@@ -19,7 +20,7 @@ import com.example.mdp.ui.components.assets.getNutritionInfo
 
 
 @Composable
-fun FoodScannerScreen(navController: NavController) {
+fun FoodScannerScreen(navController: NavController, context: Context) {
     // This is where you would implement the UI for the Food Scanner screen
     // You can use Jetpack Compose to create the UI components
     // For example, you can create a button to capture an image and display the results
@@ -32,7 +33,7 @@ fun FoodScannerScreen(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         if (showCamera) {
             Camera { bitmap ->
-                foodRecognitionLabels (bitmap) { foodList ->
+                foodRecognitionLabels (context, bitmap) { foodList ->
                     if (foodList.isNotEmpty()) {
                         detectedFood = foodList[0]
                         getNutritionInfo(detectedFood) { nutrition ->

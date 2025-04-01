@@ -1,7 +1,6 @@
 package com.example.mdp.ui.components.assets
 
 import android.util.Log
-import com.google.firebase.BuildConfig
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
