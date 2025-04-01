@@ -128,19 +128,19 @@ dependencies {
     implementation(libs.vico.compose.m3)
 
     // Kotlin Coroutines
-
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
 
-    //work manager
+    //  work manager
      implementation(libs.androidx.work.runtime.ktx)
-
-
 
     //  gms
     implementation(libs.play.services.auth)
 
+    //  Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }
 
 
