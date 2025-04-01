@@ -2,14 +2,13 @@
 
 package com.example.mdp.ui.components.assets
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
-import android.content.Context
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.automl.AutoMLImageLabelerLocalModel
 import com.google.mlkit.vision.label.automl.AutoMLImageLabelerOptions
-import java.nio.ByteBuffer
 
 fun foodRecognitionLabels(context: Context, bitmap: Bitmap, onResult: (List<String>) -> Unit) {
 

@@ -136,9 +136,9 @@ dependencies {
 //    implementation("org.tensorflow:tensorflow-lite-support:2.10.0")
 
     // CameraX for capturing images
-    implementation("androidx.camera:camera-core:1.3.0")
-    implementation("androidx.camera:camera-lifecycle:1.3.0")
-    implementation("androidx.camera:camera-view:1.3.0")
-    implementation("androidx.camera:camera-camera2:1.3.0")
+    implementation("androidx.camera:camera-core:1.4.2")
+    implementation("androidx.camera:camera-lifecycle:1.4.2")
+    implementation("androidx.camera:camera-view:1.4.2")
+    implementation("androidx.camera:camera-camera2:1.4.2")
 
 }

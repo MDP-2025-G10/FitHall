@@ -2,7 +2,6 @@ package com.example.mdp
 
 import android.app.Application
 import android.util.Log
-import androidx.camera.core.CameraXConfig
 import com.example.mdp.di.appModule
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
