@@ -16,7 +16,7 @@ fun ProfilePageWorkoutCard(workouts: Workouts) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(4.dp)
     ) {
         Text(
             text = workouts.name,

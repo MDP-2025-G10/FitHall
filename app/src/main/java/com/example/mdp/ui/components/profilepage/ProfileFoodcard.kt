@@ -21,7 +21,7 @@ import com.example.mdp.data.model.Meal
 fun ProfileFoodCard(meal: Meal) {
     Card(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(4.dp)
             .size(200.dp)
     ) {
         Column {
