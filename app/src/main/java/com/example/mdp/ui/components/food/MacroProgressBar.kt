@@ -31,7 +31,6 @@ fun MacroProgressBar(carbs: Int, protein: Int, fats: Int) {
     val fatColor = Color(0xFFFF9B78)
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        Text("Macronutrient Breakdown", fontSize = 18.sp, fontWeight = FontWeight.Bold)
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()

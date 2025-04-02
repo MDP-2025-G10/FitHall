@@ -30,7 +30,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.example.mdp.data.model.Meal
@@ -94,7 +96,7 @@ fun HistoryCard(meal: Meal) {
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Column(modifier = Modifier.weight(0.9f)) {
-                Text(mealName, style = MaterialTheme.typography.titleMedium)
+                Text(mealName, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Text("Calories: $calories kcal")
 //                Text("Carbs: $carbs g")
 //                Text("Protein: $protein g")
