@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -82,14 +81,16 @@ fun MacroProgressBar(carbs: Int, protein: Int, fats: Int) {
 }
 
 @Composable
-fun LegendItem(color: Color, label: String,percentage: Float) {
+fun LegendItem(color: Color, label: String, percentage: Float) {
     Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
         Canvas(modifier = Modifier.size(12.dp)) {
             drawCircle(color)
         }
-        Text(            text = "$label ${"%.1f".format(percentage * 100)}%",
+        Text(
+            text = "$label ${"%.1f".format(percentage * 100)}%",
             modifier = Modifier.padding(start = 4.dp),
-            fontSize = 14.sp)
+            fontSize = 14.sp
+        )
 
     }
 }
