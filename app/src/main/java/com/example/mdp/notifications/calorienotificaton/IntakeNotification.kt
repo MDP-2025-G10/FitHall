@@ -6,11 +6,11 @@ import androidx.annotation.RequiresPermission
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import com.example.mdp.notifications.notificationutil.notifications.NotificationHelper
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.edit
 import com.example.mdp.navigation.LocalMealViewModel
+import com.example.mdp.notifications.notificationutil.notifications.NotificationHelper
 
 @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 @Composable

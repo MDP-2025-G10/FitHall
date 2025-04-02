@@ -28,8 +28,13 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
+
         val usdaApiKey = localProperties.getProperty("USDA_API_KEY") ?: ""
-        buildConfigField("String", "USDA_API_KEY", usdaApiKey)
+        val imgurClientSecret = localProperties.getProperty("IMGUR_CLIENT_SECRET") ?: ""
+        val imgurClientId = localProperties.getProperty("IMGUR_CLIENT_ID") ?: ""
+        buildConfigField("String", "USDA_API_KEY", "\"$usdaApiKey\"")
+        buildConfigField("String", "IMGUR_CLIENT_SECRET", "\"$imgurClientSecret\"")
+        buildConfigField("String", "IMGUR_CLIENT_ID", "\"$imgurClientId\"")
     }
 
     buildTypes {
@@ -82,22 +87,19 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // RESTFul API
-//    implementation(libs.kotlinx.coroutines.android)
-//    implementation(libs.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-//     Room
+    //  Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-
-//    material icons extension
+    //  material icons extension
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.material.icons.extended)
 
-//    // Koin
+    //  Koin
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
 
@@ -127,19 +129,19 @@ dependencies {
     implementation(libs.vico.compose.m3)
 
     // Kotlin Coroutines
-
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
 
-    //work manager
-    implementation(libs.androidx.work.runtime.ktx)
-
-
+    //  work manager
+     implementation(libs.androidx.work.runtime.ktx)
 
     //  gms
     implementation(libs.play.services.auth)
 
+    //  Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }
 
 

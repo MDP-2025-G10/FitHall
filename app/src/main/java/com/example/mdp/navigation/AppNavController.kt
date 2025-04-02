@@ -13,10 +13,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.mdp.data.viewmodel.DateViewModel
-import com.example.mdp.data.viewmodel.MealViewModel
+import com.example.mdp.firebase.firestore.viewModel.DateViewModel
+import com.example.mdp.firebase.firestore.viewModel.MealViewModel
 import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
 import com.example.mdp.ui.screens.Camera
@@ -35,6 +36,7 @@ val LocalMealViewModel = compositionLocalOf<MealViewModel> { error("No MealViewM
 val LocalFoodViewModel = compositionLocalOf<FoodViewModel> { error("No FoodViewModel provided") }
 val LocalWorkoutViewModel =
     compositionLocalOf<WorkoutViewModel> { error("No WorkoutViewModel provided") }
+val LocalImgurViewModel = compositionLocalOf<ImgurViewModel> { error("No ImgurViewModel provided") }
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
@@ -47,6 +49,7 @@ fun AppNavController() {
     val mealViewModel: MealViewModel = koinViewModel()
     val foodViewModel: FoodViewModel = koinViewModel()
     val workoutViewModel: WorkoutViewModel = koinViewModel()
+    val imgurViewModel: ImgurViewModel = koinViewModel()
 
     val currentUser by authViewModel.currentUser.observeAsState()
 
@@ -58,6 +61,7 @@ fun AppNavController() {
         LocalMealViewModel provides mealViewModel,
         LocalFoodViewModel provides foodViewModel,
         LocalWorkoutViewModel provides workoutViewModel,
+        LocalImgurViewModel provides imgurViewModel,
     ) {
         NavHost(
             navController = navController,

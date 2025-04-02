@@ -19,9 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mdp.data.viewmodel.MealViewModel
-import com.example.mdp.data.viewmodel.WorkoutViewModel
-import com.example.mdp.navigation.LocalAuthViewModel
 import com.example.mdp.navigation.LocalMealViewModel
 import com.example.mdp.navigation.LocalWorkoutViewModel
 import com.example.mdp.ui.components.profilepage.Bmicalculator
@@ -29,7 +26,6 @@ import com.example.mdp.ui.components.profilepage.ProfileCard
 import com.example.mdp.ui.components.profilepage.ProfileFoodCard
 import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
 import com.example.mdp.ui.components.toolbar.TopBar
-import org.koin.androidx.compose.koinViewModel
 
 
 @Composable

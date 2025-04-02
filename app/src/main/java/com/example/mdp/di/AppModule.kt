@@ -2,14 +2,17 @@ package com.example.mdp.di
 
 
 import com.example.mdp.data.database.WorkoutDatabase
-import com.example.mdp.data.repository.MealRepository
+import com.example.mdp.firebase.firestore.repository.MealRepository
 import com.example.mdp.data.repository.WorkoutRepository
-import com.example.mdp.data.viewmodel.DateViewModel
-import com.example.mdp.data.viewmodel.MealViewModel
+import com.example.mdp.firebase.firestore.viewModel.DateViewModel
+import com.example.mdp.firebase.firestore.viewModel.MealViewModel
 import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.repository.AuthRepository
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
-import com.example.mdp.usda.RetrofitInstance
+import com.example.mdp.imgur.ImgurRetrofitInstance
+import com.example.mdp.imgur.repository.ImgurRepository
+import com.example.mdp.imgur.viewmodel.ImgurViewModel
+import com.example.mdp.usda.USDARetrofitInstance
 import com.example.mdp.usda.repository.FoodRepository
 import com.example.mdp.usda.viewmodel.FoodViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -37,11 +40,16 @@ val appModule = module {
     //  single { MealDatabase.getDatabase(get()).mealDao() }
     viewModel { MealViewModel(get()) }
 
-    //  USDAApiService
-    single { RetrofitInstance.api }
+    //  USDAApi
+    single { USDARetrofitInstance.api }
     single { FoodRepository(get()) }
     viewModel { FoodViewModel(get()) }
 
     //  date
     viewModel { DateViewModel() }
+
+    //  ImgurApi
+    single { ImgurRetrofitInstance.api }
+    single { ImgurRepository(get()) }
+    viewModel { ImgurViewModel(get()) }
 }

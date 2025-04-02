@@ -1,4 +1,4 @@
-package com.example.mdp.data.viewmodel
+package com.example.mdp.firebase.firestore.viewModel
 
 import android.util.Log
 import androidx.compose.runtime.State
