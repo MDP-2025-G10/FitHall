@@ -6,8 +6,13 @@ import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -18,9 +23,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.mdp.data.model.Meal
 import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.navigation.LocalImgurViewModel
@@ -65,49 +76,84 @@ fun FoodPopUp(meal: Meal, onDismiss: () -> Unit) {
                     value = mealName,
                     onValueChange = { mealName = it },
                     label = { Text("Meal Name") },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 5.dp),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
-                OutlinedTextField(
-                    value = calories,
-                    onValueChange = { it.toIntOrNull() ?: 0 },
-                    label = { Text("Calories (kcal)") },
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-                OutlinedTextField(
-                    value = fats,
-                    onValueChange = { it.toIntOrNull() ?: 0 },
-                    label = { Text("Fats (g)") },
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-                OutlinedTextField(
-                    value = carbs,
-                    onValueChange = { it.toIntOrNull() ?: 0 },
-                    label = { Text("Carbs (g)") },
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-                OutlinedTextField(
-                    value = protein,
-                    onValueChange = { it.toIntOrNull() ?: 0 },
-                    label = { Text("Proteins (g)") },
-                    modifier = Modifier.fillMaxWidth(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                Row(modifier = Modifier.padding(bottom = 5.dp)) {
+                    OutlinedTextField(
+                        value = calories,
+                        onValueChange = { it.toIntOrNull() ?: 0 },
+                        label = { Text("Calories (kcal)") },
+                        modifier = Modifier
+                            .weight(0.5f)
+                            .padding(end = 2.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                    OutlinedTextField(
+                        value = fats,
+                        onValueChange = { it.toIntOrNull() ?: 0 },
+                        label = { Text("Fats (g)") },
+                        modifier = Modifier
+                            .weight(0.5f)
+                            .padding(start = 2.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                }
+
+                Row(modifier = Modifier.padding(bottom = 10.dp)) {
+                    OutlinedTextField(
+                        value = carbs,
+                        onValueChange = { it.toIntOrNull() ?: 0 },
+                        label = { Text("Carbs (g)") },
+                        modifier = Modifier
+                            .weight(0.5f)
+                            .padding(end = 2.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                    OutlinedTextField(
+                        value = protein,
+                        onValueChange = { it.toIntOrNull() ?: 0 },
+                        label = { Text("Proteins (g)") },
+                        modifier = Modifier
+                            .weight(0.5f)
+                            .padding(start = 2.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                }
+
+                AsyncImage(
+                    model = selectedImageUri ?: imagePath,
+                    contentDescription = "Selected Image",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                        .align(Alignment.CenterHorizontally)
+                        .size(200.dp),
+                    contentScale = ContentScale.Crop
                 )
 
                 // Pick Image Button
-                Button(onClick = { imagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }) {
-                    Text("Select Photo")
-                }
+                Button(
+                    onClick = {
+                        imagePicker.launch(
+                            PickVisualMediaRequest(
+                                ActivityResultContracts.PickVisualMedia.ImageOnly
+                            )
+                        )
+                    },
+                    modifier = Modifier.align(Alignment.Start)
+
+                ) { Text("Select Photo") }
 
             }
 
         },
         confirmButton = {
-            Button(onClick = {
-                if (mealName.isNotEmpty() && imagePath.isNotEmpty()) {
+            Button(
+                onClick = {
                     val newMeal = Meal(
                         name = mealName,
                         calories = calories.toIntOrNull() ?: 0,
@@ -119,8 +165,10 @@ fun FoodPopUp(meal: Meal, onDismiss: () -> Unit) {
                     )
                     mealViewModel.insertMeal(newMeal, imagePath)
                     onDismiss()
-                }
-            }) {
+
+                },
+                enabled = mealName.isNotEmpty() && imagePath.isNotEmpty()
+            ) {
                 Text("Save")
             }
         },
