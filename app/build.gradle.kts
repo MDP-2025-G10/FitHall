@@ -140,8 +140,9 @@ dependencies {
     implementation(libs.play.services.auth)
 
     //  Coil
-    implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.kt.coil.compose)
 }
 
 

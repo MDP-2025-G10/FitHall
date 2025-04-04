@@ -29,6 +29,10 @@ class AuthRepository(private val auth: FirebaseAuth, private val context: Contex
         return auth.currentUser
     }
 
+    fun getUserProfileIMage(): String? {
+        return auth.currentUser?.photoUrl.toString()
+    }
+
     fun register(email: String, password: String, onResult: (FirebaseUser?) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->

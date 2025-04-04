@@ -1,5 +1,8 @@
 package com.example.mdp.ui.components.profilepage
 
+import android.R.style
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -18,16 +21,27 @@ fun ProfilePageWorkoutCard(workouts: Workouts) {
             .fillMaxWidth()
             .padding(4.dp)
     ) {
-        Text(
-            text = workouts.name,
-            fontSize = 20.sp,
-            style = MaterialTheme.typography.titleLarge
-        )
+        Row {
+            Column{
+//            Text(text = workouts.date,
+//                fontSize = 14.sp,
+//                style = MaterialTheme.typography.titleMedium
+//            )
+            }
 
-        Text(
-            text = workouts.description,
-            fontSize = 14.sp,
-            style = MaterialTheme.typography.titleMedium
-        )
+            Column {
+                Text(
+                    text = workouts.name,
+                    fontSize = 20.sp,
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Text(
+                    text = workouts.description,
+                    fontSize = 14.sp,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+        }
     }
 }
