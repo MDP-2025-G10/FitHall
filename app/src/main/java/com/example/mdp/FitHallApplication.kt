@@ -12,7 +12,11 @@ import org.koin.core.context.startKoin
 
 
 class FitHallApplication : Application() {
-
+//    override fun getCameraXConfig(): CameraXConfig {
+//        return CameraXConfig.Builder()
+//            .setMinimumLoggingLevel(CameraXConfig.LogLevel.INFO)
+//            .build()
+//    }
     override fun onCreate() {
         super.onCreate()
 
@@ -24,7 +28,7 @@ class FitHallApplication : Application() {
             Log.d("FitHallApplication", "Firebase initialized successfully")
         } catch (e: Exception) {
             Log.e("FitHallApplication", "Error initializing Firebase: ${e.message}")
-            return
+            return // Exit if Firebase initialization fails
         }
 
         // Log all initialized FirebaseApp instances
@@ -49,5 +53,4 @@ class FitHallApplication : Application() {
 
         Log.d("FitHallApplication", "Koin started successfully")
     }
-
 }

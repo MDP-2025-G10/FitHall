@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+
 //     Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
@@ -139,6 +140,19 @@ dependencies {
 
     //  gms
     implementation(libs.play.services.auth)
+
+    // Firebase ML Kit & AutoML Vision Edge
+    implementation("com.google.mlkit:image-labeling-automl:16.2.1")
+
+    // TensorFlow Lite (TFLite) for model inference
+    implementation("org.tensorflow:tensorflow-lite:2.10.0")
+//    implementation("org.tensorflow:tensorflow-lite-support:2.10.0")
+
+    // CameraX for capturing images
+    implementation("androidx.camera:camera-core:1.4.2")
+    implementation("androidx.camera:camera-lifecycle:1.4.2")
+    implementation("androidx.camera:camera-view:1.4.2")
+    implementation("androidx.camera:camera-camera2:1.4.2")
 
 }
 

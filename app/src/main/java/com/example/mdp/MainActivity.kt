@@ -2,6 +2,7 @@ package com.example.mdp
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -38,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MDPTheme {
-                AppNavController()
+                AppNavController(context = this)
             }
         }
     }

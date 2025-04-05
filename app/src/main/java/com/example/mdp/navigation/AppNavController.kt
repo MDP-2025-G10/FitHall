@@ -1,5 +1,6 @@
 package com.example.mdp.navigation
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -19,8 +20,8 @@ import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
-import com.example.mdp.ui.screens.Camera
 import com.example.mdp.ui.screens.Food
+import com.example.mdp.ui.screens.FoodScannerScreen
 import com.example.mdp.ui.screens.Home
 import com.example.mdp.ui.screens.Nutrition
 import com.example.mdp.ui.screens.Profile
@@ -38,7 +39,7 @@ val LocalWorkoutViewModel =
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun AppNavController() {
+fun AppNavController(context: Context) {
 
     val navController = rememberNavController()
 
@@ -89,9 +90,9 @@ fun AppNavController() {
                 route = NavRoutes.RouteToWorkout.route,
             ) { Workout(navController) }
 
-            composable(
-                route = NavRoutes.RouteToCamera.route,
-            ) { Camera(navController) }
+        composable(
+            route = NavRoutes.RouteToCamera.route,
+        ) { FoodScannerScreen(navController, context) }
 
             composable(
                 route = NavRoutes.RouteToCalendar.route,
@@ -109,5 +110,4 @@ fun AppNavController() {
 
         }
     }
-
 }
