@@ -1,4 +1,4 @@
-package com.example.mdp.data.repository
+package com.example.mdp.firebase.firestore.repository
 
 import android.util.Log
 import com.example.mdp.data.model.DailyCalories

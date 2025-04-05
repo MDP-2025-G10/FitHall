@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.example.mdp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileCard(profileName: String, handle: String) {
+fun ProfileCard(profileName: String, handle: String, profileImageUrl: String?) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -28,7 +28,9 @@ fun ProfileCard(profileName: String, handle: String) {
             horizontalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_profileplaceholderimage),
+                painter = rememberAsyncImagePainter(
+                    model = profileImageUrl ?: R.drawable.ic_profileplaceholderimage
+                ),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(220.dp)
