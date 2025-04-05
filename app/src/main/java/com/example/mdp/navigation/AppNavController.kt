@@ -90,9 +90,9 @@ fun AppNavController(context: Context) {
                 route = NavRoutes.RouteToWorkout.route,
             ) { Workout(navController) }
 
-        composable(
+            composable(
             route = NavRoutes.RouteToCamera.route,
-        ) { FoodScannerScreen(navController, context) }
+            ) { FoodScannerScreen(navController, context) }
 
             composable(
                 route = NavRoutes.RouteToCalendar.route,
