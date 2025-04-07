@@ -22,7 +22,7 @@ fun getNutritionInfo(foodName: String, onResponse: (String) -> Unit) {
         }
 
         override fun onResponse(call: Call, response: Response) {
-            response.body()?.string()?.let {
+            response.body?.string()?.let {
                 val json = JSONObject(it)
                 val calories = json.optJSONObject("product")
                     ?.optJSONObject("nutriments")

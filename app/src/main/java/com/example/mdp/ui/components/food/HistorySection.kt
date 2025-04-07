@@ -110,7 +110,7 @@ fun HistoryCard(meal: Meal) {
                         .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
                         .align(Alignment.CenterHorizontally)
                         .size(200.dp),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Fit
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
