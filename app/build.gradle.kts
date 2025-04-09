@@ -56,6 +56,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        mlModelBinding = true
     }
     packaging {
         resources {
@@ -81,6 +82,8 @@ dependencies {
     implementation(libs.androidx.espresso.core)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.runtime)
+    implementation(libs.tensorflow.lite.support)
+    implementation(libs.tensorflow.lite.metadata)
 
     //  Test
     debugImplementation(libs.androidx.ui.tooling)
