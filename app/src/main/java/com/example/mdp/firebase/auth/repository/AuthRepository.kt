@@ -9,6 +9,8 @@ import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialException
 import com.example.mdp.R
+import com.example.mdp.firebase.firestore.model.User
+import com.example.mdp.firebase.firestore.repository.UserRepository
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +22,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.security.SecureRandom
 
-class AuthRepository(private val auth: FirebaseAuth, private val context: Context) {
+class AuthRepository(
+    private val auth: FirebaseAuth,
+    private val context: Context,
+    private val userRepository: UserRepository
+) {
 
     private val credentialManager = CredentialManager.create(context)
 
@@ -29,7 +35,7 @@ class AuthRepository(private val auth: FirebaseAuth, private val context: Contex
         return auth.currentUser
     }
 
-    fun getUserProfileIMage(): String? {
+    fun getUserProfileIMage(): String {
         return auth.currentUser?.photoUrl.toString()
     }
 
@@ -114,7 +120,20 @@ class AuthRepository(private val auth: FirebaseAuth, private val context: Contex
 
                         // Use the ID token to sign in with Firebase
                         val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-                        auth.signInWithCredential(firebaseCredential).await()
+                        val authResult = auth.signInWithCredential(firebaseCredential).await()
+                        val firebaseUser = authResult.user
+                        firebaseUser?.let {
+                            val user = User(
+                                uid = it.uid,
+                                name = it.displayName ?: "",
+                                email = it.email ?: "",
+                                profilePic = it.photoUrl?.toString() ?: "",
+                                birthday = "",
+                                height = 0f,
+                                weight = 0f
+                            )
+                            userRepository.createUserIfNotExists(user)
+                        }
                         true
                     } catch (e: Exception) {
                         Log.e(

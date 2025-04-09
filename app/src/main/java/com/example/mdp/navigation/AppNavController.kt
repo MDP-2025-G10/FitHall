@@ -14,10 +14,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.mdp.firebase.firestore.viewModel.DateViewModel
-import com.example.mdp.firebase.firestore.viewModel.MealViewModel
 import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.firebase.firestore.viewModel.DateViewModel
+import com.example.mdp.firebase.firestore.viewModel.MealViewModel
+import com.example.mdp.firebase.firestore.viewModel.UserViewModel
 import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
@@ -38,6 +39,8 @@ val LocalFoodViewModel = compositionLocalOf<FoodViewModel> { error("No FoodViewM
 val LocalWorkoutViewModel =
     compositionLocalOf<WorkoutViewModel> { error("No WorkoutViewModel provided") }
 val LocalImgurViewModel = compositionLocalOf<ImgurViewModel> { error("No ImgurViewModel provided") }
+val LocalUserViewModel = compositionLocalOf<UserViewModel> { error("No UserViewModel provided") }
+
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
@@ -51,6 +54,7 @@ fun AppNavController(context: Context) {
     val foodViewModel: FoodViewModel = koinViewModel()
     val workoutViewModel: WorkoutViewModel = koinViewModel()
     val imgurViewModel: ImgurViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
 
     val currentUser by authViewModel.currentUser.observeAsState()
 
@@ -63,6 +67,7 @@ fun AppNavController(context: Context) {
         LocalFoodViewModel provides foodViewModel,
         LocalWorkoutViewModel provides workoutViewModel,
         LocalImgurViewModel provides imgurViewModel,
+        LocalUserViewModel provides userViewModel,
     ) {
         NavHost(
             navController = navController,
@@ -95,7 +100,7 @@ fun AppNavController(context: Context) {
             ) { Workout(navController) }
 
             composable(
-            route = NavRoutes.RouteToCamera.route,
+                route = NavRoutes.RouteToCamera.route,
             ) { FoodScannerScreen(navController, context) }
 
             composable(

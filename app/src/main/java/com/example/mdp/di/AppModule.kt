@@ -2,13 +2,15 @@ package com.example.mdp.di
 
 
 import com.example.mdp.data.database.WorkoutDatabase
-import com.example.mdp.firebase.firestore.repository.MealRepository
 import com.example.mdp.data.repository.WorkoutRepository
-import com.example.mdp.firebase.firestore.viewModel.DateViewModel
-import com.example.mdp.firebase.firestore.viewModel.MealViewModel
 import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.repository.AuthRepository
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.firebase.firestore.repository.MealRepository
+import com.example.mdp.firebase.firestore.repository.UserRepository
+import com.example.mdp.firebase.firestore.viewModel.DateViewModel
+import com.example.mdp.firebase.firestore.viewModel.MealViewModel
+import com.example.mdp.firebase.firestore.viewModel.UserViewModel
 import com.example.mdp.imgur.ImgurRetrofitInstance
 import com.example.mdp.imgur.repository.ImgurRepository
 import com.example.mdp.imgur.viewmodel.ImgurViewModel
@@ -28,16 +30,16 @@ val appModule = module {
     single {
         AuthRepository(
             get(),
-            androidContext()
+            androidContext(), get()
         )
     }   //  Inject FirebaseAuth and context into AuthRepository
-    viewModel { AuthViewModel(get()) }  // Inject AuthRepository into AuthViewModel
+    viewModel { AuthViewModel(get(), get()) }  // Inject AuthRepository into AuthViewModel
 
     single { WorkoutDatabase.getDatabase(get()).workoutDao() }
     single { WorkoutRepository(get()) }
     viewModel { WorkoutViewModel(get()) }
 
-    //  single { MealDatabase.getDatabase(get()).mealDao() }
+
     viewModel { MealViewModel(get()) }
 
     //  USDAApi
@@ -45,11 +47,15 @@ val appModule = module {
     single { FoodRepository(get()) }
     viewModel { FoodViewModel(get()) }
 
-    //  date
+    //  Date
     viewModel { DateViewModel() }
 
     //  ImgurApi
     single { ImgurRetrofitInstance.api }
     single { ImgurRepository(get()) }
     viewModel { ImgurViewModel(get()) }
+
+    //  User
+    single { UserRepository(get()) }
+    viewModel { UserViewModel(get()) }
 }
