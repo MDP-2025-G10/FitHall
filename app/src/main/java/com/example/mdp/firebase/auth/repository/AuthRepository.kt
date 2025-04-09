@@ -27,37 +27,21 @@ class AuthRepository(
     private val context: Context,
     private val userRepository: UserRepository
 ) {
-
     private val credentialManager = CredentialManager.create(context)
 
-    fun getCurrentUser(): FirebaseUser? {
-        Log.d("currentUser", "${auth.currentUser} from AuthRepository getCurrentUser")
-        return auth.currentUser
-    }
-
-    fun getUserProfileIMage(): String {
-        return auth.currentUser?.photoUrl.toString()
-    }
+    fun getCurrentUser(): FirebaseUser? = auth.currentUser
 
     fun register(email: String, password: String, onResult: (FirebaseUser?) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    onResult(auth.currentUser)
-                } else {
-                    onResult(null)
-                }
+                onResult(if (task.isSuccessful) auth.currentUser else null)
             }
     }
 
     fun login(email: String, password: String, onResult: (FirebaseUser?) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    onResult(auth.currentUser)
-                } else {
-                    onResult(null)
-                }
+                onResult(if (task.isSuccessful) auth.currentUser else null)
             }
     }
 
