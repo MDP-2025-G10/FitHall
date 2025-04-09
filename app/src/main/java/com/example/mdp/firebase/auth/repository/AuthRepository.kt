@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
-import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialException
 import com.example.mdp.R
 import com.example.mdp.firebase.firestore.model.User
@@ -46,24 +45,22 @@ class AuthRepository(
     }
 
     suspend fun signInWithGoogle(): Boolean {
-        val clientId = context.getString(R.string.web_client_id)
-        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
-            .setFilterByAuthorizedAccounts(false) // Show only previously signed-in accounts
-            .setServerClientId(clientId) // Replace with your actual web client ID
-            .setAutoSelectEnabled(true) // Auto-select if only one account is available
-            .setNonce(generateNonce()) // Recommended for security
-            .build()
-        Log.d("AuthRepository", "Requesting credentials with GoogleIdOption: $googleIdOption")
-
-
-        val request = GetCredentialRequest.Builder()
-            .addCredentialOption(googleIdOption)
-            .build()
-
         return try {
-            // Get the credential
-            val result: GetCredentialResponse = credentialManager.getCredential(context, request)
-            handleSignIn(result)
+            val result = credentialManager.getCredential(context, buildGoogleSignInRequest())
+            result.credential.let { credential ->
+                if (credential is CustomCredential &&
+                    credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+                ) {
+                    val idToken = GoogleIdTokenCredential.createFrom(credential.data).idToken
+                    val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
+                    val authResult = auth.signInWithCredential(firebaseCredential).await()
+
+                    authResult.user?.let { createDefaultUserIfNeeded(it) }
+                    return true
+                }
+            }
+            Log.e("AuthRepository", "Invalid credential type")
+            false
         } catch (e: GetCredentialException) {
             Log.e("AuthRepository", "Google Sign-In failed: ${e.message}")
             false
@@ -85,6 +82,7 @@ class AuthRepository(
         }
     }
 
+    //    attach and remove listener to the authentication process
     fun addAuthStateListener(listener: FirebaseAuth.AuthStateListener) {
         auth.addAuthStateListener(listener)
     }
@@ -93,50 +91,33 @@ class AuthRepository(
         auth.removeAuthStateListener(listener)
     }
 
-    private suspend fun handleSignIn(result: GetCredentialResponse): Boolean {
-        return when (val credential = result.credential) {
-            is CustomCredential -> {
-                if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
-                    try {
-                        val googleIdTokenCredential =
-                            GoogleIdTokenCredential.createFrom(credential.data)
-                        val idToken = googleIdTokenCredential.idToken // Extract ID token
+    //  create a google sign-in request
+    private fun buildGoogleSignInRequest(): GetCredentialRequest {
+        val clientId = context.getString(R.string.web_client_id)
+        val googleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(false)
+            .setServerClientId(clientId)
+            .setAutoSelectEnabled(true)
+            .setNonce(generateNonce())
+            .build()
 
-                        // Use the ID token to sign in with Firebase
-                        val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-                        val authResult = auth.signInWithCredential(firebaseCredential).await()
-                        val firebaseUser = authResult.user
-                        firebaseUser?.let {
-                            val user = User(
-                                uid = it.uid,
-                                name = it.displayName ?: "",
-                                email = it.email ?: "",
-                                profilePic = it.photoUrl?.toString() ?: "",
-                                birthday = "",
-                                height = 0f,
-                                weight = 0f
-                            )
-                            userRepository.createUserIfNotExists(user)
-                        }
-                        true
-                    } catch (e: Exception) {
-                        Log.e(
-                            "AuthRepository",
-                            "Failed to handle Google ID Token credential: ${e.message}"
-                        )
-                        false
-                    }
-                } else {
-                    Log.e("AuthRepository", "Unexpected type of credential")
-                    false
-                }
-            }
+        return GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+    }
 
-            else -> {
-                Log.e("AuthRepository", "Unexpected type of credential")
-                false
-            }
-        }
+    private suspend fun createDefaultUserIfNeeded(firebaseUser: FirebaseUser) {
+        val user = User(
+            uid = firebaseUser.uid,
+            name = firebaseUser.displayName.orEmpty(),
+            email = firebaseUser.email.orEmpty(),
+            profilePic = firebaseUser.photoUrl?.toString().orEmpty(),
+            birthday = "",
+            height = 0f,
+            weight = 0f,
+            age = 0
+        )
+        userRepository.createUserIfNotExists(user)
     }
 
     private fun generateNonce(): String {

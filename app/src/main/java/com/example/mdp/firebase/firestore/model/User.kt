@@ -9,5 +9,6 @@ data class User(
     val birthday: String = "",
     val height: Float = 0f,
     val weight: Float = 0f,
+    val age: Int = 0
 )
 

@@ -12,36 +12,45 @@ class UserRepository(private val db: FirebaseFirestore) {
     private val usersCollection = db.collection("users")
 
     suspend fun getUser(uid: String): User? {
-        Log.d("UserRepository", "Fetching user with uid: $uid")
-        val doc = usersCollection.document(uid).get().await()
-        return doc.toObject(User::class.java)
+        return try {
+            val doc = usersCollection.document(uid).get().await()
+            doc.toObject(User::class.java)
+        } catch (e: Exception) {
+            Log.e("UserRepository", "Failed to fetch user: ${e.message}")
+            null
+        }
     }
 
     suspend fun updateUser(user: User) {
-        usersCollection.document(user.uid).set(user).await()
+        try {
+            usersCollection.document(user.uid).set(user).await()
+            Log.d("UserRepository", "User updated: ${user.uid}")
+        } catch (e: Exception) {
+            Log.e("UserRepository", "Failed to update user: ${e.message}")
+        }
     }
 
-    suspend fun createUserIfNotExists(firebaseUser: User) {
-        val uid = firebaseUser.uid
-        val docRef = usersCollection.document(uid)
-        val snapshot = docRef.get().await()
-        val today = profileTimeFormatter(LocalDate.now())
-        if (!snapshot.exists()) {
-            val newUser = User(
-                uid = uid,
-                name = firebaseUser.name,
-                email = firebaseUser.email,
-                profilePic = firebaseUser.profilePic,
-                birthday = today,
-                height = 200.0f,
-                weight = 70.0f
-            )
-            docRef.set(newUser).await()
-            Log.d("UserRepository", "User document created for $uid: $newUser")
-        } else {
-            Log.d("UserRepository", "User document already exists for $uid")
-        }
+    suspend fun createUserIfNotExists(user: User) {
 
+        try {
+            val docRef = usersCollection.document(user.uid)
+            val snapshot = docRef.get().await()
+
+            if (!snapshot.exists()) {
+                val defaultUser = user.copy(
+                    birthday = profileTimeFormatter(LocalDate.now()),
+                    height = if (user.height == 0f) 200f else user.height,
+                    weight = if (user.weight == 0f) 70f else user.weight,
+                    age = if (user.age == 0) 18 else user.age
+                )
+                docRef.set(defaultUser).await()
+                Log.d("UserRepository", "Created new user: ${defaultUser.uid}")
+            } else {
+                Log.d("UserRepository", "User already exists: ${user.uid}")
+            }
+        } catch (e: Exception) {
+            Log.e("UserRepository", "Failed to create user: ${e.message}")
+        }
     }
 
 }

@@ -70,15 +70,6 @@ class AuthViewModel(
         viewModelScope.launch {
             val isSignedIn = authRepository.signInWithGoogle()
             val user = if (isSignedIn) authRepository.getCurrentUser() else null
-            user?.let {
-                val newUser = User(
-                    uid = it.uid,
-                    name = it.displayName ?: "",
-                    email = it.email ?: "",
-                    profilePic = it.photoUrl?.toString() ?: ""
-                )
-                userRepository.createUserIfNotExists(newUser)
-            }
             _currentUser.postValue(user)
         }
     }
