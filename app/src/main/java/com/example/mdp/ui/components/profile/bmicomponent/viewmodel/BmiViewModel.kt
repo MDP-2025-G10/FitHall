@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.profilepage.bmicomponent.viewmodel
+package com.example.mdp.ui.components.profile.bmicomponent.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.mutableStateOf

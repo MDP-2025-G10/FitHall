@@ -15,7 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.mdp.navigation.LocalAuthViewModel
 import com.example.mdp.navigation.LocalUserViewModel
-import com.example.mdp.ui.components.profilepage.ProfileCard
+import com.example.mdp.ui.components.profile.ProfileCard
+import com.example.mdp.ui.components.profile.UserInfoCard
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 
@@ -46,11 +47,8 @@ fun Profile(navController: NavController) {
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            ProfileCard(
-                userName = user?.name ?: currentUser?.displayName ?: "John Doe",
-                email = user?.email ?: currentUser?.email ?: "johndoe@email.com",
-                avatar = user?.profilePic ?: currentUser?.photoUrl?.toString()
-            )
+            ProfileCard(user)
+            UserInfoCard(user)
 //            bmiCalculator(bmiViewModel = bmiViewModel)
         }
     }

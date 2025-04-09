@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.profilepage
+package com.example.mdp.ui.components.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

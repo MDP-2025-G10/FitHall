@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.profilepage.bmicomponent.logic
+package com.example.mdp.ui.components.profile.bmicomponent.logic
 
 fun categorizeBMI(bmi: Double, age: Int, sex: String): String {
     return if (age <= 20) {

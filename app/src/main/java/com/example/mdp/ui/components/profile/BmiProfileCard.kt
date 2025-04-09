@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.profilepage
+package com.example.mdp.ui.components.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,11 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mdp.ui.components.profilepage.bmicomponent.logic.calculateBMI
-import com.example.mdp.ui.components.profilepage.bmicomponent.fields.NumberIntField
-import com.example.mdp.ui.components.profilepage.bmicomponent.fields.WeightHeightField
-import com.example.mdp.ui.components.profilepage.bmicomponent.logic.categorizeBMI
-import com.example.mdp.ui.components.profilepage.bmicomponent.viewmodel.BmiViewModel
+import com.example.mdp.ui.components.profile.bmicomponent.logic.calculateBMI
+import com.example.mdp.ui.components.profile.bmicomponent.fields.NumberIntField
+import com.example.mdp.ui.components.profile.bmicomponent.fields.WeightHeightField
+import com.example.mdp.ui.components.profile.bmicomponent.logic.categorizeBMI
+import com.example.mdp.ui.components.profile.bmicomponent.viewmodel.BmiViewModel
 
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.profilepage
+package com.example.mdp.ui.components.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -9,24 +9,33 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.mdp.R
+import com.example.mdp.firebase.firestore.model.User
 
 
 @Composable
-fun ProfileCard(userName: String, email: String, avatar: String?) {
+fun ProfileCard(user: User?) {
+    val name = user?.name ?: "No Name"
+    val email = user?.email ?: "No Email"
+    val avatar = user?.profilePic
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
+        Column(modifier = Modifier.padding(8.dp)) {
+            Text(text = "Account info", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -34,6 +43,7 @@ fun ProfileCard(userName: String, email: String, avatar: String?) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
+
             Image(
                 painter = rememberAsyncImagePainter(
                     model = avatar ?: R.drawable.ic_profileplaceholderimage
@@ -48,14 +58,14 @@ fun ProfileCard(userName: String, email: String, avatar: String?) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = userName,
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(8.dp)
+                    text = name,
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(4.dp)
                 )
                 Text(
                     text = email,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(8.dp)
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(4.dp)
                 )
             }
         }
