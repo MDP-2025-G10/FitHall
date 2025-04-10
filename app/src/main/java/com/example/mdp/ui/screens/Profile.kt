@@ -47,8 +47,12 @@ fun Profile(navController: NavController) {
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            ProfileCard(user)
-            UserInfoCard(user)
+            ProfileCard(user = user, onUpdateUser = { updatedUser ->
+                userViewModel.updateUser(updatedUser)
+            })
+            UserInfoCard(user = user, onUpdateUser = { updatedUser ->
+                userViewModel.updateUser(updatedUser)
+            })
 //            bmiCalculator(bmiViewModel = bmiViewModel)
         }
     }
