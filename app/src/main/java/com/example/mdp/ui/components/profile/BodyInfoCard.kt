@@ -31,7 +31,7 @@ import com.example.mdp.firebase.firestore.model.User
 
 
 @Composable
-fun UserInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
+fun BodyInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
 
     val height = remember { mutableStateOf(user?.height?.toString() ?: "") }
     val weight = remember { mutableStateOf(user?.weight?.toString() ?: "") }

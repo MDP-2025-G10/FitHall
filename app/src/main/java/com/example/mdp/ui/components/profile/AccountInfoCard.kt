@@ -34,7 +34,7 @@ import com.example.mdp.firebase.firestore.model.User
 
 
 @Composable
-fun ProfileCard(user: User?, onUpdateUser: (User) -> Unit) {
+fun AccountInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
     val name = remember { mutableStateOf(user?.name ?: "No Name") }
     val email = remember { mutableStateOf(user?.email ?: "No Email") }
     val avatar = user?.profilePic
