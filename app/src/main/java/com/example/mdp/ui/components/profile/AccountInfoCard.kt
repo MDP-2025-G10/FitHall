@@ -129,12 +129,12 @@ fun AccountInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
                 } else {
                     Text(
                         text = name.value,
-                        fontSize = 20.sp,
+                        fontSize = 16.sp,
                         modifier = Modifier.padding(4.dp)
                     )
                     Text(
                         text = email.value,
-                        fontSize = 20.sp,
+                        fontSize = 16.sp,
                         modifier = Modifier.padding(4.dp)
                     )
                 }

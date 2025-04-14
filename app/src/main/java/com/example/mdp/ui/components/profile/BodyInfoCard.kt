@@ -15,6 +15,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,6 +36,7 @@ fun BodyInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
 
     val height = remember { mutableStateOf(user?.height?.toString() ?: "") }
     val weight = remember { mutableStateOf(user?.weight?.toString() ?: "") }
+    val gender = remember { mutableStateOf(user?.gender ?: "") }
     val age = remember { mutableStateOf(user?.age?.toString() ?: "") }
     val birthday = remember { mutableStateOf(user?.birthday ?: "") }
     val isEditing = remember { mutableStateOf(false) }
@@ -45,6 +47,7 @@ fun BodyInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
             weight.value = it.weight.toString()
             birthday.value = it.birthday
             age.value = it.age.toString()
+            gender.value = it.gender
         }
     }
 
@@ -74,7 +77,8 @@ fun BodyInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
                             height = height.value.toFloatOrNull() ?: user.height,
                             weight = weight.value.toFloatOrNull() ?: user.weight,
                             birthday = birthday.value,
-                            age = age.value.toIntOrNull() ?: user.age
+                            age = age.value.toIntOrNull() ?: user.age,
+                            gender = gender.value
                         )
                     )
                 }
@@ -99,6 +103,7 @@ fun BodyInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
                 EditableInfoField(label = "Birthday", value = birthday.value) {
                     birthday.value = it
                 }
+                GenderSelector(gender = gender.value) { gender.value = it }
             } else {
                 InfoRow("Age", age.value)
                 InfoRow("Height", "${
@@ -108,6 +113,7 @@ fun BodyInfoCard(user: User?, onUpdateUser: (User) -> Unit) {
                     weight.value.ifBlank { "-" }
                 } kg")
                 InfoRow("Birthday", birthday.value)
+                InfoRow("Gender", gender.value.ifBlank { "-" })
             }
         }
 
@@ -134,7 +140,7 @@ fun EditableInfoField(label: String, value: String, onValueChange: (String) -> U
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier
-                .weight(3f),
+                .weight(2f),
             textStyle = androidx.compose.ui.text.TextStyle(fontSize = 14.sp),
             singleLine = true,
             maxLines = 1,
@@ -161,7 +167,38 @@ fun InfoRow(label: String, value: String) {
         Text(
             text = value,
             fontSize = 18.sp,
-            modifier = Modifier.weight(3f)
+            modifier = Modifier.weight(2f)
         )
     }
 }
+
+@Composable
+fun GenderSelector(gender: String, onGenderSelected: (String) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("Gender:", fontWeight = FontWeight.Bold)
+
+        Row(
+            modifier = Modifier.padding(start = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            RadioButton(
+                selected = gender.lowercase() == "male",
+                onClick = { onGenderSelected("male") }
+            )
+            Text("Male", modifier = Modifier.padding(end = 16.dp))
+
+            RadioButton(
+                selected = gender.lowercase() == "female",
+                onClick = { onGenderSelected("female") }
+            )
+            Text("Female")
+        }
+    }
+}
+
+
