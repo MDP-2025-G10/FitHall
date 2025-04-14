@@ -16,8 +16,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mdp.firebase.firestore.viewModel.DateViewModel
 import com.example.mdp.firebase.firestore.viewModel.MealViewModel
-import com.example.mdp.data.viewmodel.WorkoutViewModel
 import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.firebase.firestore.viewModel.WorkoutViewModel
 import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
@@ -64,6 +64,7 @@ fun AppNavController(context: Context) {
         LocalWorkoutViewModel provides workoutViewModel,
         LocalImgurViewModel provides imgurViewModel,
     ) {
+
         NavHost(
             navController = navController,
             startDestination =
