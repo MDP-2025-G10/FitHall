@@ -1,5 +1,6 @@
 package com.example.mdp.ui.components.profile
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,8 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -28,11 +27,12 @@ import com.example.mdp.firebase.firestore.model.User
 @Composable
 fun BMICard(user: User?) {
 
-    val height = remember { mutableFloatStateOf(user?.height ?: 200f) }
-    val weight = remember { mutableFloatStateOf(user?.weight ?: 70f) }
+    val height = user?.height ?: 200f
+    val weight = user?.weight ?: 70f
+    Log.d("BMI", "height:$height, weight:$weight")
 
     val bmi =
-        weight.floatValue / ((height.floatValue / 100f) * (height.floatValue / 100f)) // BMI = kg / (m^2)
+        weight / ((height / 100f) * (height / 100f)) // BMI = kg / (m^2)
     val bmiCategory = when {
         bmi < 18.5 -> "Underweight"
         bmi < 25 -> "Normal"

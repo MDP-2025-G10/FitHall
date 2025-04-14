@@ -33,7 +33,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     fun updateUser(user: User) {
         viewModelScope.launch {
             repository.updateUser(user)
-//            _user.value = user
+            _user.value = user
         }
     }
 }
