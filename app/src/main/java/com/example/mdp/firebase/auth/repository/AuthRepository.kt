@@ -110,9 +110,7 @@ class AuthRepository(private val auth: FirebaseAuth, private val context: Contex
                     try {
                         val googleIdTokenCredential =
                             GoogleIdTokenCredential.createFrom(credential.data)
-                        val idToken = googleIdTokenCredential.idToken // Extract ID token
-
-                        // Use the ID token to sign in with Firebase
+                        val idToken = googleIdTokenCredential.idToken // Extract ID token // Use the ID token to sign in with Firebase
                         val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
                         auth.signInWithCredential(firebaseCredential).await()
                         true

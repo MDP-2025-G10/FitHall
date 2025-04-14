@@ -14,7 +14,7 @@ fun foodRecognitionLabels(context: Context, bitmap: Bitmap, onResult: (List<Stri
 
     val image = InputImage.fromBitmap(bitmap, 0)
     val localModel = AutoMLImageLabelerLocalModel.Builder()
-        .setAssetFilePath("./food_model.tflite")
+        .setAssetFilePath("./app/src/main/ml/food_model.tflite")
         .build()
     val options = AutoMLImageLabelerOptions.Builder(localModel).build()
     val labeler = ImageLabeling.getClient(options)

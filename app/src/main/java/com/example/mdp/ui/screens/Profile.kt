@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.mdp.data.model.Workout
 import com.example.mdp.navigation.LocalAuthViewModel
 import com.example.mdp.navigation.LocalMealViewModel
 import com.example.mdp.navigation.LocalWorkoutViewModel
@@ -27,6 +29,7 @@ import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
 import com.example.mdp.ui.components.profilepage.bmiCalculator
 import com.example.mdp.ui.components.profilepage.bmicomponent.viewmodel.BmiViewModel
 import com.example.mdp.ui.components.toolbar.TopBar
+
 
 
 //make use of lazy column  for all the cards ui elements
@@ -59,28 +62,29 @@ fun Profile(navController: NavController) {
 
             // BMI calculator
             bmiCalculator(bmiViewModel = bmiViewModel)
-/*
-            Text(
-                text = "Recently uploaded food",
-                modifier = Modifier.padding(8.dp),
-                style = MaterialTheme.typography.titleLarge
-            )
-            val meals by mealViewModel.allMealList.collectAsState(initial = emptyList())
-            LazyRow {
-                items(meals) { meal ->
-                    ProfileFoodCard(meal = meal)
-                }
-            }
-*/
+            /*
+                        Text(
+                            text = "Recently uploaded food",
+                            modifier = Modifier.padding(8.dp),
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                        val meals by mealViewModel.allMealList.collectAsState(initial = emptyList())
+                        LazyRow {
+                            items(meals) { meal ->
+                                ProfileFoodCard(meal = meal)
+                            }
+                        }
+            */
             Text(
                 text = "Recently uploaded Workout",
                 modifier = Modifier.padding(8.dp),
                 style = MaterialTheme.typography.titleLarge
             )
-            val workouts by workoutViewModel.allWorkouts.observeAsState(initial = emptyList())
+            val workouts by workoutViewModel.getallWorkouts.collectAsState(initial = emptyList<Workout>())
             LazyColumn {
-                items(workouts) { workouts ->
-                    ProfilePageWorkoutCard(workouts = workouts)
+                items(workouts) { workout ->
+                    ProfilePageWorkoutCard(workouts = workout)
+
                 }
             }
         }

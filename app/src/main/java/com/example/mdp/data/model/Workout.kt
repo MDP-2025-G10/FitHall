@@ -1,15 +1,19 @@
 package com.example.mdp.data.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+data class WorkoutSet(
+    val reps: Int = 0,
+    val weight: Int = 0
+)
 
-@Entity(tableName = "workouts")
-data class Workouts(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,  // Auto-increment primary key
-    val name: String,  // Workout name
-    val description: String,  // Description of the workout
-    val reps: Int,  // Number of reps
-    val sets: Int,  // Number of sets
-    val weight: Int,  // Weight lifted
-    val timestamp: Long = System.currentTimeMillis()  // Timestamp of the workout
+data class Exercise(
+    val name: String = "",
+    val sets: List<WorkoutSet> = emptyList()
+)
+
+data class Workout(
+    val id: String = "",
+    val date: String = "", // You can also use Timestamp
+    val name: String = "",
+    val description: String = "",
+    val exercises: List<Exercise> = emptyList()
 )

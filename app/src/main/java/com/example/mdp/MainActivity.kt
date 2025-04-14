@@ -21,6 +21,25 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n     " +
+            " which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n  " +
+            "    contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n   " +
+            "   testing, and allow receiving results in separate, testable classes independent from your\n   " +
+            "   activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)} passing\n   " +
+            "   in a {@link RequestMultiplePermissions} object for the {@link ActivityResultContract} and\n    " +
+            "  handling the result in the {@link ActivityResultCallback#onActivityResult(Object) callback}.")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Permission granted
+            // You can now use the feature that requires the permission
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
