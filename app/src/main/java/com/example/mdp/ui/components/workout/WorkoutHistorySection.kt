@@ -27,7 +27,7 @@ import androidx.navigation.NavController
 import com.example.mdp.data.model.Workout
 import com.example.mdp.navigation.LocalDateViewModel
 import com.example.mdp.navigation.LocalWorkoutViewModel
-import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
+//import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
 
 
 
@@ -62,7 +62,7 @@ fun WorkoutHistory(navController: NavController) {
                             .padding(horizontal = 8.dp)
                             .clickable { selectedWorkout = workout }
                     ) {
-                        ProfilePageWorkoutCard(workouts = workout)
+//                        ProfilePageWorkoutCard(workouts = workout)
                     }
                 }
             }

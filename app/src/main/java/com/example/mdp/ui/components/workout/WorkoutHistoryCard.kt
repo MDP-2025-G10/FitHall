@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.RemoveCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -26,10 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.mdp.data.model.Workout
-import com.example.mdp.firebase.firestore.viewModel.WorkoutViewModel
 import com.example.mdp.navigation.LocalWorkoutViewModel
-import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
-import com.example.mdp.utils.historyCardTimeFormatter
+//import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
 
 
 @Composable
@@ -49,7 +46,7 @@ fun WorkoutHistoryCard() {
                         .padding(8.dp)
                         .clickable { selectedWorkout = workout }
                 ) {
-                    ProfilePageWorkoutCard(workouts = workout)
+//                    ProfilePageWorkoutCard(workouts = workout)
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
