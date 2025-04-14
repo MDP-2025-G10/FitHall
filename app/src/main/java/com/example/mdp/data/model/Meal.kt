@@ -1,7 +1,7 @@
 package com.example.mdp.data.model
 
 data class Meal(
-    val id: String = "",  // Firestore document ID
+    val id: String = "",
     val name: String = "",
     val calories: Int = 0,
     val fats: Int = 0,

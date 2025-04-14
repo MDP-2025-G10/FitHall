@@ -1,4 +1,4 @@
-package com.example.mdp.ui.components.profilepage.bmicomponent.fields
+package com.example.mdp.ui.components.profile.bmicomponent.fields
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
