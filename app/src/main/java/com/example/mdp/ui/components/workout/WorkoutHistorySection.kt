@@ -62,7 +62,12 @@ fun WorkoutHistory(navController: NavController) {
                             .padding(horizontal = 8.dp)
                             .clickable { selectedWorkout = workout }
                     ) {
-//                        ProfilePageWorkoutCard(workouts = workout)
+                        WorkoutHistoryCard(
+                            workout = workout,
+                            onDelete = {
+                                workoutViewModel.deleteWorkout(workout)
+                            }
+                        )
                     }
                 }
             }
@@ -139,4 +144,28 @@ fun WorkoutDetailsPopup(
         },
         modifier = Modifier.padding(16.dp)
     )
+}
+
+@Composable
+fun WorkoutHistoryCard(
+    workout: Workout,
+    onDelete: () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = workout.name, style = MaterialTheme.typography.titleMedium)
+            Text(text = "Date: ${workout.date}", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Description: ${workout.description}", style = MaterialTheme.typography.bodySmall)
+            Button(
+                onClick = onDelete,
+                modifier = Modifier.padding(top = 8.dp)
+            ) {
+                Text("Delete")
+            }
+        }
+    }
 }

@@ -30,7 +30,7 @@ import com.example.mdp.navigation.LocalWorkoutViewModel
 
 
 @Composable
-fun WorkoutHistoryCard() {
+fun WorkoutHistoryCard(workout: Workout, ) {
     val workoutViewModel = LocalWorkoutViewModel.current
     var selectedWorkout by remember { mutableStateOf<Workout?>(null) }
 
