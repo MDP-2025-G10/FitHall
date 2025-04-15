@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.mdp.data.model.Workout
+import com.example.mdp.firebase.firestore.model.Workout
 import com.example.mdp.navigation.LocalWorkoutViewModel
 //import com.example.mdp.ui.components.profilepage.ProfilePageWorkoutCard
 

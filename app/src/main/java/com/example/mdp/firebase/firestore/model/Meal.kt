@@ -1,4 +1,4 @@
-package com.example.mdp.data.model
+package com.example.mdp.firebase.firestore.model
 
 data class Meal(
     val id: String = "",

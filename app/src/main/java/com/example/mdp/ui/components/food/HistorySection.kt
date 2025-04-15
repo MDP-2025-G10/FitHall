@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import com.example.mdp.data.model.Meal
+import com.example.mdp.firebase.firestore.model.Meal
 import com.example.mdp.navigation.LocalDateViewModel
 import com.example.mdp.navigation.LocalMealViewModel
 import com.example.mdp.utils.historyCardTimeFormatter

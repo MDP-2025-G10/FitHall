@@ -6,7 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.example.mdp.data.model.Workout
+import com.example.mdp.firebase.firestore.model.Workout
 
 @Composable
 fun WorkoutSuggestionCard(workout: Workout) {

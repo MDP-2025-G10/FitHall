@@ -2,7 +2,7 @@ package com.example.mdp.firebase.firestore.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mdp.data.model.Workout
+import com.example.mdp.firebase.firestore.model.Workout
 import com.example.mdp.firebase.firestore.repository.WorkoutRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted

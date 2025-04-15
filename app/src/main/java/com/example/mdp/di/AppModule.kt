@@ -25,7 +25,7 @@ import org.koin.dsl.module
 val appModule = module {
     single { FirebaseAuth.getInstance() } // Provide FirebaseAuth instance
     single { FirebaseFirestore.getInstance() } // Singleton instance of Firestore
-    single { MealRepository(get(), get()) }
+
     single { WorkoutRepository(get(), get()) }
     single {
         AuthRepository(
@@ -35,10 +35,11 @@ val appModule = module {
     }   //  Inject FirebaseAuth and context into AuthRepository
     viewModel { AuthViewModel(get(), get()) }  // Inject AuthRepository into AuthViewModel
 
-//    single { WorkoutDatabase.getDatabase(get()).workoutDao() }
+
     viewModel { WorkoutViewModel(get()) }
 
-
+    //  Meal
+    single { MealRepository(get(), get()) }
     viewModel { MealViewModel(get()) }
 
     //  USDAApi

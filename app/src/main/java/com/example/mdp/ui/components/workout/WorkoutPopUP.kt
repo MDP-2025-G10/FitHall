@@ -34,9 +34,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.mdp.data.model.Exercise
-import com.example.mdp.data.model.Workout
-import com.example.mdp.data.model.WorkoutSet
+import com.example.mdp.firebase.firestore.model.Exercise
+import com.example.mdp.firebase.firestore.model.Workout
+import com.example.mdp.firebase.firestore.model.WorkoutSet
 import com.example.mdp.navigation.LocalWorkoutViewModel
 import java.time.LocalDate
 import java.util.Locale

@@ -2,9 +2,9 @@ package com.example.mdp.firebase.firestore.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mdp.data.model.DailyCalories
-import com.example.mdp.data.model.Meal
-import com.example.mdp.data.model.NutritionInfo
+import com.example.mdp.firebase.firestore.model.DailyCalories
+import com.example.mdp.firebase.firestore.model.Meal
+import com.example.mdp.firebase.firestore.model.NutritionInfo
 import com.example.mdp.firebase.firestore.repository.MealRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted

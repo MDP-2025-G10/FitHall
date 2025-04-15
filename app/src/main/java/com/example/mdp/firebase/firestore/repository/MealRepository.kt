@@ -1,9 +1,9 @@
 package com.example.mdp.firebase.firestore.repository
 
 import android.util.Log
-import com.example.mdp.data.model.DailyCalories
-import com.example.mdp.data.model.Meal
-import com.example.mdp.data.model.NutritionInfo
+import com.example.mdp.firebase.firestore.model.DailyCalories
+import com.example.mdp.firebase.firestore.model.Meal
+import com.example.mdp.firebase.firestore.model.NutritionInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
