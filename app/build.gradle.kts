@@ -35,6 +35,7 @@ android {
         buildConfigField("String", "USDA_API_KEY", "\"$usdaApiKey\"")
         buildConfigField("String", "IMGUR_CLIENT_SECRET", "\"$imgurClientSecret\"")
         buildConfigField("String", "IMGUR_CLIENT_ID", "\"$imgurClientId\"")
+
     }
 
     buildTypes {
@@ -66,6 +67,7 @@ android {
         }
     }
 }
+
 
 dependencies {
     implementation(libs.androidx.core.ktx)
