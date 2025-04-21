@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.mdp.ui.components.assets.foodRecognitionLabels
+import com.example.mdp.ui.components.utils.foodRecognitionLabels
 import com.example.mdp.ui.components.assets.getNutritionInfo
 
 
@@ -32,7 +32,7 @@ fun FoodScannerScreen(navController: NavController, context: Context) {
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         if (showCamera) {
-            Camera { bitmap ->
+            Camera(onImageCapture = { bitmap ->
                 foodRecognitionLabels (context, bitmap) { foodList ->
                     if (foodList.isNotEmpty()) {
                         detectedFood = foodList[0]
@@ -42,7 +42,7 @@ fun FoodScannerScreen(navController: NavController, context: Context) {
                         }
                     }
                 }
-            }
+            })
         } else {
             Text("Detected Food: $detectedFood", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Text(nutritionInfo, fontSize = 18.sp)
