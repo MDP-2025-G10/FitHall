@@ -1,6 +1,7 @@
 package com.example.mdp.ui.components.toolbar
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -22,27 +23,19 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.R
-import com.example.mdp.navigation.NavRoutes
-import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.navigation.LocalAuthViewModel
-import com.example.mdp.navigation.LocalMealViewModel
-import org.koin.androidx.compose.koinViewModel
+import com.example.mdp.navigation.NavRoutes
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(navController: NavController, ) {
+fun TopBar(navController: NavController) {
     val authViewModel = LocalAuthViewModel.current
     var expanded by remember { mutableStateOf(false) }
 
     TopAppBar(
+        modifier = Modifier.padding(10.dp),
         title = { Text("FitHall") },
-        navigationIcon = {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "App Logo"
-            )
-        },
         actions = {
             IconButton(onClick = { expanded = !expanded }) {
                 Icon(
