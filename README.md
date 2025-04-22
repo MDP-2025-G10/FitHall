@@ -18,7 +18,7 @@
 
 - [Introduction](#bulb-introduction)
 - [Video Demonstration](#video_camera-video-demostration)
-- [Firebase Tutorial](#video_camera-video-demostration)
+- [Firebase Tutorial](#video_camera-firebase_tutorial)
 - [Contacts](#email-contacts)
 
 ## :bulb: Introduction
