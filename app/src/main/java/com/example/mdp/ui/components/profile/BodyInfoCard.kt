@@ -197,6 +197,12 @@ fun GenderSelector(gender: String, onGenderSelected: (String) -> Unit) {
                 onClick = { onGenderSelected("female") }
             )
             Text("Female")
+
+            RadioButton(
+                selected = gender.lowercase() == "others",
+                onClick = { onGenderSelected("others") }
+            )
+            Text("Others")
         }
     }
 }

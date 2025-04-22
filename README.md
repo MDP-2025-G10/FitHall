@@ -2,17 +2,9 @@
 
 <p>
   
-<img alt="Nodejs Badge" longdesc="Nodejs Badge" src="https://img.shields.io/badge/Node%20js-3c873a?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+<img alt="Kotlin Badge" src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white" />
 
-<img alt="PostgreSQL Badge" longdesc="PostgreSQL Badge" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
-
-<img alt="React Badge" longdesc="React Badge" src="https://img.shields.io/badge/React-303030?style=for-the-badge&logo=react&logoColor=61DAFB" />
-
-<img alt="Bootstrap Badge" longdesc="Bootstrap Badge" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" />
-
-<img alt="Javascript Badge" longdesc="Javascript Badge" src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
-
-<img alt="Microsoft Azure Badge" longdesc="microsoft azure Badge" src="https://img.shields.io/badge/microsoft%20azure-008ad7?style=for-the-badge&logo=microsoft-azure&logoColor=white" />
+<img alt="Firebase Badge" src="https://img.shields.io/badge/Firebase-DD2C00?logo=firebase&logoColor=fff&style=flat-square" />
 
 </p>
 
@@ -29,7 +21,7 @@
 
 ## :bulb: Introduction
 
-**AppName** is an application that users can...
+**FitHall** is an application that users can...
 
 In this project, we use
 

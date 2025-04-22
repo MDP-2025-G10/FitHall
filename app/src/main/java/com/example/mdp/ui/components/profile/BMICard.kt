@@ -33,12 +33,8 @@ fun BMICard(user: User?) {
 
     val bmi =
         weight / ((height / 100f) * (height / 100f)) // BMI = kg / (m^2)
-    val bmiCategory = when {
-        bmi < 18.5 -> "Underweight"
-        bmi < 25 -> "Normal"
-        bmi < 30 -> "Overweight"
-        else -> "Obese"
-    }
+
+    val bmiCategory = getBMICategory(bmi, user?.gender)
 
     val categoryColors = listOf(
         Color(0xFF87CEFA), // Underweight
@@ -126,6 +122,29 @@ fun BMICard(user: User?) {
                     Text(label, fontSize = 12.sp, color = categoryColors[i])
                 }
             }
+        }
+    }
+}
+
+fun getBMICategory(bmi: Float, gender: String?): String {
+    return when (gender?.lowercase()) {
+        "female" -> when {
+            bmi < 18.0 -> "Underweight"
+            bmi < 24.0 -> "Normal"
+            bmi < 29.0 -> "Overweight"
+            else -> "Obese"
+        }
+        "male" -> when {
+            bmi < 18.5 -> "Underweight"
+            bmi < 25.0 -> "Normal"
+            bmi < 30.0 -> "Overweight"
+            else -> "Obese"
+        }
+        else -> when {
+            bmi < 18.5 -> "Underweight"
+            bmi < 25.0 -> "Normal"
+            bmi < 30.0 -> "Overweight"
+            else -> "Obese"
         }
     }
 }
