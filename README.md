@@ -40,7 +40,7 @@ In this project, we use
 
 ## :floppy_disk: Database Structure
 
-![DB Structure](/app/src/main/res/drawable/DB_Structure.png)
+![DB Structure](/app/src/main/res/drawable/db_structure.png)
 ![Meal Object](/app/src/main/res/drawable/meal_obj.png)
 
 ## :video_camera: Video Demonstration
