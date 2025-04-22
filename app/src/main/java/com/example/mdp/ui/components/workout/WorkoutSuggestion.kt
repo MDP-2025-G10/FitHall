@@ -24,9 +24,9 @@ import com.example.mdp.navigation.LocalWorkoutViewModel
 
 
 
-
+FoodRepository
 @Composable
-fun workoutSuggestion(navController: NavController) {
+fun WorkoutSuggestion(navController: NavController) {
     val workoutViewModel = LocalWorkoutViewModel.current
     val workoutList by workoutViewModel.getallWorkouts.collectAsState(initial = emptyList())
     var isPopupVisible by remember { mutableStateOf(false) }

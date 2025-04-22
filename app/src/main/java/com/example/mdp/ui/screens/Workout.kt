@@ -20,8 +20,7 @@ import androidx.navigation.NavController
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 import com.example.mdp.ui.components.workout.WorkoutHistory
-import com.example.mdp.ui.components.workout.workoutSuggestion
-
+import com.example.mdp.ui.components.workout.WorkoutSuggestion
 
 
 @Composable
@@ -52,7 +51,7 @@ fun Workout(navController: NavController) {
             }
             when (selectedTabIndex) {
                 0 -> WorkoutHistory(navController)
-                1 -> workoutSuggestion(navController)
+                1 -> WorkoutSuggestion(navController)
             }
         }
     }
