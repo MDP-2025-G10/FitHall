@@ -22,9 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.navigation.LocalWorkoutViewModel
 
-
-
-FoodRepository
 @Composable
 fun WorkoutSuggestion(navController: NavController) {
     val workoutViewModel = LocalWorkoutViewModel.current
