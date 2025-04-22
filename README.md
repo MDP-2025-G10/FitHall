@@ -17,8 +17,8 @@
 ## :books: Table of the content
 
 - [Introduction](#bulb-introduction)
-- [Video Demonstration](#video_camera-video-demostration)
-- [Firebase Tutorial](#video_camera-firebase_tutorial)
+- [Video Demonstration](#video_camera-video-demonstration)
+- [Firebase Tutorial](#video_camera-firebase-tutorial)
 - [Contacts](#email-contacts)
 
 ## :bulb: Introduction
