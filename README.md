@@ -4,7 +4,7 @@
   
 <img alt="Kotlin Badge" src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white" />
 
-<img alt="Firebase Badge" src="https://img.shields.io/badge/Firebase-DD2C00?logo=firebase&logoColor=fff&style=flat-square" />
+<img alt="Firebase Badge" src="https://img.shields.io/badge/Firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=fff" />
 
 </p>
 
