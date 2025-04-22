@@ -25,6 +25,10 @@
 
 **FitHall** is a mobile application that helps users record their body metrics, analyze nutritional information, and manage workout routines.
 
+**FitHall** provides tools for users to record and manage their workout routines. It makes it easier to track and organize your fitness lifestyle — all in one app.
+
+**FitHall** visualizes users' body metrics, daily calorie intake, and workout data, making it easy to understand and track progress anytime, anywhere.
+
 In this project, we use
 
 - <img src="https://img.shields.io/badge/Authentication-Firebase-DD2C00">
