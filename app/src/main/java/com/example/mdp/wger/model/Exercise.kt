@@ -18,26 +18,42 @@ data class WgerExerciseResponse(
     val count: Int,
     val next: String?,
     val previous: String?,
-    val results: List<Exercise>
+    val results: List<ExerciseApiModel>
 )
 
-data class Exercise(
+data class ExerciseApiModel(
+    val id: Int,
+    val uuid: String,
+    val category: BodyPart,
+    val translations: List<Translation>,
+    val images: List<ExerciseImage>
+)
+
+data class Translation(
     val id: Int,
     val name: String,
-    val category: Int,
-    val language: Int,
-    @SerializedName("exercise_base") val exerciseBaseId: Int
-)
-
-data class WgerImageResponse(
-    val count: Int,
-    val next: String?,
-    val previous: String?,
-    val results: List<ExerciseImage>
+    val language: Int
 )
 
 data class ExerciseImage(
     val id: Int,
-    @SerializedName("exercise_base") val exerciseBaseId: Int,
+    @SerializedName("exercise") val exerciseId: Int,
     val image: String
 )
+
+data class Exercise(
+    val id: Int,
+    val uuid: String,
+    val name: String,
+    val category: BodyPart,
+    val imageUrl: String? = null
+)
+
+
+//data class WgerImageResponse(
+//    val count: Int,
+//    val next: String?,
+//    val previous: String?,
+//    val results: List<ExerciseImage>
+//)
+

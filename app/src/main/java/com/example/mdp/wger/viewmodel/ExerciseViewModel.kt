@@ -18,8 +18,8 @@ class ExerciseViewModel(private val repository: ExerciseRepository) : ViewModel(
     private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())
     val exercises: StateFlow<List<Exercise>> = _exercises
 
-    private val _exerciseImages = MutableStateFlow<List<ExerciseImage>>(emptyList())
-    val exerciseImages: StateFlow<List<ExerciseImage>> = _exerciseImages
+//    private val _exerciseImages = MutableStateFlow<List<ExerciseImage>>(emptyList())
+//    val exerciseImages: StateFlow<List<ExerciseImage>> = _exerciseImages
 
     fun loadBodyParts() {
         viewModelScope.launch {
@@ -30,15 +30,15 @@ class ExerciseViewModel(private val repository: ExerciseRepository) : ViewModel(
 
     fun loadExercises(bodyPartName: String) {
         viewModelScope.launch {
-            val exercises = repository.fetchExercises(bodyPartName, _bodyParts.value)
+            val exercises = repository.fetchExercisesByBodyPart(bodyPartName, _bodyParts.value)
             _exercises.value = exercises
         }
     }
 
-    fun loadExerciseImages(exerciseId: Int) {
-        viewModelScope.launch {
-            val images = repository.fetchExerciseImages(exerciseId, _exercises.value)
-            _exerciseImages.value = images
-        }
-    }
+//    fun loadExerciseImages(exerciseId: Int) {
+//        viewModelScope.launch {
+//            val images = repository.fetchExerciseImages(exerciseId, _exercises.value)
+//            _exerciseImages.value = images
+//        }
+//    }
 }

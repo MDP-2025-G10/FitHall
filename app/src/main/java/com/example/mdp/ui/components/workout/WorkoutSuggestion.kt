@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 sealed class SuggestionScreenState {
     data object Main : SuggestionScreenState()
     data object BodyParts : SuggestionScreenState()
-//    data class ExerciseList(val bodyPartId: Int, val bodyPartName: String) : SuggestionScreenState()
+    data class ExerciseList(val bodyPartId: Int, val bodyPartName: String) : SuggestionScreenState()
 }
 
 
@@ -40,7 +40,7 @@ fun WorkoutSuggestion(navController: NavController) {
             .padding(top = 10.dp)
             .fillMaxWidth()
     ) {
-        when (currentScreen) {
+        when (val screen = currentScreen) {
             is SuggestionScreenState.Main -> {
                 Card(
                     modifier = Modifier
@@ -62,7 +62,17 @@ fun WorkoutSuggestion(navController: NavController) {
             is SuggestionScreenState.BodyParts -> {
                 BodyPartScreen(
                     onBack = { currentScreen = SuggestionScreenState.Main },
-                    navController = navController
+                    onBodyPartClick = { id, name ->
+                        currentScreen = SuggestionScreenState.ExerciseList(id, name)
+                    }
+                )
+            }
+
+            is SuggestionScreenState.ExerciseList -> {
+                ExerciseListScreen(
+                    bodyPartId = screen.bodyPartId,
+                    bodyPartName = screen.bodyPartName,
+                    onBack = { currentScreen = SuggestionScreenState.BodyParts }
                 )
             }
         }
