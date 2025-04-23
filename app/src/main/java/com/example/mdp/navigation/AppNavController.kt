@@ -30,6 +30,7 @@ import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
 import com.example.mdp.ui.screens.Workout
 import com.example.mdp.usda.viewmodel.FoodViewModel
+import com.example.mdp.wger.viewmodel.ExerciseViewModel
 import org.koin.androidx.compose.koinViewModel
 
 val LocalDateViewModel = compositionLocalOf<DateViewModel> { error("No DateViewModel provided") }
@@ -40,6 +41,8 @@ val LocalWorkoutViewModel =
     compositionLocalOf<WorkoutViewModel> { error("No WorkoutViewModel provided") }
 val LocalImgurViewModel = compositionLocalOf<ImgurViewModel> { error("No ImgurViewModel provided") }
 val LocalUserViewModel = compositionLocalOf<UserViewModel> { error("No UserViewModel provided") }
+val LocalExerciseViewModel =
+    compositionLocalOf<ExerciseViewModel> { error("No ExerciseViewModel provided") }
 
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
@@ -55,6 +58,7 @@ fun AppNavController(context: Context) {
     val workoutViewModel: WorkoutViewModel = koinViewModel()
     val imgurViewModel: ImgurViewModel = koinViewModel()
     val userViewModel: UserViewModel = koinViewModel()
+    val exerciseViewModel: ExerciseViewModel = koinViewModel()
 
     val currentUser by authViewModel.currentUser.observeAsState()
 
@@ -68,6 +72,7 @@ fun AppNavController(context: Context) {
         LocalWorkoutViewModel provides workoutViewModel,
         LocalImgurViewModel provides imgurViewModel,
         LocalUserViewModel provides userViewModel,
+        LocalExerciseViewModel provides exerciseViewModel,
     ) {
 
         NavHost(
@@ -117,7 +122,6 @@ fun AppNavController(context: Context) {
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { Profile(navController) }
-
         }
     }
 }

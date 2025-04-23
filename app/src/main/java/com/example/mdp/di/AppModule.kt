@@ -16,6 +16,9 @@ import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.usda.USDARetrofitInstance
 import com.example.mdp.usda.repository.FoodRepository
 import com.example.mdp.usda.viewmodel.FoodViewModel
+import com.example.mdp.wger.WgerRetrofitInstance
+import com.example.mdp.wger.repository.ExerciseRepository
+import com.example.mdp.wger.viewmodel.ExerciseViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.ext.koin.androidContext
@@ -55,4 +58,9 @@ val appModule = module {
     //  User
     single { UserRepository(get()) }
     viewModel { UserViewModel(get()) }
+
+    //  Wger API
+    single { WgerRetrofitInstance.api }
+    single { ExerciseRepository(get()) }
+    viewModel { ExerciseViewModel(get()) }
 }
