@@ -12,18 +12,27 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.mdp.firebase.firestore.model.Workout
+import com.example.mdp.navigation.LocalWorkoutViewModel
 import com.example.mdp.wger.model.Exercise
 
 @Composable
 fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
 
-    Log.d("ExerciseDetailPopUp","$exercise")
+    val workoutViewModel = LocalWorkoutViewModel.current
+    val workoutName by remember { mutableStateOf(exercise.name) }
+    val workoutDescription by remember { mutableStateOf(exercise.description) }
+
+    Log.d("ExerciseDetailPopUp", "$exercise")
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(exercise.name) },
@@ -34,7 +43,7 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
                     .padding(vertical = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                if (!exercise.imageUrl.isNullOrEmpty()) {
+                if (exercise.imageUrl.isNotEmpty()) {
                     AsyncImage(
                         model = exercise.imageUrl,
                         contentDescription = "Exercise Image",
@@ -52,8 +61,28 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
 
         },
         confirmButton = {
+            Button(
+                onClick = {
+                    val newWorkout = Workout(
+                        id = "",
+                        name = workoutName,
+                        description = workoutDescription,
+                        imagePath = exercise.imageUrl,
+                        sets = emptyList(),
+                        timestamp = System.currentTimeMillis()
+                    )
+                    workoutViewModel.insertWorkout(newWorkout)
+                    onDismiss()
+
+                },
+                enabled = workoutName.isNotBlank()
+            ) {
+                Text("Save")
+            }
+        },
+        dismissButton = {
             Button(onClick = onDismiss) {
-                Text("Close")
+                Text("Cancel")
             }
         }
     )

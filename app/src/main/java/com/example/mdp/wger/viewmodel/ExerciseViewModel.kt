@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mdp.wger.model.BodyPart
 import com.example.mdp.wger.model.Exercise
-import com.example.mdp.wger.model.ExerciseImage
 import com.example.mdp.wger.repository.ExerciseRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.mdp.wger.WgerApiService
 import com.example.mdp.wger.model.BodyPart
 import com.example.mdp.wger.model.Exercise
-import com.example.mdp.wger.model.ExerciseImage
+import com.example.mdp.wger.model.ExerciseApiModel
 
 class ExerciseRepository(private val api: WgerApiService) {
 
@@ -30,19 +30,8 @@ class ExerciseRepository(private val api: WgerApiService) {
                 emptyList()
             } else {
                 val response = api.getExercises(categoryId)
-                Log.d("ExerciseRepository", "Fetched exercises: ${response.count}")
-                response.results.mapNotNull { exerciseApi ->
-                    val translation = exerciseApi.translations.find { it.language == 2 }
-                    translation?.let {
-                        Exercise(
-                            id = exerciseApi.id,
-                            uuid = exerciseApi.uuid,
-                            name = it.name,
-                            category = exerciseApi.category,
-                            imageUrl = exerciseApi.images.firstOrNull()?.image
-                        )
-                    }
-                }
+                Log.d("ExerciseRepository", "Fetched exercises: $response")
+                response.results.mapNotNull { mapToExercise(it) }
             }
         } catch (e: Exception) {
             Log.e("ExerciseRepository", "API Call Failed: ${e.message}", e)
@@ -50,28 +39,17 @@ class ExerciseRepository(private val api: WgerApiService) {
         }
     }
 
+    private fun mapToExercise(exerciseApi: ExerciseApiModel): Exercise? {
+        val translation = exerciseApi.translations.find { it.language == 2 }
+        return translation?.let {
+            Exercise(
+                id = exerciseApi.id,
+                name = it.name,
+                category = exerciseApi.category,
+                description = it.description,
+                imageUrl = exerciseApi.images.firstOrNull()?.image ?: "",
+            )
+        }
+    }
 
-
-
-
-//
-//    suspend fun fetchExerciseImages(
-//        exerciseId: Int,
-//        exercises: List<Exercise>
-//    ): List<ExerciseImage> {
-//        return try {
-//            val exerciseBaseId = exercises.find { it.id == exerciseId }?.id
-//            if (exerciseBaseId == null) {
-//                Log.e("ExerciseRepository", "Exercise base not found for exerciseId: $exerciseId")
-//                emptyList()
-//            } else {
-//                val response = api.getExerciseImages(exerciseBaseId)
-//                Log.d("ExerciseRepository", "Fetched images: ${response.results.size}")
-//                response.results
-//            }
-//        } catch (e: Exception) {
-//            Log.e("ExerciseRepository", "API Call Failed: ${e.message}", e)
-//            emptyList()
-//        }
-//    }
 }

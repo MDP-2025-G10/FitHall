@@ -1,5 +1,6 @@
 package com.example.mdp.wger.model
 
+
 import com.google.gson.annotations.SerializedName
 
 data class WgerBodyPartResponse(
@@ -10,8 +11,8 @@ data class WgerBodyPartResponse(
 )
 
 data class BodyPart(
-    val id: Int,
-    val name: String
+    val id: Int = 0,
+    val name: String = ""
 )
 
 data class WgerExerciseResponse(
@@ -23,7 +24,6 @@ data class WgerExerciseResponse(
 
 data class ExerciseApiModel(
     val id: Int,
-    val uuid: String,
     val category: BodyPart,
     val translations: List<Translation>,
     val images: List<ExerciseImage>
@@ -32,7 +32,8 @@ data class ExerciseApiModel(
 data class Translation(
     val id: Int,
     val name: String,
-    val language: Int
+    val language: Int,
+    val description: String
 )
 
 data class ExerciseImage(
@@ -42,12 +43,14 @@ data class ExerciseImage(
 )
 
 data class Exercise(
-    val id: Int,
-    val uuid: String,
-    val name: String,
-    val category: BodyPart,
-    val imageUrl: String? = null
+    val id: Int = 0,
+    val name: String = "",
+    val category: BodyPart = BodyPart(),
+    val description: String = "",
+    val imageUrl: String = "",
 )
+
+
 
 
 //data class WgerImageResponse(
