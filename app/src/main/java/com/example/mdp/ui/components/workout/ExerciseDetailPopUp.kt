@@ -1,23 +1,29 @@
 package com.example.mdp.ui.components.workout
 
+import android.util.Log
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.mdp.wger.model.Exercise
 
 @Composable
 fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
 
-
-//    val exercise = exercises.find { it.id == exerciseId.toIntOrNull() }
-
+    Log.d("ExerciseDetailPopUp","$exercise")
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(exercise.name) },
@@ -28,30 +34,22 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
                     .padding(vertical = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-
+                if (!exercise.imageUrl.isNullOrEmpty()) {
+                    AsyncImage(
+                        model = exercise.imageUrl,
+                        contentDescription = "Exercise Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                            .height(200.dp)
+                    )
+                } else {
+                    Text("No Image Available", color = Color.Gray)
+                }
             }
 
-//            Column(
-//                verticalArrangement = Arrangement.spacedBy(8.dp)
-//            ) {
-//                if (!exercise.imageUrl.isNullOrEmpty()) {
-//                    AsyncImage(
-//                        model = exercise.imageUrl,
-//                        contentDescription = "Exercise Image",
-//                        contentScale = ContentScale.Crop,
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .clip(RoundedCornerShape(8.dp))
-//                            .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-//                            .height(200.dp)
-//                    )
-//                } else {
-//                    Text("No Image Available", color = Color.Gray)
-//                }
-//
-//                Spacer(modifier = Modifier.height(8.dp))
-////                Text(text = exercise.description ?: "No description available")
-//            }
         },
         confirmButton = {
             Button(onClick = onDismiss) {

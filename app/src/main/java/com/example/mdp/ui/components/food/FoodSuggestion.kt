@@ -31,7 +31,7 @@ import com.example.mdp.usda.model.FoodItem
 import com.example.mdp.utils.FoodMapper
 
 @Composable
-fun SuggestionSection() {
+fun FoodSuggestion() {
 
     val foodViewModel = LocalFoodViewModel.current
     val foodList by foodViewModel.foodList.collectAsState()

@@ -8,6 +8,8 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDate
+import java.time.ZoneId
 
 
 class WorkoutRepository(
@@ -16,7 +18,9 @@ class WorkoutRepository(
 ) {
 
     private fun userWorkoutsCollection() =
-        db.collection("users").document(auth.currentUser?.uid ?: "default").collection("workouts")
+        db.collection("users")
+            .document(auth.currentUser?.uid ?: "default")
+            .collection("workouts")
 
     suspend fun insertWorkout(workout: Workout) {
         try {
@@ -40,23 +44,32 @@ class WorkoutRepository(
         awaitClose { listener.remove() }
     }
 
-    fun deleteWorkout(workoutId: String) {
-        val userId = auth.currentUser?.uid ?: run {
-            Log.e("WorkoutRepository", "No logged-in user for deleting workout")
-            return
+    fun getWorkoutsForDate(date: LocalDate): Flow<List<Workout>> = callbackFlow {
+        val startOfDay = date.atStartOfDay(ZoneId.systemDefault())
+            .toEpochSecond() * 1000
+        val endOfDay = date.plusDays(1).atStartOfDay(ZoneId.systemDefault())
+            .toEpochSecond() * 1000
+
+        val listener = userWorkoutsCollection()
+            .whereGreaterThan("timestamp", startOfDay)
+            .whereLessThan("timestamp", endOfDay)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    close(e)
+                    return@addSnapshotListener
+                }
+                val workouts = snapshot?.documents?.mapNotNull { it.toObject(Workout::class.java) }
+                    ?: emptyList()
+                trySend(workouts).isSuccess
+            }
+        awaitClose { listener.remove() }
+    }
+
+    suspend fun deleteWorkout(workout: Workout) {
+        try {
+            userWorkoutsCollection().document(workout.id).delete().await()
+        } catch (e: Exception) {
+            Log.e("WorkoutRepository", "Error deleting workout from Firestore", e)
         }
-
-        val workoutRef = db.collection("users")
-            .document(userId)
-            .collection("workouts")
-            .document(workoutId)
-
-        workoutRef.delete()
-            .addOnSuccessListener {
-                Log.d("WorkoutRepository", "Workout deleted successfully")
-            }
-            .addOnFailureListener { e ->
-                Log.e("WorkoutRepository", "Error deleting workout", e)
-            }
     }
 }

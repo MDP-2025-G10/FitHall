@@ -9,30 +9,23 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class WorkoutViewModel(private val workoutRepository: WorkoutRepository) : ViewModel() {
 
-    val getallWorkouts: StateFlow<List<Workout>> = workoutRepository.getAllWorkouts()
-        .stateIn(viewModelScope, SharingStarted.Companion.Lazily, emptyList())
+    val allWorkoutList: StateFlow<List<Workout>> = workoutRepository.getAllWorkouts()
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    fun getWorkoutsForDate(date: LocalDate): StateFlow<List<Workout>> {
+        return workoutRepository.getWorkoutsForDate(date)
+            .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    }
 
     fun insertWorkout(workout: Workout) = viewModelScope.launch(Dispatchers.IO) {
         workoutRepository.insertWorkout(workout)
     }
 
-    fun getWorkoutById(id: String): Workout? {
-        return getallWorkouts.value.find { it.id == id }
-    }
-
-    //modify existing workout
-    fun updateWorkout(workout: Workout) = viewModelScope.launch(Dispatchers.IO) {
-        workoutRepository.insertWorkout(workout)
-    }
-
-    fun getWorkoutByDate(date: String): Workout? {
-        return getallWorkouts.value.find { it.date == date }
-    }
-
     fun deleteWorkout(workout: Workout) = viewModelScope.launch(Dispatchers.IO) {
-        workoutRepository.deleteWorkout(workoutId = workout.id)
+        workoutRepository.deleteWorkout(workout)
     }
 }

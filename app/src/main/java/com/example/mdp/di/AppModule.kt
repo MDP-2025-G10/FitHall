@@ -29,13 +29,12 @@ val appModule = module {
     single { FirebaseAuth.getInstance() } // Provide FirebaseAuth instance
     single { FirebaseFirestore.getInstance() } // Singleton instance of Firestore
 
-    single { WorkoutRepository(get(), get()) }
-
     //  Inject FirebaseAuth and context into AuthRepository
     single { AuthRepository(get(), androidContext(), get()) }
     viewModel { AuthViewModel(get(), get()) }
 
-
+    //  Workout
+    single { WorkoutRepository(get(), get()) }
     viewModel { WorkoutViewModel(get()) }
 
     //  Meal

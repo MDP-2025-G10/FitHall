@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.navigation.LocalFoodViewModel
-import com.example.mdp.ui.components.food.HistorySection
+import com.example.mdp.ui.components.food.FoodHistory
+import com.example.mdp.ui.components.food.FoodSuggestion
 import com.example.mdp.ui.components.food.SearchBar
-import com.example.mdp.ui.components.food.SuggestionSection
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 
@@ -59,8 +59,8 @@ fun Food(navController: NavController) {
                 }
             }
             when (selectedTabIndex) {
-                0 -> HistorySection(navController)
-                1 -> SuggestionSection()
+                0 -> FoodHistory(navController)
+                1 -> FoodSuggestion()
             }
         }
     }

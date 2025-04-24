@@ -37,11 +37,12 @@ import coil3.compose.AsyncImage
 import com.example.mdp.firebase.firestore.model.Meal
 import com.example.mdp.navigation.LocalDateViewModel
 import com.example.mdp.navigation.LocalMealViewModel
+import com.example.mdp.navigation.NavRoutes
 import com.example.mdp.utils.historyCardTimeFormatter
 
 
 @Composable
-fun HistorySection(navController: NavController) {
+fun FoodHistory(navController: NavController) {
     val dateViewModel = LocalDateViewModel.current
     val mealViewModel = LocalMealViewModel.current
 
@@ -56,7 +57,8 @@ fun HistorySection(navController: NavController) {
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        DateSelector(navController)
+        DateSelector(navController, NavRoutes.RouteToFood.route)
+
 
         if (mealsForSelectedDate.isNotEmpty()) {
             LazyColumn(
@@ -86,9 +88,7 @@ fun HistoryCard(meal: Meal) {
     val imagePath = meal.imagePath
     val formattedDate = historyCardTimeFormatter(meal.timestamp)
 
-    Card(
-        modifier = Modifier.fillMaxWidth()
-    ) {
+    Card(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -97,9 +97,6 @@ fun HistoryCard(meal: Meal) {
             Column(modifier = Modifier.weight(0.9f)) {
                 Text(mealName, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Text("Calories: $calories kcal")
-//                Text("Carbs: $carbs g")
-//                Text("Protein: $protein g")
-//                Text("Fats: $fats g")
                 MacroProgressBar(carbs, protein, fats)
                 AsyncImage(
                     model = imagePath,

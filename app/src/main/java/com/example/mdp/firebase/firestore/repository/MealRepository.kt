@@ -24,7 +24,9 @@ class MealRepository(
 ) {
 
     private fun userMealsCollection() =
-        db.collection("users").document(auth.currentUser?.uid ?: "default").collection("meals")
+        db.collection("users")
+            .document(auth.currentUser?.uid ?: "default")
+            .collection("meals")
 
     suspend fun insertMeal(meal: Meal) {
         try {
@@ -111,36 +113,4 @@ class MealRepository(
     }
 }
 
-
-//class MealRepository(private val mealDao: MealDao) {
-//
-//    val allMeals: Flow<List<Meal>> = mealDao.getAllMeals()
-//    private val todayMeals: Flow<List<Meal>> = mealDao.getTodayMeals()
-//
-//    fun getTodayNutrition(): Flow<NutritionInfo> {
-//        return todayMeals.map { meals ->
-//            NutritionInfo(
-//                calories = meals.sumOf { it.calories },
-//                fats = meals.sumOf { it.fats },
-//                carbs = meals.sumOf { it.carbs },
-//                proteins = meals.sumOf { it.proteins }
-//            )
-//        }
-//    }
-//
-//    fun getCaloriesForLast7Days(): Flow<List<DailyCalories>> {
-//        val sevenDaysAgo = System.currentTimeMillis() / 1000 - (7 * 24 * 60 * 60) // Convert to UNIX timestamp
-//        return mealDao.getCaloriesForLast7Days(sevenDaysAgo)
-//    }
-//
-//    // Insert a meal into the database
-//    suspend fun insertMeal(meal: Meal) {
-//        mealDao.insertMeal(meal)
-//    }
-//
-//    // Delete a meal from the database
-//    suspend fun deleteMeal(meal: Meal) {
-//        mealDao.deleteMeal(meal)
-//    }
-//}
 
