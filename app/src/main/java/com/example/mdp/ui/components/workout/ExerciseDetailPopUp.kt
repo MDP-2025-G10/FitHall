@@ -12,6 +12,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +33,10 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
     val workoutName by remember { mutableStateOf(exercise.name) }
     val workoutDescription by remember { mutableStateOf(exercise.description) }
 
+    val weightInput by workoutViewModel.weightInput.collectAsState()
+    val repsInput by workoutViewModel.repsInput.collectAsState()
+    val sets by workoutViewModel.sets.collectAsState()
+
     Log.d("ExerciseDetailPopUp", "$exercise")
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -43,6 +48,16 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
                     .padding(vertical = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
+                WorkoutControl(
+                    weightInput,
+                    repsInput,
+                    { workoutViewModel.setWeightInput(it) },
+                    { workoutViewModel.setRepsInput(it) },
+                    {
+                        workoutViewModel.addSetToWorkout(exercise.name)
+
+                    }
+                )
                 if (exercise.imageUrl.isNotEmpty()) {
                     AsyncImage(
                         model = exercise.imageUrl,
@@ -57,6 +72,12 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
                 } else {
                     Text("No Image Available", color = Color.Gray)
                 }
+                if (sets.isNotEmpty()) {
+                    Text("Sets:")
+                    sets.forEachIndexed { index, set ->
+                        Text("Set ${index + 1}: ${set.weight} kg x ${set.reps} reps")
+                    }
+                }
             }
 
         },
@@ -68,12 +89,11 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
                         name = workoutName,
                         description = workoutDescription,
                         imagePath = exercise.imageUrl,
-                        sets = emptyList(),
+                        sets = sets,
                         timestamp = System.currentTimeMillis()
                     )
                     workoutViewModel.insertWorkout(newWorkout)
                     onDismiss()
-
                 },
                 enabled = workoutName.isNotBlank()
             ) {

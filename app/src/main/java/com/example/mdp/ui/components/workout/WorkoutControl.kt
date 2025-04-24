@@ -17,9 +17,7 @@ fun WorkoutControl(
     onSave: () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 70.dp),
+        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         val weight = weightInput.toDoubleOrNull() ?: 0.0
