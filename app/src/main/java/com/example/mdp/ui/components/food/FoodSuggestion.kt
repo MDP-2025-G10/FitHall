@@ -35,7 +35,10 @@ fun FoodSuggestion() {
 
     val foodViewModel = LocalFoodViewModel.current
     val foodList by foodViewModel.foodList.collectAsState()
+    val searchQuery by foodViewModel.searchQuery.collectAsState()
+
     Column(modifier = Modifier.fillMaxSize()) {
+        SearchBar(searchQuery) { foodViewModel.updateSearchQuery(it) }
         if (foodList.isNotEmpty()) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

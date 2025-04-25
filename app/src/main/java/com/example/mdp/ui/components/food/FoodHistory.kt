@@ -59,7 +59,6 @@ fun FoodHistory(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize()) {
         DateSelector(navController, NavRoutes.RouteToFood.route)
 
-
         if (mealsForSelectedDate.isNotEmpty()) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

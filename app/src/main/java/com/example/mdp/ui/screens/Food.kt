@@ -9,7 +9,6 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -18,19 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.mdp.navigation.LocalFoodViewModel
 import com.example.mdp.ui.components.food.FoodHistory
 import com.example.mdp.ui.components.food.FoodSuggestion
-import com.example.mdp.ui.components.food.SearchBar
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 
 @Composable
 fun Food(navController: NavController) {
-
-    val foodViewModel = LocalFoodViewModel.current
-    val searchQuery by foodViewModel.searchQuery.collectAsState()
-
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -46,8 +39,6 @@ fun Food(navController: NavController) {
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            SearchBar(searchQuery) { foodViewModel.updateSearchQuery(it) }
-
             val tabs = listOf("History", "Suggestions")
             TabRow(selectedTabIndex = selectedTabIndex) {
                 tabs.forEachIndexed { index, title ->
