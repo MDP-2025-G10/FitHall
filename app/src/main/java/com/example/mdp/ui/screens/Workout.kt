@@ -58,7 +58,7 @@ fun Workout(navController: NavController) {
             }
             when (selectedTabIndex) {
                 0 -> WorkoutHistory(navController)
-                1 -> WorkoutSuggestion(searchQuery, onQueryChange = { searchQuery = it })
+                1 -> WorkoutSuggestion()
             }
         }
     }

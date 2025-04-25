@@ -29,10 +29,7 @@ sealed class SuggestionScreenState {
 
 
 @Composable
-fun WorkoutSuggestion(
-    query: String,
-    onQueryChange: (String) -> Unit
-) {
+fun WorkoutSuggestion() {
     var currentScreen by remember { mutableStateOf<SuggestionScreenState>(SuggestionScreenState.Main) }
 
     Column(
