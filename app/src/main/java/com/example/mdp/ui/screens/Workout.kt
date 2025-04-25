@@ -11,12 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.mdp.navigation.LocalExerciseViewModel
 import com.example.mdp.ui.components.toolbar.BottomBar
 import com.example.mdp.ui.components.toolbar.TopBar
 import com.example.mdp.ui.components.workout.WorkoutHistory
@@ -26,6 +28,8 @@ import com.example.mdp.ui.components.workout.WorkoutSuggestion
 @Composable
 fun Workout(navController: NavController) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
+    var searchQuery by remember { mutableStateOf("") }
+    val exerciseViewModel = LocalExerciseViewModel.current
 
     Scaffold(
         topBar = { TopBar(navController) },
@@ -44,14 +48,17 @@ fun Workout(navController: NavController) {
                 tabs.forEachIndexed { index, title ->
                     Tab(
                         selected = selectedTabIndex == index,
-                        onClick = { selectedTabIndex = index },
+                        onClick = {
+                            selectedTabIndex = index
+                            exerciseViewModel.updateSearchQuery("")
+                        },
                         text = { Text(title) }
                     )
                 }
             }
             when (selectedTabIndex) {
                 0 -> WorkoutHistory(navController)
-                1 -> WorkoutSuggestion(navController)
+                1 -> WorkoutSuggestion(searchQuery, onQueryChange = { searchQuery = it })
             }
         }
     }

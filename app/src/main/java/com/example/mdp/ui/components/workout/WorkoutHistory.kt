@@ -56,9 +56,7 @@ fun WorkoutHistory(navController: NavController) {
             workoutForSelectedDate = workouts
         }
     }
-
     Column(modifier = Modifier.fillMaxWidth()) {
-
         DateSelector(navController, NavRoutes.RouteToWorkout.route)
         if (workoutForSelectedDate.isNotEmpty()) {
             LazyColumn(

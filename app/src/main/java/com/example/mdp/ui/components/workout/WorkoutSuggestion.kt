@@ -19,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 
 
 sealed class SuggestionScreenState {
@@ -30,7 +29,10 @@ sealed class SuggestionScreenState {
 
 
 @Composable
-fun WorkoutSuggestion(navController: NavController) {
+fun WorkoutSuggestion(
+    query: String,
+    onQueryChange: (String) -> Unit
+) {
     var currentScreen by remember { mutableStateOf<SuggestionScreenState>(SuggestionScreenState.Main) }
 
     Column(
@@ -70,7 +72,6 @@ fun WorkoutSuggestion(navController: NavController) {
 
             is SuggestionScreenState.ExerciseList -> {
                 ExerciseListScreen(
-                    bodyPartId = screen.bodyPartId,
                     bodyPartName = screen.bodyPartName,
                     onBack = { currentScreen = SuggestionScreenState.BodyParts }
                 )

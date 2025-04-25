@@ -12,15 +12,10 @@ interface WgerApiService {
     @GET("exerciseinfo/")
     suspend fun getExercises(
         @Query("category") categoryId: Int,
-//        @Query("language") languageId: Int = 2,
         @Query("limit") limit: Int = 600
     ): WgerExerciseResponse
 
     @GET("exercisecategory")
     suspend fun getBodyParts(): WgerBodyPartResponse
 
-//    @GET("exerciseimage")
-//    suspend fun getExerciseImages(
-//        @Query("exercise_base") exerciseBaseId: Int
-//    ): WgerImageResponse
 }

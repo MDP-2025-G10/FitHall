@@ -2,10 +2,12 @@ package com.example.mdp.wger.repository
 
 import android.util.Log
 import androidx.core.text.HtmlCompat
+import com.example.mdp.usda.model.FoodSearchResponse
 import com.example.mdp.wger.WgerApiService
 import com.example.mdp.wger.model.BodyPart
 import com.example.mdp.wger.model.Exercise
 import com.example.mdp.wger.model.ExerciseApiModel
+import com.example.mdp.wger.model.WgerExerciseResponse
 
 class ExerciseRepository(private val api: WgerApiService) {
 
@@ -53,5 +55,4 @@ class ExerciseRepository(private val api: WgerApiService) {
             )
         }
     }
-
 }

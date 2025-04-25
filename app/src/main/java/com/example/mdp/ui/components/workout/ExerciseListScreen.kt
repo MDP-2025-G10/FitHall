@@ -22,11 +22,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mdp.navigation.LocalExerciseViewModel
+import com.example.mdp.ui.components.food.SearchBar
 import com.example.mdp.wger.model.Exercise
 
 @Composable
 fun ExerciseListScreen(
-    bodyPartId: Int,
     bodyPartName: String,
     onBack: () -> Unit
 ) {
@@ -34,6 +34,8 @@ fun ExerciseListScreen(
     val exercises: List<Exercise> by exerciseViewModel.exercises.collectAsState()
 
     var selectedExercise by remember { mutableStateOf<Exercise?>(null) }
+
+    val searchQuery by exerciseViewModel.searchQuery.collectAsState()
 
     LaunchedEffect(bodyPartName) {
         exerciseViewModel.loadExercises(bodyPartName)
@@ -43,6 +45,7 @@ fun ExerciseListScreen(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        SearchBar(searchQuery) { exerciseViewModel.updateSearchQuery(it) }
         Text(
             text = "Back to Body Parts",
             modifier = Modifier
