@@ -53,10 +53,7 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
                     repsInput,
                     { workoutViewModel.setWeightInput(it) },
                     { workoutViewModel.setRepsInput(it) },
-                    {
-                        workoutViewModel.addSetToWorkout(exercise.name)
-
-                    }
+                    { workoutViewModel.addSetToWorkout(exercise.name) }
                 )
                 if (exercise.imageUrl.isNotEmpty()) {
                     AsyncImage(
@@ -93,6 +90,7 @@ fun ExerciseDetailPopUp(exercise: Exercise, onDismiss: () -> Unit) {
                         timestamp = System.currentTimeMillis()
                     )
                     workoutViewModel.insertWorkout(newWorkout)
+                    workoutViewModel.clearWorkoutState()
                     onDismiss()
                 },
                 enabled = workoutName.isNotBlank()

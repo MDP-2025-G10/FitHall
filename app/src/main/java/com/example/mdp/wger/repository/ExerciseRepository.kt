@@ -1,6 +1,7 @@
 package com.example.mdp.wger.repository
 
 import android.util.Log
+import androidx.core.text.HtmlCompat
 import com.example.mdp.wger.WgerApiService
 import com.example.mdp.wger.model.BodyPart
 import com.example.mdp.wger.model.Exercise
@@ -42,11 +43,12 @@ class ExerciseRepository(private val api: WgerApiService) {
     private fun mapToExercise(exerciseApi: ExerciseApiModel): Exercise? {
         val translation = exerciseApi.translations.find { it.language == 2 }
         return translation?.let {
+            val plainText = HtmlCompat.fromHtml(it.description, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
             Exercise(
                 id = exerciseApi.id,
                 name = it.name,
                 category = exerciseApi.category,
-                description = it.description,
+                description = plainText,
                 imageUrl = exerciseApi.images.firstOrNull()?.image ?: "",
             )
         }

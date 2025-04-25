@@ -2,6 +2,7 @@ package com.example.mdp.firebase.firestore.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mdp.firebase.firestore.model.Set
 import com.example.mdp.firebase.firestore.model.Workout
 import com.example.mdp.firebase.firestore.repository.WorkoutRepository
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import com.example.mdp.firebase.firestore.model.Set
 
 class WorkoutViewModel(private val workoutRepository: WorkoutRepository) : ViewModel() {
 
@@ -34,17 +34,11 @@ class WorkoutViewModel(private val workoutRepository: WorkoutRepository) : ViewM
     }
 
     fun addSetToWorkout(exerciseName: String) {
+        val id = _sets.value.size + 1
         val reps = _repsInput.value.toIntOrNull() ?: return
         val weight = _weightInput.value.toIntOrNull() ?: return
-        val newSet = Set(reps = reps, weight = weight)
+        val newSet = Set(id = id, reps = reps, weight = weight)
         _sets.value += newSet
-        _weightInput.value = ""
-        _repsInput.value = ""
-    }
-
-    fun clearSetInputs() {
-        _weightInput.value = ""
-        _repsInput.value = ""
     }
 
     fun clearWorkoutState() {

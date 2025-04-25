@@ -11,6 +11,5 @@ data class Workout(
 )
 
 data class Set(
-    val reps: Int = 0,
-    val weight: Int = 0
+    val id: Int = 0, val reps: Int = 0, val weight: Int = 0
 )

@@ -18,26 +18,26 @@ fun Interaction(
 ) {
     Row {
         Button(
-            onClick = onSave,
+            onClick = onClear,
             modifier = Modifier
                 .weight(0.5f)
                 .padding(end = 5.dp),
+            shape = CutCornerShape(2.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
+        ) { Text("Clear") }
+        Button(
+            onClick = onSave,
+            modifier = Modifier
+                .weight(0.5f)
+                .padding(start = 5.dp),
             shape = CutCornerShape(2.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
             )
         ) { Text("Save") }
-        Button(
-            onClick = onClear,
-            modifier = Modifier
-                .weight(0.5f)
-                .padding(start = 5.dp),
-            shape = CutCornerShape(2.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.secondary,
-                contentColor = MaterialTheme.colorScheme.onSecondary
-            )
-        ) { Text("Clear") }
     }
 }
