@@ -45,7 +45,7 @@ In this project, we use
 
 ## :video_camera: Video Demonstration
 
-TBD
+[![Video Demonstration](https://img.youtube.com/shorts/5RSn6TsSilg/0.jpg)](https://youtube.com/shorts/5RSn6TsSilg)
 
 ## :video_camera: Firebase Tutorial
 
