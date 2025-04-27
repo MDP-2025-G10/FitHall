@@ -1,7 +1,9 @@
 package com.example.mdp.ui.screens
 
 import android.content.Context
+import androidx.camera.core.CameraSelector
 import androidx.camera.view.CameraController
+import androidx.camera.view.LifecycleCameraController
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -12,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,14 +31,14 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun FoodScannerScreen(navController: NavController, context: Context, mealViewModel: MealViewModel, cameraController: CameraController) {
+fun FoodScannerScreen(navController: NavController, context: Context, mealViewModel: MealViewModel) {
     var detectedFood by remember { mutableStateOf("") }
     var nutritionData by remember { mutableStateOf("") }
     var showCamera by remember { mutableStateOf(true) }
+    var isLoading by remember { mutableStateOf(false) }
+
     val labels = remember { FoodRecognitionLabels.loadLabels(context) }
     val nutrition by mealViewModel.nutrition.collectAsState()
-    val predictedLabel by mealViewModel.predictedLabel.collectAsState()
-
 
     // Load the TensorFlow model
     LaunchedEffect(Unit) {
@@ -47,27 +50,26 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
         if (showCamera) {
             Camera(
                 onImageCapture = { bitmap ->
-                    TensorFlowHelper.classify(bitmap, mealViewModel)
-                // Convert the bitmap to ByteBuffer
-                val byteBuffer = convertBitmapToByteBuffer(bitmap)
-                // Run inference
-                val output = TensorFlowHelper.runInference(inputBuffer = byteBuffer)
-                val (predictedLabel, confidence) = TensorFlowHelper.getTopPrediction(output, labels)
+                    isLoading = true // Show loading when image captured
 
-                // Fetch nutrition info
-                CoroutineScope(Dispatchers.Main).launch {
-                    val nutritionalData = getNutritionInfo(predictedLabel)
+                        // Run classification
+//                        TensorFlowHelper.classify(bitmap, mealViewModel)
 
-                    withContext(Dispatchers.Main) {
+                        val byteBuffer = convertBitmapToByteBuffer(bitmap)
+                        val output = TensorFlowHelper.runInference(byteBuffer)
+                        val (predicted, confidence) = TensorFlowHelper.getTopPrediction(output, labels)
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val nutritionalData = getNutritionInfo(predicted)
+
+                        withContext(Dispatchers.Main) {
                         if (nutritionalData != null) {
-                            detectedFood = predictedLabel
-                            nutritionData =
-                                "Calories: ${nutritionalData.calories}, Protein: ${nutritionalData.protein}g, Carbs: ${nutritionalData.carbs}g, Fat: ${nutritionalData.fat}g"
+                            detectedFood = predicted
+                            nutritionData = "Calories: ${nutritionalData.calories}, Protein: ${nutritionalData.protein}g, Carbs: ${nutritionalData.carbs}g, Fat: ${nutritionalData.fat}g"
                             showCamera = false
 
-                            // Save the prediction to Firestore
                             mealViewModel.savePrediction(
-                                label = predictedLabel,
+                                label = predicted,
                                 calories = nutritionalData.calories,
                                 fat = nutritionalData.fat,
                                 carbs = nutritionalData.carbs,
@@ -78,11 +80,12 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                             detectedFood = "Unknown food item"
                             nutritionData = "No nutritional information available"
                         }
+                           isLoading = false // Hide loading after done
+                        }
                     }
-                }
-            },
-                cameraController = cameraController,
-                mealViewModel = mealViewModel
+                },
+                isLoading = isLoading,
+//                cameraController = cameraController
             )
         } else {
             if (nutrition != null) {
