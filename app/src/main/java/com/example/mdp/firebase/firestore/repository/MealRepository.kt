@@ -109,6 +109,33 @@ class MealRepository(
             Log.e("MealRepository", "Error deleting meal from Firestore", e)
         }
     }
+
+    fun uploadMealPrediction(
+        label: String,
+        calories: Int,
+        fat: Float,
+        carbs: Float,
+        protein: Float,
+        confidence: Float,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        val db = FirebaseFirestore.getInstance()
+        val meal = hashMapOf(
+            "label" to label,
+            "calories" to calories,
+            "fat" to fat,
+            "carbs" to carbs,
+            "protein" to protein,
+            "confidence" to confidence,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        db.collection("meals")
+            .add(meal)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { exception -> onFailure(exception) }
+    }
 }
 
 
