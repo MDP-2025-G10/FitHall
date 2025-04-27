@@ -13,6 +13,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.CameraController
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,22 +38,29 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.example.mdp.firebase.firestore.viewModel.MealViewModel
 
 
 @Composable
-fun Camera(onImageCapture: (Bitmap) -> Unit, isLoading: Boolean = false) {
+fun Camera(
+    onImageCapture: (Bitmap) -> Unit,
+    isLoading: Boolean = false,
+    mealViewModel: MealViewModel,
+    cameraController: CameraController
+) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
     // Check and request camera permissions
-    if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-        // Request camera permission
-        ActivityCompat.requestPermissions(
-            context as Activity,
-            arrayOf(Manifest.permission.CAMERA),
-            1
-        )
-        return
+    LaunchedEffect(Unit) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // Request camera permission
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(Manifest.permission.CAMERA),
+                1
+            )
+        }
     }
 
         Box(modifier = Modifier.fillMaxSize()) {
@@ -64,6 +73,7 @@ fun Camera(onImageCapture: (Bitmap) -> Unit, isLoading: Boolean = false) {
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT
                         )
+                        implementationMode = PreviewView.ImplementationMode.COMPATIBLE
                     }
 
                     val cameraProviderFuture = ProcessCameraProvider.getInstance(ctx)
@@ -86,7 +96,7 @@ fun Camera(onImageCapture: (Bitmap) -> Unit, isLoading: Boolean = false) {
                             )
 
                             // Capture image on button click
-                            com.example.mdp.ui.components.assets.CameraController.imageCapture = imageCapture
+                            com.example.mdp.ui.components.utils.CameraController.imageCapture = imageCapture
                         } catch (e: Exception) {
                             Log.e("Camera", "Use case binding failed", e)
                         }
@@ -110,12 +120,13 @@ fun Camera(onImageCapture: (Bitmap) -> Unit, isLoading: Boolean = false) {
             // Floating Capture Button
             FloatingActionButton(
                 onClick = {
-                    com.example.mdp.ui.components.assets.CameraController.captureImage(context) { imageProxy ->
+                    com.example.mdp.ui.components.utils.CameraController.captureImage(context, mealViewModel) { imageProxy ->
                         val buffer = imageProxy.planes[0].buffer
                         val bytes = ByteArray(buffer.remaining())
                         buffer.get(bytes)
                         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                         onImageCapture(bitmap)
+                        imageProxy.close()
                     }
                 },
                 modifier = Modifier

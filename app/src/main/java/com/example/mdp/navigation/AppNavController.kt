@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.LifecycleCameraController
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
@@ -106,6 +108,16 @@ fun AppNavController(context: Context) {
             ) { Workout(navController) }
 
             composable(
+            route = NavRoutes.RouteToCamera.route,
+            ) {
+                val cameraController = LifecycleCameraController(context)
+                FoodScannerScreen(
+                    navController = navController,
+                    context = context,
+                    mealViewModel = mealViewModel,
+                    cameraController = cameraController
+                )
+            }
                 route = NavRoutes.RouteToCamera.route,
             ) { FoodScannerScreen(navController, context) }
 
@@ -122,6 +134,7 @@ fun AppNavController(context: Context) {
                 enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
                 exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) }
             ) { Profile(navController) }
+
         }
     }
 }
