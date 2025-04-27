@@ -1,6 +1,5 @@
 package com.example.mdp.ui.components.utils
 
-import com.example.mdp.BuildConfig.USDA_API_KEY
 import com.example.mdp.data.model.NutritionData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,7 +9,7 @@ import org.json.JSONObject
 import java.net.URLEncoder
 
 suspend fun getNutritionInfo(foodName: String): NutritionData? {
-    val searchUrl = "https://api.nal.usda.gov/fdc/v1/foods/search?query=${URLEncoder.encode(foodName, "UTF-8")}&api_key=$USDA_API_KEY"
+    val searchUrl = "https://api.nal.usda.gov/fdc/v1/foods/search?query=${URLEncoder.encode(foodName, "UTF-8")}&api_key=${com.example.mdp.BuildConfig.USDA_API_KEY}"
 
     val client = OkHttpClient()
 
@@ -28,7 +27,7 @@ suspend fun getNutritionInfo(foodName: String): NutritionData? {
         val fdcId = foodsArray.getJSONObject(0).getInt("fdcId")
 
         // Fetch details using FDC ID
-        val detailUrl = "https://api.nal.usda.gov/fdc/v1/food/$fdcId?api_key=$USDA_API_KEY"
+        val detailUrl = "https://api.nal.usda.gov/fdc/v1/food/$fdcId?api_key=${com.example.mdp.BuildConfig.USDA_API_KEY}"
         val detailRequest = Request.Builder().url(detailUrl).build()
         val detailResponse = withContext(Dispatchers.IO) { client.newCall(detailRequest).execute() }
 

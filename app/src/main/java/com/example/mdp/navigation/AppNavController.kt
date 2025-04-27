@@ -110,12 +110,10 @@ fun AppNavController(context: Context) {
             composable(
             route = NavRoutes.RouteToCamera.route,
             ) {
-                val cameraController = LifecycleCameraController(context)
                 FoodScannerScreen(
                     navController = navController,
                     context = context,
-                    mealViewModel = mealViewModel,
-                    cameraController = cameraController
+                    mealViewModel = mealViewModel
                 )
             }
                 route = NavRoutes.RouteToCamera.route,
