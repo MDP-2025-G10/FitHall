@@ -57,4 +57,4 @@ In this project, we use
 
 - [Aleksi Loddo](mailto:t3loal00@students.oamk.fi)
 - [Abolfazl Khazraei](mailto:t3khab00@students.oamk.fi)
-- [Sam Chou](mailto:t3chsa01@students.oamk.fi)
+- [Sam Chou](https://github.com/FuzzyKala)
