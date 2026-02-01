@@ -104,3 +104,5 @@ This section are the additions made to the original FitHall application. The foc
 - Prepare a demo of the UI flow to show the main app features
 - Document task progress and learning outcomes  
 
+
+
