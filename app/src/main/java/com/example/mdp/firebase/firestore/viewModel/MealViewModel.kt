@@ -69,16 +69,19 @@ class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
         confidence: Float
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            mealRepository.uploadMealPrediction(
-                label = label,
-                calories = calories,
-                fat = fat,
-                carbs = carbs,
-                protein = protein,
-                confidence = confidence,
-                onSuccess = { Log.d("MealViewModel", "Prediction saved successfully") },
-                onFailure = { e -> Log.e("MealViewModel", "Error saving prediction", e) }
-            )
+            try {
+                mealRepository.uploadMealPrediction(
+                    label = label,
+                    calories = calories,
+                    fat = fat,
+                    carbs = carbs,
+                    protein = protein,
+                    confidence = confidence
+                )
+                Log.d("MealViewModel", "Prediction saved successfully")
+            } catch (e: Exception) {
+                Log.e("MealViewModel", "Error saving prediction", e)
+            }
         }
     }
 

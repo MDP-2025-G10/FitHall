@@ -112,15 +112,13 @@ class MealRepository(
         }
     }
 
-    fun uploadMealPrediction(
+    suspend fun uploadMealPrediction(
         label: String,
         calories: Int,
         fat: Float,
         carbs: Float,
         protein: Float,
-        confidence: Float,
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
+        confidence: Float
     ) {
         val meal = hashMapOf(
             "label" to label,
@@ -131,7 +129,24 @@ class MealRepository(
             "confidence" to confidence,
             "timestamp" to System.currentTimeMillis()
         )
+        try {
+            val meal = hashMapOf(
+                "label" to label,
+                "calories" to calories,
+                "fat" to fat,
+                "carbs" to carbs,
+                "protein" to protein,
+                "confidence" to confidence,
+                "timestamp" to System.currentTimeMillis()
+            )
 
+            userMealsCollection()
+                .add(meal)
+                .await()
+        } catch (e: Exception) {
+            Log.e("MealRepository", "Error uploading meal prediction", e)
+            throw e
+        }
         userMealsCollection()
             .add(meal)
             .addOnSuccessListener { onSuccess() }
@@ -139,4 +154,36 @@ class MealRepository(
     }
 }
 
+
+//class MealRepository(private val mealDao: MealDao) {
+//
+//    val allMeals: Flow<List<Meal>> = mealDao.getAllMeals()
+//    private val todayMeals: Flow<List<Meal>> = mealDao.getTodayMeals()
+//
+//    fun getTodayNutrition(): Flow<NutritionInfo> {
+//        return todayMeals.map { meals ->
+//            NutritionInfo(
+//                calories = meals.sumOf { it.calories },
+//                fats = meals.sumOf { it.fats },
+//                carbs = meals.sumOf { it.carbs },
+//                proteins = meals.sumOf { it.proteins }
+//            )
+//        }
+//    }
+//
+//    fun getCaloriesForLast7Days(): Flow<List<DailyCalories>> {
+//        val sevenDaysAgo = System.currentTimeMillis() / 1000 - (7 * 24 * 60 * 60) // Convert to UNIX timestamp
+//        return mealDao.getCaloriesForLast7Days(sevenDaysAgo)
+//    }
+//
+//    // Insert a meal into the database
+//    suspend fun insertMeal(meal: Meal) {
+//        mealDao.insertMeal(meal)
+//    }
+//
+//    // Delete a meal from the database
+//    suspend fun deleteMeal(meal: Meal) {
+//        mealDao.deleteMeal(meal)
+//    }
+//}
 
