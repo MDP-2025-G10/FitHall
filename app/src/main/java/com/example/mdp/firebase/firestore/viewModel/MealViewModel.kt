@@ -87,7 +87,9 @@ class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
         _predictedLabel.value = label
 
         label?.let {
-            _nutrition.value = NutritionUtils.findNutrition(it, nutritionList)
+            // Normalize label to match snake_case entries in nutrition_100g.csv (e.g., "Apple pie" -> "apple_pie")
+            val normalizedLabel = it.trim().lowercase().replace(" ", "_")
+            _nutrition.value = NutritionUtils.findNutrition(normalizedLabel, nutritionList)
         }
     }
 
