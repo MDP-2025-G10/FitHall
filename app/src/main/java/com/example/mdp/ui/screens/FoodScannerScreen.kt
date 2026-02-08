@@ -7,7 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +31,6 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
     var isLoading by remember { mutableStateOf(false) }
 
     val labels = remember { FoodRecognitionLabels.loadLabels(context) }
-    val nutrition by mealViewModel.nutrition.collectAsState()
     val scope = rememberCoroutineScope()
 
     // Load the TensorFlow model
