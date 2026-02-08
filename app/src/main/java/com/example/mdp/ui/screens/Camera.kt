@@ -138,31 +138,6 @@ fun Camera(
                                 val targetHeight = 192
                                 val resizedBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true)
 
-                                // Convert Bitmap to ByteBuffer
-                                val inputSize = targetWidth * targetHeight * 3 // 3 for RGB channels
-                                val byteBuffer = ByteBuffer.allocateDirect(inputSize * 4) // 4 bytes for float
-                                byteBuffer.order(ByteOrder.nativeOrder())
-
-                                val intValues = IntArray(targetWidth * targetHeight)
-                                resizedBitmap.getPixels(intValues, 0, targetWidth, 0, 0, targetWidth, targetHeight)
-
-                                // Convert pixel values to uint8 and apply quantization
-                                for (i in intValues.indices) {
-                                    val value = intValues[i]
-                                    val r = ((value shr 16) and 0xFF)
-                                    val g = ((value shr 8) and 0xFF)
-                                    val b = (value and 0xFF)
-
-                                    // Apply quantization
-                                    byteBuffer.putFloat(((r - 128) * 0.0078125).toFloat())
-                                    byteBuffer.putFloat(((g - 128) * 0.0078125).toFloat())
-                                    byteBuffer.putFloat(((b - 128) * 0.0078125).toFloat())
-                                }
-
-                                // Reset the ByteBuffer for reading
-                                byteBuffer.rewind()
-
-                                // Now pass the ByteBuffer to TensorFlow Lite
                                 onImageCapture(resizedBitmap)
                                 imageProxy.close()
                             }
