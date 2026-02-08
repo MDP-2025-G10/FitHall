@@ -54,7 +54,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                         val byteBuffer = convertBitmapToByteBuffer(bitmap)
                         val output = TensorFlowHelper.runInference(byteBuffer)
                         val (predicted, confidence) = TensorFlowHelper.getTopPrediction(output, labels)
-                        
+
                         val nutritionalData = getNutritionInfo(predicted)
 
                         if (nutritionalData != null) {
