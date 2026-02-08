@@ -2,11 +2,8 @@ package com.example.mdp.firebase.firestore.viewModel
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Index
 import com.example.mdp.data.model.DailyCalories
 import com.example.mdp.data.model.Meal
 import com.example.mdp.data.model.NutritionInfo
