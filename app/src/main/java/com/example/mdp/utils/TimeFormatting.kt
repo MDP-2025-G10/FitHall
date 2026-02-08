@@ -25,3 +25,8 @@ fun dateSelectorTimeFormatter(date: LocalDate): String {
     val formatter = DateTimeFormatter.ofPattern("EEEE, MMM dd")
     return date.format(formatter)
 }
+
+fun profileTimeFormatter(date:LocalDate):String{
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd")
+    return date.format(formatter)
+}

@@ -32,7 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.mdp.data.model.Meal
+import com.example.mdp.firebase.firestore.model.Meal
 import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.navigation.LocalImgurViewModel
 import com.example.mdp.navigation.LocalMealViewModel

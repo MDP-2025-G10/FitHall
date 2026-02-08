@@ -1,9 +1,9 @@
 package com.example.mdp.firebase.firestore.repository
 
 import android.util.Log
-import com.example.mdp.data.model.DailyCalories
-import com.example.mdp.data.model.Meal
-import com.example.mdp.data.model.NutritionInfo
+import com.example.mdp.firebase.firestore.model.DailyCalories
+import com.example.mdp.firebase.firestore.model.Meal
+import com.example.mdp.firebase.firestore.model.NutritionInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
@@ -24,7 +24,9 @@ class MealRepository(
 ) {
 
     private fun userMealsCollection() =
-        db.collection("users").document(auth.currentUser?.uid ?: "default").collection("meals")
+        db.collection("users")
+            .document(auth.currentUser?.uid ?: "default")
+            .collection("meals")
 
     suspend fun insertMeal(meal: Meal) {
         try {
@@ -138,36 +140,4 @@ class MealRepository(
     }
 }
 
-
-//class MealRepository(private val mealDao: MealDao) {
-//
-//    val allMeals: Flow<List<Meal>> = mealDao.getAllMeals()
-//    private val todayMeals: Flow<List<Meal>> = mealDao.getTodayMeals()
-//
-//    fun getTodayNutrition(): Flow<NutritionInfo> {
-//        return todayMeals.map { meals ->
-//            NutritionInfo(
-//                calories = meals.sumOf { it.calories },
-//                fats = meals.sumOf { it.fats },
-//                carbs = meals.sumOf { it.carbs },
-//                proteins = meals.sumOf { it.proteins }
-//            )
-//        }
-//    }
-//
-//    fun getCaloriesForLast7Days(): Flow<List<DailyCalories>> {
-//        val sevenDaysAgo = System.currentTimeMillis() / 1000 - (7 * 24 * 60 * 60) // Convert to UNIX timestamp
-//        return mealDao.getCaloriesForLast7Days(sevenDaysAgo)
-//    }
-//
-//    // Insert a meal into the database
-//    suspend fun insertMeal(meal: Meal) {
-//        mealDao.insertMeal(meal)
-//    }
-//
-//    // Delete a meal from the database
-//    suspend fun deleteMeal(meal: Meal) {
-//        mealDao.deleteMeal(meal)
-//    }
-//}
 

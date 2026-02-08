@@ -26,7 +26,7 @@ import com.example.mdp.navigation.NavRoutes
 import com.example.mdp.utils.dateSelectorTimeFormatter
 
 @Composable
-fun DateSelector(navController: NavController) {
+fun DateSelector(navController: NavController, currentRoute: String) {
 
     val dateViewModel = LocalDateViewModel.current
 
@@ -56,8 +56,8 @@ fun DateSelector(navController: NavController) {
             IconButton(onClick = {
                 val newDate = selectedDate.minusDays(1)
                 dateViewModel.setSelectedDate(newDate)
-                navController.navigate(NavRoutes.RouteToFood.route) {
-                    popUpTo(NavRoutes.RouteToFood.route) { inclusive = false }
+                navController.navigate(currentRoute) {
+                    popUpTo(currentRoute) { inclusive = false }
                 }
 
             }) {
@@ -80,8 +80,8 @@ fun DateSelector(navController: NavController) {
             IconButton(onClick = {
                 val newDate = selectedDate.plusDays(1)
                 dateViewModel.setSelectedDate(newDate)
-                navController.navigate(NavRoutes.RouteToFood.route) {
-                    popUpTo(NavRoutes.RouteToFood.route) { inclusive = false }
+                navController.navigate(currentRoute) {
+                    popUpTo(currentRoute) { inclusive = false }
                 }
 
 

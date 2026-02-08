@@ -13,6 +13,7 @@ sealed class NavRoutes(val route: String) {
     data object RouteToCamera : NavRoutes("Camera")
     data object RouteToCalendar : NavRoutes("Calendar")
     data object RouteToSetting : NavRoutes("Setting")
+    data object RouteToBodyPart : NavRoutes("BodyPart")
 
     companion object {
         fun routeToFood(date: String): String = "food/$date"

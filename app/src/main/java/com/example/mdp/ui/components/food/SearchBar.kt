@@ -14,7 +14,7 @@ fun SearchBar(
     OutlinedTextField(
         value = query,
         onValueChange = onQueryChange,
-        label = { Text("Search for food") },
+        label = { Text("Search for something") },
         modifier = Modifier.fillMaxWidth()
     )
 }

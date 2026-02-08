@@ -1,119 +1,55 @@
-# AWAP Movie Application
+# FitHall
 
 <p>
   
-<img alt="Nodejs Badge" longdesc="Nodejs Badge" src="https://img.shields.io/badge/Node%20js-3c873a?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+<img alt="Kotlin Badge" src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white" />
 
-<img alt="PostgreSQL Badge" longdesc="PostgreSQL Badge" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+<img alt="Firebase Badge" src="https://img.shields.io/badge/Firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=fff" />
 
-<img alt="React Badge" longdesc="React Badge" src="https://img.shields.io/badge/React-303030?style=for-the-badge&logo=react&logoColor=61DAFB" />
+<img alt="Imgur Badge" src="https://img.shields.io/badge/Imgur-1BB76E?style=for-the-badge&logo=imgur&logoColor=white" />
 
-<img alt="Bootstrap Badge" longdesc="Bootstrap Badge" src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" />
+<img alt="TensorFlow Badge" src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" />
 
-<img alt="Javascript Badge" longdesc="Javascript Badge" src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />
-
-<img alt="Microsoft Azure Badge" longdesc="microsoft azure Badge" src="https://img.shields.io/badge/microsoft%20azure-008ad7?style=for-the-badge&logo=microsoft-azure&logoColor=white" />
+<img alt="Android Badge" src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
 
 </p>
 
 ## :books: Table of the content
 
 - [Introduction](#bulb-introduction)
-- [Start](#rocket-start)
-- [UI Diagram](#art-ui-diagram)
-- [Database Structure](#floppy_disk-database-structure)
-- [API document](#page_with_curl-api-document)
-- [Deployment](#gear-deployment)
-- [Video Demostration](#video_camera-video-demostration)
+- [Video Demonstration](#video_camera-video-demonstration)
+- [Firebase Tutorial](#video_camera-firebase-tutorial)
 - [Contacts](#email-contacts)
 
 ## :bulb: Introduction
 
-**AppName** is an application that users can...
+**FitHall** is a mobile application that helps users record their body metrics, analyze nutritional information, and manage workout routines.
+
+**FitHall** provides tools for users to record and manage their workout routines. It makes it easier to track and organize your fitness lifestyle — all in one app.
+
+**FitHall** visualizes users' body metrics, daily calorie intake, and workout data, making it easy to understand and track progress anytime, anywhere.
 
 In this project, we use
 
-- <img src="https://img.shields.io/badge/Backend-Node.js-3c873a">
-- <img src="https://img.shields.io/badge/Database-PostgreSQL-316192">
-- <img src="https://img.shields.io/badge/Frontend-React-303030">
-- <img src="https://img.shields.io/badge/Style and Layout-Bootstrap-563D7C">
-- <img src="https://img.shields.io/badge/CI/CD-GitHub Actions-303030">
-- <img src="https://img.shields.io/badge/Deployment-Azure Portal-008ad7">
-
-## :rocket: Start
-
-#### :wrench: Install dependencies and create enviroment variables.
-
-```sh
-TBD
-```
-
-#### :wrench: Establish database
-
-We use **pgAdmin 4** to establish the database in our project.
-Make sure the database parameters are matched with the .env file
-
-![server name](/public/photo/db-1.png)
-![server parameters](/public/photo/db-2.png)
-
-#### :wrench: Initialize and create the database
-
-![init db file](/public/photo/init-db-1.png)
-![init db](/public/photo/init-db-2.png)
-
-#### :wrench: Run the app for development.
-
-```sh
-# run the backend under the server folder
-cd server
-npm run devStart
-
-# run the frontend under the root folder
-npm start
-```
-
-#### :wrench: Run the backend test script.
-
-```sh
-cd server
-npm run test
-
-```
-
-## :art: UI Diagram
-
-Please check our WireFrame on Figma.
-[Figma WireFrame](https://www.figma.com/design/fEHWvlf1j29CWxDRgzVSWy/MovieApp?node-id=0-1&node-type=canvas)
+- <img src="https://img.shields.io/badge/Authentication-Firebase-DD2C00">
+- <img src="https://img.shields.io/badge/Database-Firestore-316192">
+- <img src="https://img.shields.io/badge/ImageStorage-Imgur-1BB76E">
+- <img src="https://img.shields.io/badge/MachineLearning-TensorFlow-FF6F00">
+- <img src="https://img.shields.io/badge/Nutrition Data-USDA API-303030">
+- <img src="https://img.shields.io/badge/Workout Data-Wger API-008ad7">
 
 ## :floppy_disk: Database Structure
 
-Here is our Entity Relationship Diagram for our project
+![DB Structure](/app/src/main/res/drawable/db_structure.png)
+![Meal Object](/app/src/main/res/drawable/meal_obj.png)
 
-You can also check the ERD file under the /server/db folder.
-![API document](/public/photo/ERD_diagram.jpg)
+## :video_camera: Video Demonstration
 
-## :video_camera: Video Demostration
+[![Video Demonstration](https://img.youtube.com/vi/1RGnWKbDrts/0.jpg)](https://youtube.com/shorts/1RGnWKbDrts)
 
-[Presentation Video](https://youtu.be/vPJG9ogTeoQ)
+## :video_camera: Firebase Tutorial
 
-## :page_with_curl: API document
-
-The openAPI.json describes the API specification for this project which is located under the **server** folder.
-![API document](/public/photo/API-document.png)
-
-## :gear: Deployment
-
-#### :wrench: Create GitHub Secrets
-
-TBD
-
-#### :wrench: Enviroment Variables on Azure
-
-TBD
-
-#### :tada: Visit our app on Azure!
-
-TBD
+[![Firebase Tutorial](https://img.youtube.com/vi/FCJT323--5A/0.jpg)](https://www.youtube.com/watch?v=FCJT323--5A)
 
 ## :email: Contacts
 
@@ -121,4 +57,52 @@ TBD
 
 - [Aleksi Loddo](mailto:t3loal00@students.oamk.fi)
 - [Abolfazl Khazraei](mailto:t3khab00@students.oamk.fi)
-- [Sam Chou](mailto:t3chsa01@students.oamk.fi)
+- [Sam Chou](https://github.com/FuzzyKala)
+
+## Planned Extensions and Improvements
+
+This section are the additions made to the original FitHall application. The focus areas are on:
+1) improving usability
+2) application architecture quality
+3) AI use
+4) application stability
+
+### UI and User Experience
+
+- Refactor UI using Jetpack Compose for improved readability and consistency
+- Make a cleaner and more natural screen layout structure
+- Improve navigation flow between core features
+- Add top and bottom navigation bars for faster access to key screens
+- Improve spacing, typography, and visual hierarchy for better usability
+
+### AI & Recommendation Logic Extensions
+
+- Design an AI recommendation system for fitness or nutrition insights
+- Create AI placeholders to show how the recommendation system can work
+- Use mock data where live AI processing is not yet available
+- Display AI results clearly in the app and document the AI functionality and limits
+
+### Architecture & Data Handling
+
+- Improve the current MVVM architecture to make it clearer
+- Improve ViewModel responsibilities and state management
+- Clean up data flow between UI, ViewModels, repositories, and APIs
+- Improve the error handling for network, database, and user input issues
+- Improve app stability and reduce extra recompositions
+
+### Testing and QA
+
+- Create basic unit tests for ViewModels and core logic
+- Improve testing coverage for navigation and state handling
+- Fix UI errors and runtime issues
+- Test so that the app has a clear demo and is stable on devices
+
+### Integration, Documentation and Demo Readiness
+
+- Merge feature branches into a clean and stable main branch
+- Extend project documentation to show new features and improvements
+- Prepare a demo of the UI flow to show the main app features
+- Document task progress and learning outcomes  
+
+
+

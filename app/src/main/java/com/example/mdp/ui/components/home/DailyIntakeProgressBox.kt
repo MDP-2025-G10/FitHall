@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mdp.navigation.LocalMealViewModel
+import com.example.mdp.navigation.LocalUserViewModel
 import com.example.mdp.navigation.NavRoutes
 
 @Composable
@@ -23,13 +24,20 @@ fun DailyIntakeProgressCard(navController: NavController) {
     val mealViewModel = LocalMealViewModel.current
     val nutritionInfo by mealViewModel.todayNutrition.collectAsState()
 
+    val userViewModel = LocalUserViewModel.current
+    val user = userViewModel.user.collectAsState().value
+    val dailyCalories = user?.dailyCalories ?: 2000f
+
     Log.d("nutritionInfo", "$nutritionInfo")
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { navController.navigate(NavRoutes.RouteToNutrition.route) }
     ) {
-        CaloriesBar(amountsConsumed = nutritionInfo.calories.toFloat(), dailyAmountGoal = 2000f)
+        CaloriesBar(
+            amountsConsumed = nutritionInfo.calories.toFloat(),
+            dailyAmountGoal = dailyCalories
+        )
         Column(
             modifier = Modifier
                 .padding(16.dp)

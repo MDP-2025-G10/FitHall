@@ -1,6 +1,6 @@
 package com.example.mdp.utils
 
-import com.example.mdp.data.model.Meal
+import com.example.mdp.firebase.firestore.model.Meal
 import com.example.mdp.usda.model.FoodItem
 
 object FoodMapper {

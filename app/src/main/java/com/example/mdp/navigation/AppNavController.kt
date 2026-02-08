@@ -16,10 +16,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.mdp.firebase.auth.viewModel.AuthViewModel
 import com.example.mdp.firebase.firestore.viewModel.DateViewModel
 import com.example.mdp.firebase.firestore.viewModel.MealViewModel
-import com.example.mdp.data.viewmodel.WorkoutViewModel
-import com.example.mdp.firebase.auth.viewModel.AuthViewModel
+import com.example.mdp.firebase.firestore.viewModel.UserViewModel
+import com.example.mdp.firebase.firestore.viewModel.WorkoutViewModel
 import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.ui.screens.Auth
 import com.example.mdp.ui.screens.Calendar
@@ -31,6 +32,7 @@ import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
 import com.example.mdp.ui.screens.Workout
 import com.example.mdp.usda.viewmodel.FoodViewModel
+import com.example.mdp.wger.viewmodel.ExerciseViewModel
 import org.koin.androidx.compose.koinViewModel
 
 val LocalDateViewModel = compositionLocalOf<DateViewModel> { error("No DateViewModel provided") }
@@ -40,6 +42,10 @@ val LocalFoodViewModel = compositionLocalOf<FoodViewModel> { error("No FoodViewM
 val LocalWorkoutViewModel =
     compositionLocalOf<WorkoutViewModel> { error("No WorkoutViewModel provided") }
 val LocalImgurViewModel = compositionLocalOf<ImgurViewModel> { error("No ImgurViewModel provided") }
+val LocalUserViewModel = compositionLocalOf<UserViewModel> { error("No UserViewModel provided") }
+val LocalExerciseViewModel =
+    compositionLocalOf<ExerciseViewModel> { error("No ExerciseViewModel provided") }
+
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
@@ -53,6 +59,8 @@ fun AppNavController(context: Context) {
     val foodViewModel: FoodViewModel = koinViewModel()
     val workoutViewModel: WorkoutViewModel = koinViewModel()
     val imgurViewModel: ImgurViewModel = koinViewModel()
+    val userViewModel: UserViewModel = koinViewModel()
+    val exerciseViewModel: ExerciseViewModel = koinViewModel()
 
     val currentUser by authViewModel.currentUser.observeAsState()
 
@@ -65,7 +73,10 @@ fun AppNavController(context: Context) {
         LocalFoodViewModel provides foodViewModel,
         LocalWorkoutViewModel provides workoutViewModel,
         LocalImgurViewModel provides imgurViewModel,
+        LocalUserViewModel provides userViewModel,
+        LocalExerciseViewModel provides exerciseViewModel,
     ) {
+
         NavHost(
             navController = navController,
             startDestination =
@@ -105,6 +116,8 @@ fun AppNavController(context: Context) {
                     mealViewModel = mealViewModel
                 )
             }
+                route = NavRoutes.RouteToCamera.route,
+            ) { FoodScannerScreen(navController, context) }
 
             composable(
                 route = NavRoutes.RouteToCalendar.route,
