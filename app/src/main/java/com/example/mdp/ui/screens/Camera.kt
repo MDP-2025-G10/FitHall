@@ -6,7 +6,6 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.ViewGroup
 import androidx.camera.core.CameraSelector
@@ -45,6 +44,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.mdp.firebase.firestore.viewModel.MealViewModel
+import com.example.mdp.ui.components.utils.imageProxyToBitmap
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
@@ -129,10 +129,8 @@ fun Camera(
                     capture.takePicture(ContextCompat.getMainExecutor(context),
                         object : ImageCapture.OnImageCapturedCallback() {
                             override fun onCaptureSuccess(imageProxy: ImageProxy) {
-                                val buffer = imageProxy.planes[0].buffer
-                                val bytes = ByteArray(buffer.remaining())
-                                buffer.get(bytes)
-                                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                                // Convert YUV image to RGB bitmap
+                                val bitmap = imageProxyToBitmap(imageProxy)
                                 // Resize the bitmap to 192x192
                                 val targetWidth = 192
                                 val targetHeight = 192
