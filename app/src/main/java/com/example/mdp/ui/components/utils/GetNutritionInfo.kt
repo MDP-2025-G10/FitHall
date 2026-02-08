@@ -16,25 +16,29 @@ suspend fun getNutritionInfo(foodName: String): NutritionData? {
     return try {
         // Search for the food
         val searchRequest = Request.Builder().url(searchUrl).build()
-        val searchResponse = withContext(Dispatchers.IO) { client.newCall(searchRequest).execute() }
+        val fdcId = withContext(Dispatchers.IO) {
+            client.newCall(searchRequest).execute()
+        }.use { searchResponse ->
+            if (!searchResponse.isSuccessful) return null
 
-        if (!searchResponse.isSuccessful) return null
+            val searchResult = JSONObject(searchResponse.body?.string() ?: "")
+            val foodsArray = searchResult.optJSONArray("foods")
+            if (foodsArray == null || foodsArray.length() == 0) return null
 
-        val searchResult = JSONObject(searchResponse.body?.string() ?: "")
-        val foodsArray = searchResult.optJSONArray("foods")
-        if (foodsArray == null || foodsArray.length() == 0) return null
-
-        val fdcId = foodsArray.getJSONObject(0).getInt("fdcId")
+            foodsArray.getJSONObject(0).getInt("fdcId")
+        }
 
         // Fetch details using FDC ID
         val detailUrl = "https://api.nal.usda.gov/fdc/v1/food/$fdcId?api_key=${com.example.mdp.BuildConfig.USDA_API_KEY}"
         val detailRequest = Request.Builder().url(detailUrl).build()
-        val detailResponse = withContext(Dispatchers.IO) { client.newCall(detailRequest).execute() }
+        val nutrients = withContext(Dispatchers.IO) {
+            client.newCall(detailRequest).execute()
+        }.use { detailResponse ->
+            if (!detailResponse.isSuccessful) return null
 
-        if (!detailResponse.isSuccessful) return null
-
-        val detailJson = JSONObject(detailResponse.body?.string() ?: "")
-        val nutrients = detailJson.optJSONArray("foodNutrients") ?: return null
+            val detailJson = JSONObject(detailResponse.body?.string() ?: "")
+            detailJson.optJSONArray("foodNutrients") ?: return null
+        }
 
         fun getValue(name: String): Float {
             for (i in 0 until nutrients.length()) {
