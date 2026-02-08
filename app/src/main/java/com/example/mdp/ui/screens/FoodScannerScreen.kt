@@ -24,10 +24,7 @@ import com.example.mdp.ui.components.utils.getNutritionInfo
 import com.example.mdp.ui.components.utils.FoodRecognitionLabels
 import com.example.mdp.ui.components.utils.TensorFlowHelper
 import com.example.mdp.ui.components.utils.convertBitmapToByteBuffer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 @Composable
@@ -36,6 +33,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
     var nutritionData by remember { mutableStateOf("") }
     var showCamera by remember { mutableStateOf(true) }
     var isLoading by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     val labels = remember { FoodRecognitionLabels.loadLabels(context) }
     val nutrition by mealViewModel.nutrition.collectAsState()
@@ -52,17 +50,13 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                 onImageCapture = { bitmap ->
                     isLoading = true // Show loading when image captured
 
-                        // Run classification
-//                        TensorFlowHelper.classify(bitmap, mealViewModel)
-
+                    coroutineScope.launch {
                         val byteBuffer = convertBitmapToByteBuffer(bitmap)
                         val output = TensorFlowHelper.runInference(byteBuffer)
                         val (predicted, confidence) = TensorFlowHelper.getTopPrediction(output, labels)
-
-                    CoroutineScope(Dispatchers.Main).launch {
+                        
                         val nutritionalData = getNutritionInfo(predicted)
 
-                        withContext(Dispatchers.Main) {
                         if (nutritionalData != null) {
                             detectedFood = predicted
                             nutritionData = "Calories: ${nutritionalData.calories}, Protein: ${nutritionalData.protein}g, Carbs: ${nutritionalData.carbs}g, Fat: ${nutritionalData.fat}g"
@@ -80,8 +74,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                             detectedFood = "Unknown food item"
                             nutritionData = "No nutritional information available"
                         }
-                           isLoading = false // Hide loading after done
-                        }
+                        isLoading = false // Hide loading after done
                     }
                 },
                 isLoading = isLoading,

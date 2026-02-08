@@ -15,7 +15,6 @@ import java.nio.channels.FileChannel
 object TensorFlowHelper {
     private lateinit var tflite: Interpreter
     private lateinit var labels: List<String>
-    private lateinit var interpreter: Interpreter
 
     fun loadModel(context: Context, modelName: String = "food_model.tflite") {
         val model = loadModelFile(context, modelName)
@@ -41,7 +40,7 @@ object TensorFlowHelper {
 
         val outputBuffer = TensorBuffer.createFixedSize(intArrayOf(1, 2024), DataType.FLOAT32)
 
-        interpreter.run(inputBuffer, outputBuffer.buffer.rewind())
+        tflite.run(inputBuffer, outputBuffer.buffer.rewind())
 
         val outputArray = outputBuffer.floatArray
 

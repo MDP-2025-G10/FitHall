@@ -122,7 +122,6 @@ class MealRepository(
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        val db = FirebaseFirestore.getInstance()
         val meal = hashMapOf(
             "label" to label,
             "calories" to calories,
@@ -133,7 +132,7 @@ class MealRepository(
             "timestamp" to System.currentTimeMillis()
         )
 
-        db.collection("meals")
+        userMealsCollection()
             .add(meal)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener { exception -> onFailure(exception) }
