@@ -24,12 +24,15 @@ object TensorFlowHelper {
     }
 
     private fun loadModelFile(context: Context, modelName: String): MappedByteBuffer {
-        val fileDescriptor = context.assets.openFd(modelName)
-        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
-        val fileChannel = inputStream.channel
-        val startOffset = fileDescriptor.startOffset
-        val declaredLength = fileDescriptor.declaredLength
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
+        return context.assets.openFd(modelName).use { fileDescriptor ->
+            FileInputStream(fileDescriptor.fileDescriptor).use { inputStream ->
+                inputStream.channel.map(
+                    FileChannel.MapMode.READ_ONLY,
+                    fileDescriptor.startOffset,
+                    fileDescriptor.declaredLength
+                )
+            }
+        }
     }
 
     fun classify(bitmap: Bitmap, mealViewModel: MealViewModel) {
