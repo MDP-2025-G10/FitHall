@@ -29,6 +29,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
     var nutritionData by remember { mutableStateOf("") }
     var showCamera by remember { mutableStateOf(true) }
     var isLoading by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     val labels = remember { FoodRecognitionLabels.loadLabels(context) }
     val nutrition by mealViewModel.nutrition.collectAsState()
