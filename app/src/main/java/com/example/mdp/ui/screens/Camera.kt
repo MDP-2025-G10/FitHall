@@ -136,6 +136,9 @@ fun Camera(
                                 val targetHeight = 192
                                 val resizedBitmap = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true)
 
+
+                                // Pass the resized bitmap to the callback
+
                                 onImageCapture(resizedBitmap)
                                 imageProxy.close()
                             }

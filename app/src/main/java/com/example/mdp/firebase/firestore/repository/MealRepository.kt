@@ -118,6 +118,21 @@ class MealRepository(
         protein: Float,
         confidence: Float
     ) {
+        val meal = hashMapOf(
+            "label" to label,
+            "calories" to calories,
+            "fat" to fat,
+            "carbs" to carbs,
+            "protein" to protein,
+            "confidence" to confidence,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        userMealsCollection()
+            .add(meal)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { exception -> onFailure(exception) }
+
         try {
             val meal = hashMapOf(
                 "label" to label,
