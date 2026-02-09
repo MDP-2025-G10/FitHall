@@ -18,6 +18,7 @@ object NutritionUtils {
                     try {
                         nutritionList.add(
                             Nutrition(
+
                                 label = parts[0].trim().removeSurrounding("\""),
                                 calories = parts[2].trim().removeSurrounding("\"").toInt(),
                                 protein = parts[3].trim().removeSurrounding("\"").toInt(),
@@ -26,6 +27,16 @@ object NutritionUtils {
                                 fiber = parts[6].trim().removeSurrounding("\"").toInt(),
                                 sugars = parts[7].trim().removeSurrounding("\"").toInt(),
                                 sodium = parts[8].trim().removeSurrounding("\"").toInt()
+
+                                label = parts[0].trim().trim('"'),
+                                calories = parts[2].trim().trim('"').toInt(),
+                                protein = parts[3].trim().trim('"').toInt(),
+                                carbohydrates = parts[4].trim().trim('"').toInt(),
+                                fats = parts[5].trim().trim('"').toInt(),
+                                fiber = parts[6].trim().trim('"').toInt(),
+                                sugars = parts[7].trim().trim('"').toInt(),
+                                sodium = parts[8].trim().trim('"').toInt()
+
                             )
                         )
                     } catch (e: Exception) {
