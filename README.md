@@ -58,3 +58,51 @@ In this project, we use
 - [Aleksi Loddo](mailto:t3loal00@students.oamk.fi)
 - [Abolfazl Khazraei](mailto:t3khab00@students.oamk.fi)
 - [Sam Chou](https://github.com/FuzzyKala)
+
+## Planned Extensions and Improvements
+
+This section are the additions made to the original FitHall application. The focus areas are on:
+1) improving usability
+2) application architecture quality
+3) AI use
+4) application stability
+
+### UI and User Experience
+
+- Refactor UI using Jetpack Compose for improved readability and consistency
+- Make a cleaner and more natural screen layout structure
+- Improve navigation flow between core features
+- Add top and bottom navigation bars for faster access to key screens
+- Improve spacing, typography, and visual hierarchy for better usability
+
+### AI & Recommendation Logic Extensions
+
+- Design an AI recommendation system for fitness or nutrition insights
+- Create AI placeholders to show how the recommendation system can work
+- Use mock data where live AI processing is not yet available
+- Display AI results clearly in the app and document the AI functionality and limits
+
+### Architecture & Data Handling
+
+- Improve the current MVVM architecture to make it clearer
+- Improve ViewModel responsibilities and state management
+- Clean up data flow between UI, ViewModels, repositories, and APIs
+- Improve the error handling for network, database, and user input issues
+- Improve app stability and reduce extra recompositions
+
+### Testing and QA
+
+- Create basic unit tests for ViewModels and core logic
+- Improve testing coverage for navigation and state handling
+- Fix UI errors and runtime issues
+- Test so that the app has a clear demo and is stable on devices
+
+### Integration, Documentation and Demo Readiness
+
+- Merge feature branches into a clean and stable main branch
+- Extend project documentation to show new features and improvements
+- Prepare a demo of the UI flow to show the main app features
+- Document task progress and learning outcomes  
+
+
+
