@@ -15,7 +15,6 @@ import java.nio.channels.FileChannel
 object TensorFlowHelper {
     private lateinit var tflite: Interpreter
     private lateinit var labels: List<String>
-    private lateinit var interpreter: Interpreter
 
     fun loadModel(context: Context, modelName: String = "food_model.tflite") {
         val model = loadModelFile(context, modelName)
@@ -25,12 +24,15 @@ object TensorFlowHelper {
     }
 
     private fun loadModelFile(context: Context, modelName: String): MappedByteBuffer {
-        val fileDescriptor = context.assets.openFd(modelName)
-        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
-        val fileChannel = inputStream.channel
-        val startOffset = fileDescriptor.startOffset
-        val declaredLength = fileDescriptor.declaredLength
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
+        return context.assets.openFd(modelName).use { fileDescriptor ->
+            FileInputStream(fileDescriptor.fileDescriptor).use { inputStream ->
+                inputStream.channel.map(
+                    FileChannel.MapMode.READ_ONLY,
+                    fileDescriptor.startOffset,
+                    fileDescriptor.declaredLength
+                )
+            }
+        }
     }
 
     fun classify(bitmap: Bitmap, mealViewModel: MealViewModel) {
@@ -41,7 +43,7 @@ object TensorFlowHelper {
 
         val outputBuffer = TensorBuffer.createFixedSize(intArrayOf(1, 2024), DataType.FLOAT32)
 
-        interpreter.run(inputBuffer, outputBuffer.buffer.rewind())
+        tflite.run(inputBuffer, outputBuffer.buffer.rewind())
 
         val outputArray = outputBuffer.floatArray
 

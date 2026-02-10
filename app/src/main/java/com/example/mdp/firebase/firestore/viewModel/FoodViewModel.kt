@@ -8,22 +8,9 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.mdp.ui.components.utils.FoodRecognitionLabels
 import com.example.mdp.ui.components.utils.NutritionUtils
 
-class FoodViewModel(application: Application) : AndroidViewModel(application) {
-    private val _nutrition = mutableStateOf<Nutrition?>(null)
-    val nutrition: State<Nutrition?> = _nutrition
-
-    private lateinit var labels: List<String>
-    private lateinit var nutritionList: List<Nutrition>
-
-    fun initializeResources(context: Context) {
-        labels = FoodRecognitionLabels.loadLabels(context)
-        nutritionList = NutritionUtils.loadNutritionData(context)
-    }
-
-    fun onPredictionResult(index: Int) {
-        val label = labels.getOrNull(index)
-        label?.let {
-            _nutrition.value = NutritionUtils.findNutrition(it, nutritionList)
-        }
-    }
-}
+// NOTE:
+// This file previously contained a duplicate FoodViewModel implementation
+// under the firebase.firestore.viewModel package. It has been removed
+// to avoid confusion with the actual FoodViewModel used by the app
+// (com.example.mdp.usda.viewmodel.FoodViewModel) and to eliminate
+// unused/dead code reported by static analysis.

@@ -112,17 +112,14 @@ class MealRepository(
         }
     }
 
-    fun uploadMealPrediction(
+    suspend fun uploadMealPrediction(
         label: String,
         calories: Int,
         fat: Float,
         carbs: Float,
         protein: Float,
-        confidence: Float,
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
+        confidence: Float
     ) {
-        val db = FirebaseFirestore.getInstance()
         val meal = hashMapOf(
             "label" to label,
             "calories" to calories,
@@ -133,10 +130,29 @@ class MealRepository(
             "timestamp" to System.currentTimeMillis()
         )
 
-        db.collection("meals")
+        userMealsCollection()
             .add(meal)
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener { exception -> onFailure(exception) }
+
+        try {
+            val meal = hashMapOf(
+                "label" to label,
+                "calories" to calories,
+                "fat" to fat,
+                "carbs" to carbs,
+                "protein" to protein,
+                "confidence" to confidence,
+                "timestamp" to System.currentTimeMillis()
+            )
+
+            userMealsCollection()
+                .add(meal)
+                .await()
+        } catch (e: Exception) {
+            Log.e("MealRepository", "Error uploading meal prediction", e)
+            throw e
+        }
     }
 }
 
