@@ -129,6 +129,12 @@ class MealRepository(
             "confidence" to confidence,
             "timestamp" to System.currentTimeMillis()
         )
+
+        userMealsCollection()
+            .add(meal)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { exception -> onFailure(exception) }
+
         try {
             val meal = hashMapOf(
                 "label" to label,
@@ -147,10 +153,6 @@ class MealRepository(
             Log.e("MealRepository", "Error uploading meal prediction", e)
             throw e
         }
-        userMealsCollection()
-            .add(meal)
-            .addOnSuccessListener { onSuccess() }
-            .addOnFailureListener { exception -> onFailure(exception) }
     }
 }
 

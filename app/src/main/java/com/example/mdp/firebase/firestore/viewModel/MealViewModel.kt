@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Index
 import com.example.mdp.firebase.firestore.model.DailyCalories
 import com.example.mdp.firebase.firestore.model.Meal
 import com.example.mdp.firebase.firestore.model.NutritionInfo

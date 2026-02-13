@@ -76,6 +76,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                         }
                            isLoading = false // Hide loading after done
                         }
+                           isLoading = false // Hide loading after done
                     }
                 },
                 isLoading = isLoading,
