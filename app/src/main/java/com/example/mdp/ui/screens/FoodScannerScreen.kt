@@ -32,6 +32,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
     val coroutineScope = rememberCoroutineScope()
 
     val labels = remember { FoodRecognitionLabels.loadLabels(context) }
+    val scope = rememberCoroutineScope()
     val nutrition by mealViewModel.nutrition.collectAsState()
     val scope = rememberCoroutineScope()
 
@@ -47,6 +48,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                 onImageCapture = { bitmap ->
                     isLoading = true // Show loading when image captured
 
+                    coroutineScope.launch {
                         // Run classification
                         val byteBuffer = convertBitmapToByteBuffer(bitmap)
                         val output = TensorFlowHelper.runInference(byteBuffer)
@@ -58,7 +60,7 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                         if (nutritionalData != null) {
                             detectedFood = predicted
                             nutritionData = "Calories: ${nutritionalData.calories}, Protein: ${nutritionalData.protein}g, Carbs: ${nutritionalData.carbs}g, Fat: ${nutritionalData.fat}g"
-                            
+
                             mealViewModel.savePrediction(
                                 label = predicted,
                                 calories = nutritionalData.calories,
@@ -71,6 +73,8 @@ fun FoodScannerScreen(navController: NavController, context: Context, mealViewMo
                         } else {
                             detectedFood = "Unknown food item"
                             nutritionData = "No nutritional information available"
+                        }
+                           isLoading = false // Hide loading after done
                         }
                            isLoading = false // Hide loading after done
                     }

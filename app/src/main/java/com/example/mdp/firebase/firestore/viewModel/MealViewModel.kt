@@ -2,14 +2,15 @@ package com.example.mdp.firebase.firestore.viewModel
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Index
 import com.example.mdp.firebase.firestore.model.DailyCalories
 import com.example.mdp.firebase.firestore.model.Meal
 import com.example.mdp.firebase.firestore.model.NutritionInfo
+import com.example.mdp.data.model.DailyCalories
+import com.example.mdp.data.model.Meal
+import com.example.mdp.data.model.NutritionInfo
 import com.example.mdp.firebase.firestore.repository.MealRepository
 import com.example.mdp.ui.components.utils.FoodRecognitionLabels
 import com.example.mdp.ui.components.utils.NutritionUtils
@@ -69,16 +70,19 @@ class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
         confidence: Float
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            mealRepository.uploadMealPrediction(
-                label = label,
-                calories = calories,
-                fat = fat,
-                carbs = carbs,
-                protein = protein,
-                confidence = confidence,
-                onSuccess = { Log.d("MealViewModel", "Prediction saved successfully") },
-                onFailure = { e -> Log.e("MealViewModel", "Error saving prediction", e) }
-            )
+            try {
+                mealRepository.uploadMealPrediction(
+                    label = label,
+                    calories = calories,
+                    fat = fat,
+                    carbs = carbs,
+                    protein = protein,
+                    confidence = confidence
+                )
+                Log.d("MealViewModel", "Prediction saved successfully")
+            } catch (e: Exception) {
+                Log.e("MealViewModel", "Error saving prediction", e)
+            }
         }
     }
 
@@ -87,7 +91,9 @@ class MealViewModel(private val mealRepository: MealRepository) : ViewModel() {
         _predictedLabel.value = label
 
         label?.let {
-            _nutrition.value = NutritionUtils.findNutrition(it, nutritionList)
+            // Normalize label to match snake_case entries in nutrition_100g.csv (e.g., "Apple pie" -> "apple_pie")
+            val normalizedLabel = it.trim().lowercase().replace(" ", "_")
+            _nutrition.value = NutritionUtils.findNutrition(normalizedLabel, nutritionList)
         }
     }
 
