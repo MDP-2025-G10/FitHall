@@ -22,20 +22,30 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val userInfo = repository.getUser(uid)
+
+                if (userInfo == null) {
+                    Log.e("UserViewModel", "User not found in Firestore")
+                    _user.value = null
+                    return@launch
+                }
+
                 val updatedCalories = calculateDailyCalories(
-                    gender = userInfo!!.gender,
+                    gender = userInfo.gender,
                     weight = userInfo.weight,
                     height = userInfo.height,
                     age = userInfo.age
                 )
+
                 val updatedUser = userInfo.copy(dailyCalories = updatedCalories)
                 _user.value = updatedUser
+
                 Log.d("UserViewModel", "User info loaded: $updatedUser")
             } catch (e: Exception) {
-                Log.e("UserViewModel", "Error loading user: ${e.message}")
+                Log.e("UserViewModel", "Error loading user", e)
             }
         }
     }
+
 
     fun updateUser(user: User) {
         viewModelScope.launch {
