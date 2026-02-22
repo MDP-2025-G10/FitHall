@@ -10,7 +10,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,6 +38,16 @@ fun Auth(navController: NavController, isLogin: Boolean) {
     val authViewModel = LocalAuthViewModel.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val goToNameStep by authViewModel.navigateToNameStep.observeAsState()
+
+    LaunchedEffect(goToNameStep) {
+        if (goToNameStep == true) {
+            navController.navigate(NavRoutes.RouteToNameStep.route) {
+                popUpTo(NavRoutes.RouteToRegister.route) { inclusive = true }
+            }
+            authViewModel.onNavigatedToNameStep()
+        }
+    }
 
     Scaffold { innerPadding ->
         Column(

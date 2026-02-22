@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.mdp.firebase.auth.repository.AuthRepository
 import com.example.mdp.firebase.firestore.model.User
 import com.example.mdp.firebase.firestore.repository.UserRepository
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 
@@ -21,67 +20,99 @@ class AuthViewModel(
     private val _currentUser = MutableLiveData<FirebaseUser?>()
     val currentUser: LiveData<FirebaseUser?> = _currentUser
 
-    private val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-        Log.d("AuthViewModel", "Auth state changed: ${firebaseAuth.currentUser?.email}")
-        _currentUser.postValue(firebaseAuth.currentUser) // Update LiveData when auth state changes
-    }
+    private val _navigateToNameStep = MutableLiveData<Boolean>()
+    val navigateToNameStep: LiveData<Boolean> = _navigateToNameStep
 
     init {
-        // Update current user on initialization
-        _currentUser.value = authRepository.getCurrentUser()
-        authRepository.addAuthStateListener(authStateListener)
+        viewModelScope.launch {
+            authRepository.authStateFlow.collect { user ->
+                Log.d("AuthViewModel", "Auth state changed: ${user?.email}")
+                _currentUser.value = user
+            }
+        }
     }
 
     fun register(email: String, password: String) {
-        authRepository.register(email, password) { user ->
-            viewModelScope.launch {
-                user?.let {
-                    val newUser = User(
-                        uid = it.uid,
-                        name = it.displayName ?: "",
-                        email = it.email ?: "",
-                        profilePic = it.photoUrl?.toString() ?: ""
-                    )
-                    userRepository.createUserIfNotExists(newUser)
-                }
-                _currentUser.postValue(user)
+        viewModelScope.launch {
+            val result = authRepository.register(email, password)
+
+            result.onSuccess { firebaseUser ->
+                val newUser = User(
+                    uid = firebaseUser.uid,
+                    name = firebaseUser.displayName ?: "",
+                    email = firebaseUser.email ?: "",
+                    profilePic = firebaseUser.photoUrl?.toString() ?: ""
+                )
+                userRepository.createUserIfNotExists(newUser)
+
+                _navigateToNameStep.value = true
+            }
+
+            result.onFailure {
+                Log.e("AuthViewModel", "Register failed: ${it.message}")
             }
         }
     }
 
     fun login(email: String, password: String) {
-        authRepository.login(email, password) { user ->
-            viewModelScope.launch {
-                user?.let {
-                    val newUser = User(
-                        uid = it.uid,
-                        name = it.displayName ?: "",
-                        email = it.email ?: "",
-                        profilePic = it.photoUrl?.toString() ?: ""
-                    )
-                    userRepository.createUserIfNotExists(newUser)
-                }
-                _currentUser.postValue(user)
+        viewModelScope.launch {
+            val result = authRepository.login(email, password)
+
+            result.onSuccess { firebaseUser ->
+                Log.d("AuthViewModel", "Login success: ${firebaseUser.email}")
+                val user = User(
+                    uid = firebaseUser.uid,
+                    name = firebaseUser.displayName ?: "",
+                    email = firebaseUser.email ?: "",
+                    profilePic = firebaseUser.photoUrl?.toString() ?: ""
+                )
+                userRepository.createUserIfNotExists(user)
+            }
+
+            result.onFailure {
+                Log.e("AuthViewModel", "Login failed: ${it.message}")
             }
         }
     }
 
     fun signInWithGoogle() {
         viewModelScope.launch {
-            val isSignedIn = authRepository.signInWithGoogle()
-            val user = if (isSignedIn) authRepository.getCurrentUser() else null
-            _currentUser.postValue(user)
+
+            val result = authRepository.signInWithGoogle()
+
+            result.onSuccess { firebaseUser ->
+
+                val isNewUser =
+                    firebaseUser.metadata?.creationTimestamp ==
+                            firebaseUser.metadata?.lastSignInTimestamp
+
+                val user = User(
+                    uid = firebaseUser.uid,
+                    name = firebaseUser.displayName ?: "",
+                    email = firebaseUser.email ?: "",
+                    profilePic = firebaseUser.photoUrl?.toString() ?: ""
+                )
+
+                userRepository.createUserIfNotExists(user)
+
+                if (isNewUser) {
+                    _navigateToNameStep.value = true
+                }
+            }
+
+            result.onFailure {
+                Log.e("AuthViewModel", "Google sign-in failed: ${it.message}")
+            }
         }
     }
 
     fun logout() {
-        authRepository.logout()
-        _currentUser.value = null
-        Log.d("currentUser", "${_currentUser.value} from AuthViewModel logout")
+        viewModelScope.launch {
+            authRepository.logout()
+        }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        authRepository.removeAuthStateListener(authStateListener) // Cleanup listener to prevent memory leaks
+    fun onNavigatedToNameStep() {
+        _navigateToNameStep.value = false
     }
 }

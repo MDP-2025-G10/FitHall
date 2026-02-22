@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
-import androidx.credentials.exceptions.GetCredentialException
 import com.example.mdp.R
 import com.example.mdp.firebase.firestore.model.User
 import com.example.mdp.firebase.firestore.repository.UserRepository
@@ -15,9 +14,9 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.security.SecureRandom
 
@@ -26,74 +25,87 @@ class AuthRepository(
     private val context: Context,
     private val userRepository: UserRepository
 ) {
+
     private val credentialManager = CredentialManager.create(context)
 
-    fun getCurrentUser(): FirebaseUser? = auth.currentUser
+    // fun getCurrentUser(): FirebaseUser? = auth.currentUser
 
-    fun register(email: String, password: String, onResult: (FirebaseUser?) -> Unit) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                onResult(if (task.isSuccessful) auth.currentUser else null)
-            }
-    }
-
-    fun login(email: String, password: String, onResult: (FirebaseUser?) -> Unit) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                onResult(if (task.isSuccessful) auth.currentUser else null)
-            }
-    }
-
-    suspend fun signInWithGoogle(): Boolean {
-        return try {
-            val result = credentialManager.getCredential(context, buildGoogleSignInRequest())
-            result.credential.let { credential ->
-                if (credential is CustomCredential &&
-                    credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
-                ) {
-                    val idToken = GoogleIdTokenCredential.createFrom(credential.data).idToken
-                    val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-                    val authResult = auth.signInWithCredential(firebaseCredential).await()
-
-                    authResult.user?.let { createDefaultUserIfNeeded(it) }
-                    return true
-                }
-            }
-            Log.e("AuthRepository", "Invalid credential type")
-            false
-        } catch (e: GetCredentialException) {
-            Log.e("AuthRepository", "Google Sign-In failed: ${e.message}")
-            false
+    val authStateFlow: Flow<FirebaseUser?> = callbackFlow {
+        val listener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            trySend(firebaseAuth.currentUser)
         }
-    }
 
-    fun logout() {
-        auth.signOut()
-        Log.d("currentUser", "${auth.currentUser} from AuthRepository logout")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val request = androidx.credentials.ClearCredentialStateRequest()
-                credentialManager.clearCredentialState(request)
-                Log.d("AuthRepository", "Google credentials cleared successfully")
-            } catch (e: Exception) {
-                Log.e("AuthRepository", "Failed to clear Google credentials: ${e.message}")
-            }
-        }
-    }
-
-    //    attach and remove listener to the authentication process
-    fun addAuthStateListener(listener: FirebaseAuth.AuthStateListener) {
         auth.addAuthStateListener(listener)
+
+        awaitClose {
+            auth.removeAuthStateListener(listener)
+        }
     }
 
-    fun removeAuthStateListener(listener: FirebaseAuth.AuthStateListener) {
-        auth.removeAuthStateListener(listener)
+    suspend fun register(email: String, password: String): Result<FirebaseUser> {
+        return try {
+            val result = auth.createUserWithEmailAndPassword(email, password).await()
+            Result.success(result.user!!)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    //  create a google sign-in request
+    suspend fun login(email: String, password: String): Result<FirebaseUser> {
+        return try {
+            val result = auth.signInWithEmailAndPassword(email, password).await()
+            Result.success(result.user!!)
+        } catch (e: Exception) {
+            Log.e("AuthRepository", "Login failed", e)
+            Result.failure(e)
+        }
+    }
+
+    suspend fun signInWithGoogle(): Result<FirebaseUser> {
+        return try {
+            val result = credentialManager.getCredential(
+                context,
+                buildGoogleSignInRequest()
+            )
+
+            val credential = result.credential
+
+            if (credential is CustomCredential &&
+                credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+            ) {
+                val idToken =
+                    GoogleIdTokenCredential.createFrom(credential.data).idToken
+
+                val firebaseCredential =
+                    GoogleAuthProvider.getCredential(idToken, null)
+
+                val authResult =
+                    auth.signInWithCredential(firebaseCredential).await()
+
+                val user = authResult.user!!
+
+                createDefaultUserIfNeeded(user)
+
+                Result.success(user)
+            } else {
+                Result.failure(Exception("Invalid credential type"))
+            }
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun logout() {
+        auth.signOut()
+        credentialManager.clearCredentialState(
+            androidx.credentials.ClearCredentialStateRequest()
+        )
+    }
+
     private fun buildGoogleSignInRequest(): GetCredentialRequest {
         val clientId = context.getString(R.string.web_client_id)
+
         val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
             .setServerClientId(clientId)

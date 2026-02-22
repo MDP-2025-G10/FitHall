@@ -22,30 +22,20 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val userInfo = repository.getUser(uid)
-
-                if (userInfo == null) {
-                    Log.e("UserViewModel", "User not found in Firestore")
-                    _user.value = null
-                    return@launch
-                }
-
                 val updatedCalories = calculateDailyCalories(
-                    gender = userInfo.gender,
+                    gender = userInfo!!.gender,
                     weight = userInfo.weight,
                     height = userInfo.height,
                     age = userInfo.age
                 )
-
                 val updatedUser = userInfo.copy(dailyCalories = updatedCalories)
                 _user.value = updatedUser
-
                 Log.d("UserViewModel", "User info loaded: $updatedUser")
             } catch (e: Exception) {
-                Log.e("UserViewModel", "Error loading user", e)
+                Log.e("UserViewModel", "Error loading user: ${e.message}")
             }
         }
     }
-
 
     fun updateUser(user: User) {
         viewModelScope.launch {
@@ -64,6 +54,46 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
         val activityFactor = 1.2f // Sedentary, you can customize this later
         return bmr * activityFactor
     }
+
+    fun updateUserName(uid: String, name: String) {
+        viewModelScope.launch {
+            val current = _user.value ?: repository.getUser(uid) ?: return@launch
+
+            val updatedUser = current.copy(name = name)
+
+            repository.updateUser(updatedUser)
+            _user.value = updatedUser
+        }
+    }
+
+    fun updateUserBodyInfo(
+        uid: String,
+        gender: String,
+        weight: Float,
+        height: Float,
+        age: Int
+    ) {
+        viewModelScope.launch {
+
+            val current = _user.value ?: repository.getUser(uid) ?: return@launch
+
+            val updatedCalories = calculateDailyCalories(
+                gender = gender,
+                weight = weight,
+                height = height,
+                age = age
+            )
+
+            val updatedUser = current.copy(
+                gender = gender,
+                weight = weight,
+                height = height,
+                age = age,
+                dailyCalories = updatedCalories
+            )
+
+            repository.updateUser(updatedUser)
+            _user.value = updatedUser
+        }
+    }
 }
-
-

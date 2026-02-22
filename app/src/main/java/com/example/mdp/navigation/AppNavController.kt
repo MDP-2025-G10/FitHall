@@ -21,10 +21,12 @@ import com.example.mdp.firebase.firestore.viewModel.UserViewModel
 import com.example.mdp.firebase.firestore.viewModel.WorkoutViewModel
 import com.example.mdp.imgur.viewmodel.ImgurViewModel
 import com.example.mdp.ui.screens.Auth
+import com.example.mdp.ui.screens.BodyInfoScreen
 import com.example.mdp.ui.screens.Calendar
 import com.example.mdp.ui.screens.Food
 import com.example.mdp.ui.screens.FoodScannerScreen
 import com.example.mdp.ui.screens.Home
+import com.example.mdp.ui.screens.NameScreen
 import com.example.mdp.ui.screens.Nutrition
 import com.example.mdp.ui.screens.Profile
 import com.example.mdp.ui.screens.Setting
@@ -77,9 +79,7 @@ fun AppNavController(context: Context) {
 
         NavHost(
             navController = navController,
-            startDestination =
-            if (currentUser == null) NavRoutes.RouteToLogin.route
-            else NavRoutes.RouteToHome.route
+            startDestination = NavRoutes.RouteToLogin.route
         ) {
             composable(
                 route = NavRoutes.RouteToLogin.route,
@@ -88,6 +88,14 @@ fun AppNavController(context: Context) {
             composable(
                 route = NavRoutes.RouteToRegister.route,
             ) { Auth(navController, isLogin = false) }
+
+            composable(NavRoutes.RouteToNameStep.route) {
+                NameScreen(navController)
+            }
+
+            composable(NavRoutes.RouteToBodyStep.route) {
+                BodyInfoScreen(navController)
+            }
 
             composable(
                 route = NavRoutes.RouteToHome.route,
